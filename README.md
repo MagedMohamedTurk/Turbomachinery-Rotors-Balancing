@@ -1,6 +1,6 @@
 # Turbomachinery-Flexible-Rotors-Balancing  
 ## Introduction  
-The purpose of this project is to solve the problem of turbomachinery rotor balancing when more than critical speed is required and where there are a large number of bearings.  
+The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed is required and where there are a large number of bearings.  
 
 ### Descripting the problem  
 #### Back to Basics
@@ -19,5 +19,5 @@ Two measures are necessary to overcome such a problem. First, to pass the critic
 For balancing the turbine at different critical speeds, you must be knowledgeable about the various modes and try to optimize. For example, balancing the first critical will not affect the second critical. This has been the traditional approach which is called “Modal Balancing”.  
 The second method is to empirically find the balancing weights which give you the best vibration at all critical and running speeds. Commonly known as the “Influence Coefficient Method”.  
 ## The Mathmatical Model
-Balance of flexible rotors is important in order to get optimal vibration levels at all rotor bearings since balancing weights must be calculated for each balancing plane. Turbines and compressors usually have measuring planes that are more than balancing planes. This creates an over-determined mathematical model that needs optimization methods to get the best results. The optimization problem is set to be convex optimization with constraints regarding balancing weights and maximum vibration allowed for certain locations. The challenge was also to beat the problem of ill-conditioned planes.
-The whole work was a trial to convert Darlow "Balancing of High-Speed Machinery" work published 1989 to a working python script that can be used in the filed.
+Balance of flexible rotors is important in order to get optimal vibration levels at all rotor bearings since balancing weights must be calculated for each balancing plane. Turbines and compressors usually have measuring planes that are more than balancing planes. This creates an [over-determined mathematical model](https://en.wikipedia.org/wiki/Overdetermined_system#:~:text=In%20mathematics%2C%20a%20system%20of,when%20constructed%20with%20random%20coefficients.) that needs optimization methods to get the best results. The optimization problem is set to be [convex optimization](https://en.wikipedia.org/wiki/Convex_optimization#:~:text=Convex%20optimization%20is%20a%20subfield,is%20in%20general%20NP%2Dhard.) with constraints regarding balancing weights and maximum vibration allowed for certain locations. The challenge was also to beat the problem of ill-conditioned planes [multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity#:~:text=Multicollinearity%20refers%20to%20a%20situation,equal%20to%201%20or%20%E2%88%921.)
+The whole work was a trial to convert [Darlow "Balancing of High-Speed Machinery"](https://www.springer.com/gp/book/9781461281948) work published 1989 to a working python script that can be used in the filed.
