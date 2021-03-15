@@ -1,4 +1,4 @@
-# Turbomachinery-Rotors-Balancing  
+# Turbomachinery-Flexible-Rotors-Balancing  
 ## Introduction  
 The purpose of this project is to solve the problem of turbomachinery rotor balancing when more than critical speed is required and where there are a large number of bearings.  
 
