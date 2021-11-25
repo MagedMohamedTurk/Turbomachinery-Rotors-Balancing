@@ -1,0 +1,47 @@
+# Global parameters
+timeout : 0.5  # Time that cause timeout for functions
+
+######################################################################
+# Test Case Format
+# function name: (as in the code file)
+#   test_cases: (always the same)
+#       'test_case_1': (can be renamed anything between '')
+#           - Input parameters (multiple paramters should be in a list [])
+#           - Expected output  (exmaple for tuple >> !!python/tuple [1, 2]) 
+######################################################################
+
+
+convert_to_polar:
+    test_cases : 
+        'test_case_1': 
+                - 6+8j
+                - [10, 53.13]
+        'test_case_2': 
+                - -21+18j
+                - [27.66, 139.4]
+        'test_case_3': 
+                - 12-8j
+                - [14.42, 326.31]
+                  
+convert_to_cartesian:
+    test_cases : 
+        'test_case_1': 
+                - [4, 30]
+                - 3.4641+2j
+        'test_case_2': 
+                - [300, 200]
+                - -281.9078-102.606j
+
+convert_math_cart:
+    test_cases : 
+        'test_case_1': 
+                - 4@30 
+                - 3.4641+2j
+
+convert_ALPHA_to_cart:
+    test_cases : 
+        'test_case_1': 
+                - [[90@58, 21@140], 
+                   [10.9@10, 37.9@142]]
+                - [[47.69+79.32j, -16.09+13.5j], 
+                  [10.74+1.89j, -29.89+23.33j]]

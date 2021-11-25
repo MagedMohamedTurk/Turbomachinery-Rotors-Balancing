@@ -3,7 +3,7 @@ import sys
 import yaml
 import pytest
 sys.path.insert(0, '../')
-import model
+import tools
 
 # Import test data from test_cases.yaml
 try:
@@ -40,7 +40,7 @@ tests,tests_id = get_tests_from_yaml('convert_to_polar')
                          )
 @pytest.mark.timeout(timeout)
 def test_convert_to_polar(param, expected):
-    output = model.convert_to_polar(complex(param))
+    output = tools.convert_to_polar(complex(param))
     error = max((x-y)/y for x, y in zip(output, expected))
     print('output=', output, '\n expected', expected,
           '\nerror', error)
@@ -55,7 +55,7 @@ tests,tests_id = get_tests_from_yaml('convert_to_cartesian')
                          )
 @pytest.mark.timeout(timeout)
 def test_convert_to_cartesian(param, expected):
-    output = model.convert_to_cartesian(param)
+    output = tools.convert_to_cartesian(param)
     expected = complex(expected)
     error = abs(output - expected)
     print('output=', output, '\n expected', expected
@@ -63,22 +63,34 @@ def test_convert_to_cartesian(param, expected):
     assert  error < 0.01
 
 
+# Testing convert_math_cart
+tests,tests_id = get_tests_from_yaml('convert_math_cart')
+@pytest.mark.parametrize('param, expected',
+                         tests,
+                         ids=tests_id
+                         )
+@pytest.mark.timeout(timeout)
+def test_convert_math_cart(param, expected):
+    output = tools.convert_math_cart(param)
+    expected = complex(expected)
+    error = abs(output - expected)
+    print('output=', output, '\n expected', expected
+         , '\nerror', error)
+    assert  error < 0.01
 
 
-
-
-
-
-ALPHA = np.array([[41.47+66.37j, -13.99+11.74j],
-                  [9.33+1.65j, -25.97+20.29j]
-                  ])
-A = np.array([[-63.68+157.62j],
-              [11.02+51.84j]
-              ])
-expected = np.array([[-1.04-1.66j],
-                    [-.55+.91j]])
-my_model = model.Model(name='simple_least_square', A=A, ALPHA=ALPHA)
-W = my_model.solve()
-def test_simple_LSE():
-    assert max((W- expected)/W) < 0.01
-
+# Testing convert_ALPHA_to_cart
+tests,tests_id = get_tests_from_yaml('convert_ALPHA_to_cart')
+@pytest.mark.parametrize('param, expected',
+                         tests,
+                         ids=tests_id
+                         )
+@pytest.mark.timeout(timeout)
+def test_convert_ALPHA_to_cart(param, expected):
+    output = tools.convert_ALPHA_to_cart(param)
+    expected = list(list(complex(x) for x in item) for item in expected)
+    print(expected)
+    error = abs(output - expected)
+    print('output=', output, '\n expected', expected
+         , '\nerror', error)
+    assert  error < 0.01
