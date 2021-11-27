@@ -38,22 +38,25 @@ def convert_math_cart(str):
     output: Complex number in cartesian number ex. 12+23j
          -> <class 'complex'>
     '''
-    polar = list(map(float, str.split(sep='@')))
+    polar = tuple(map(float, str.split(sep='@')))
     return convert_to_cartesian(polar)
 
-def convert_ALPHA_to_cart(ALPHA_math):
+def convert_matrix_to_cart(ALPHA_math):
     """
     docs: Convert influence coeffecient matrix ALPHA from mathematical expression
     form to cartesian form.
 
-    :ALPHA: list of lists with polar mathmematical expression
+    :ALPHA_math: list of lists with polar mathmematical expression
             ex . [[90@58, 21@140]
                   [10.9@10, 37.9@142]]
     :returns: np.dnarray with cartesian form
 
     """
-    ALPHA = list(list(map(convert_math_cart, item))
+    try: # test if input is list of list or a simple list
+        ALPHA = list(list(map(convert_math_cart, item))
                          for item in ALPHA_math)
+    except TypeError:
+        ALPHA = list(map(convert_math_cart, item)
+                         for item in ALPHA_math)
+    ALPHA = np.array(ALPHA)
     return ALPHA
-print(convert_ALPHA_to_cart([['90@58', '21@140'],
-                              ['10.9@10', '37.9@142']]))

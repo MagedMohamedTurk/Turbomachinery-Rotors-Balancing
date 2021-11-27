@@ -38,10 +38,49 @@ convert_math_cart:
                 - 4@30 
                 - 3.4641+2j
 
-convert_ALPHA_to_cart:
+convert_matrix_to_cart:
     test_cases : 
         'test_case_1': 
                 - [[90@58, 21@140], 
                    [10.9@10, 37.9@142]]
                 - [[47.69+79.32j, -16.09+13.5j], 
                   [10.74+1.89j, -29.89+23.33j]]
+        'test_case_2': 
+                -   - [170@112]
+                    - [53@78]
+                -   - [-63.68+157.62j]
+                    - [11.02+51.84j]
+
+
+least_squares:
+    test_cases : 
+        'test_case_1': 
+                    -   
+                        -  ALPHA:
+                            - [78.26@58, 18.26@140]
+                            - [9.48@10, 32.96@142]
+                           A:
+                            - [170@112]
+                            - [53@78]
+
+                    -   - [1.96@-122]
+                        - [1.06@121]
+
+        'Goodman64':
+            # Thomas P.Goodman one of the first who published algorithms 
+            # to solve multi_plane balancing problems using Least squares.
+            # The example follows is giving in his paper 'A Least-Squares Method
+            # for Computing Balance Corrections', 1964
+                    -   
+                        -  ALPHA:
+                            - [3@0, 2@180]
+                            - [5@0, 2@180]
+                            - [5@0, 3@180]
+                           A:
+                            - [1@0]
+                            - [1@180]
+                            - [0@0]
+
+                    -   - [0.81@0] # First trial was the optimium solution 
+                                    #(less RMS)
+                        - [1.48@0]
