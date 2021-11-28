@@ -60,3 +60,9 @@ def convert_matrix_to_cart(ALPHA_math):
                          for item in ALPHA_math)
     ALPHA = np.array(ALPHA)
     return ALPHA
+
+def rmse(residual_vibration):
+    return round(np.sqrt(np.abs(residual_vibration) ** 2).mean(), 4)
+
+def residual_vibration(ALPHA, W, A):
+    return ALPHA @ W + A

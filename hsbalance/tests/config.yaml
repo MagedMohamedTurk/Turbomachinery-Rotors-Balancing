@@ -11,6 +11,9 @@ timeout : 0.5  # Time that cause timeout for functions
 ######################################################################
 
 
+############################################################
+# Testing tools
+############################################################
 convert_to_polar:
     test_cases : 
         'test_case_1': 
@@ -51,7 +54,20 @@ convert_matrix_to_cart:
                 -   - [-63.68+157.62j]
                     - [11.02+51.84j]
 
+rmse:
+    test_cases : 
+        'test_case_1': 
+                    -   - [17.5@230] 
+                        - [30.3@0]
+                    - 34.99  
 
+
+
+
+
+############################################################
+# Balancing Test cases
+############################################################
 least_squares:
     test_cases : 
         'test_case_1': 
@@ -84,3 +100,19 @@ least_squares:
                     -   - [0.81@0] # First trial was the optimium solution 
                                     #(less RMS)
                         - [1.48@0]
+        'Pavelek':
+            # TODO
+                    -   
+                        -  ALPHA:
+                            - [0.04@58, 0.029@47.9]
+                            - [0.034@123.3, 0.051@358]
+                            - [0.039@31.8, 0.025@115.4]
+                            - [0.046@311.5, 0.034@57.0]
+                           A:
+                            - [0.97@175] # X sensor add 225 sensor angle
+                            - [2.2@168] # Y sensor add 315 sensor angle
+                            - [0.84@327] # X sensor add 225 sensor angle 
+                            - [0.58@318.5] # Y sensor add 315 sensor angle
+
+                    -   - [17.5@230] 
+                        - [30.3@-9] # changed the correction from 0 to -9 degrees                                       to get in 5% error from manual calculations.

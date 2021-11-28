@@ -100,3 +100,19 @@ def test_convert_matrix_to_cart(param, expected):
           (output - expected) / expected)
     # estimation rtol 5% error to compensate manual entry error
     np.testing.assert_allclose(output, expected, rtol=0.05)
+
+# Testing rmse
+tests, tests_id, timeout = get_tests_from_yaml('rmse')
+
+
+@pytest.mark.parametrize('param, expected',
+                         tests,
+                         ids=tests_id
+                         )
+@pytest.mark.timeout(timeout)
+def test_rmse(param, expected):
+    output = tools.rmse(tools.convert_matrix_to_cart(param))
+    error = output - expected
+    print('output=', output, '\n expected', expected,
+          '\nerror', error)
+    assert error < 0.01

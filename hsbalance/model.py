@@ -4,6 +4,7 @@ import cmath as cm
 import tools
 class Model:
 
+    # TODO
     """Docstring for Model. """
 
     def __init__(self, name='', A=np.empty([1, 1]), ALPHA=np.empty([2, 2])):
@@ -17,11 +18,14 @@ class Model:
 
     def solve(self, solver=None):
         W = cp.Variable((self.N, 1), complex=True)
-        objective = cp.Minimize(cp.sum_squares(self.ALPHA@W+self.A))
+        objective = cp.Minimize(cp.sum_squares(self.ALPHA @ W + self.A))
         prob = cp.Problem(objective)
         prob.solve()
         self.W = W.value
         return W.value
 
     def expected_residual_vibration(self):
-        return self.W @ self.ALPHA
+        return tools.residual_vibration(self.ALPHA, self.W, self.A)
+
+    def rmse(self):
+        return tools.rmse(self.expected_residual_vibration())
