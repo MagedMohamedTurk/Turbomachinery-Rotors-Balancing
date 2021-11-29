@@ -133,6 +133,23 @@ least_squares:
 
                     -   - [1.96@-122]
                         - [1.06@121]
+        'test_case_2': 
+                    -   
+                        -  B:
+                            - [235@94, 189@115]
+                            - [58@68, 77@104]
+                           A:
+                            - [170@112]
+                            - [53@78]
+                           U:
+                            - [1.15@0]
+                            - [1.15@0]
+                           A0:
+                            - [0]
+                            - [0]
+
+                    -   - [1.96@-122]
+                        - [1.06@121]
 
         'Goodman64':
             # Thomas P.Goodman one of the first who published algorithms 
@@ -152,7 +169,7 @@ least_squares:
                     -   - [0.81@0] # First trial was the optimium solution 
                                     #(less RMS)
                         - [1.48@0]
-        'Pavelek':
+        'Pavelek 1 ':
             # TODO
                     -   
                         -  ALPHA:
