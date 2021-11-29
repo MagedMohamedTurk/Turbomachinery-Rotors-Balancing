@@ -94,7 +94,11 @@ tests, tests_id, timeout = get_tests_from_yaml('convert_matrix_to_cart')
 @pytest.mark.timeout(timeout)
 def test_convert_matrix_to_cart(param, expected):
     output = tools.convert_matrix_to_cart(param)
-    expected = list(list(complex(x) for x in item) for item in expected)
+    try:
+        expected = list(list(complex(x) for x in item) for item in expected)
+    except ValueError:
+        expected = list(complex(x) for x in expected)
+    print(output, expected)
     expected = np.array(expected)
     print('output=', output, '\n expected', expected, '\nerror',
           (output - expected) / expected)

@@ -2,19 +2,26 @@ import cvxpy as cp
 import numpy as np
 import cmath as cm
 import tools
+import ALPHA
+from ALPHA import CustomError
 class Model:
 
     # TODO
     """Docstring for Model. """
 
-    def __init__(self, name='', A=np.empty([1, 1]), ALPHA=np.empty([2, 2])):
+    def __init__(self, A:np.array, ALPHA:np.array, name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
         self.name = name
         self.A = A
-        self.ALPHA = ALPHA
-        self.N = ALPHA.shape[1]
+        try:
+            _ = ALPHA.shape
+            self.ALPHA = ALPHA
+            self.N = ALPHA.shape[1]
+        except AttributeError:
+            raise CustomError('Missing valid ALPHA value')
+
 
     def solve(self, solver=None):
         W = cp.Variable((self.N, 1), complex=True)
@@ -29,3 +36,4 @@ class Model:
 
     def rmse(self):
         return tools.rmse(self.expected_residual_vibration())
+

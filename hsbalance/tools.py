@@ -27,7 +27,8 @@ def convert_to_cartesian(polar):
          -> <class 'complex'>
     '''
     theta = polar[1] * cm.pi / 180
-    return polar[0]*cm.cos(theta)+ polar[0]* cm.sin(theta)*1j
+    return complex(polar[0]*cm.cos(theta), polar[0] * cm.sin(theta))
+
 
 def convert_math_cart(str):
     '''
@@ -55,9 +56,12 @@ def convert_matrix_to_cart(ALPHA_math):
     try: # test if input is list of list or a simple list
         ALPHA = list(list(map(convert_math_cart, item))
                          for item in ALPHA_math)
-    except TypeError:
-        ALPHA = list(map(convert_math_cart, item)
-                         for item in ALPHA_math)
+    except IndexError:
+        try:
+            ALPHA = list(list(convert_math_cart(item) for item in ALPHA_math))
+        except TypeError:
+            ALPHA = list(map(convert_math_cart, item)
+                             for item in ALPHA_math)
     ALPHA = np.array(ALPHA)
     return ALPHA
 
