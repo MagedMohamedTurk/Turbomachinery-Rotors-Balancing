@@ -73,13 +73,13 @@ class Min_max(Model):
         constrains = []
         if self.weight_const != {}:
             try:
-                constrains += [cp.norm(W[key] <= value
-                               for key, value in weight_const.items())]
+                for key, value in self.weight_const.items():
+                    constrains += [cp.norm(W[key]) <= value]
             except NameError:
                 raise CustomError('Invalid weight constrain format')
         else:
             pass
-        prob=cp.Problem(objective)
+        prob=cp.Problem(objective, constrains)
         prob.solve()
         self.W = W.value
         return W.value

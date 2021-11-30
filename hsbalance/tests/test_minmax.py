@@ -33,11 +33,14 @@ def test_Min_max(param, expected):
             my_ALPHA.add(A=A, B=B, U=U)
 
     expected_W = tools.convert_matrix_to_cart(expected)
-    my_model = model.Min_max(name='Min_max', A=A, ALPHA=my_ALPHA.value)
+
+    my_model = model.Min_max(name='Min_max', A=A, ALPHA=my_ALPHA.value,
+                             weight_const={0:5})
     W = my_model.solve()
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',
           tools.rmse(tools.residual_vibration(my_ALPHA.value, expected_W, A)))
     print('expected_residual_vibration',
           tools.convert_matrix_to_math(my_model.expected_residual_vibration()))
+    print('Correction weights', tools.convert_cart_math(W))
     np.testing.assert_allclose(W, expected_W, rtol=0.05) # allowance 5% error
