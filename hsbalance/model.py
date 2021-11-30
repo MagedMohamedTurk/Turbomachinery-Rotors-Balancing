@@ -60,15 +60,25 @@ class Min_max(Model):
     """Docstring for OLE
     subclass of model"""
 
-    def __init__(self, A:np.array, ALPHA:np.array, name=''):
+    def __init__(self, A:np.array, ALPHA:np.array, weight_const={}, name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
+        self.weight_const = weight_const
         super().__init__(A, ALPHA, name='')
 
     def solve(self, solver=None):
-        W=cp.Variable((self.N,1),complex=True)    
+        W=cp.Variable((self.N,1),complex=True)
         objective=cp.Minimize(cp.norm((self.ALPHA @ W + self.A),"inf"))
+        constrains = []
+        if self.weight_const != {}:
+            try:
+                constrains += [cp.norm(W[key] <= value
+                               for key, value in weight_const.items())]
+            except NameError:
+                raise CustomError('Invalid weight constrain format')
+        else:
+            pass
         prob=cp.Problem(objective)
         prob.solve()
         self.W = W.value
