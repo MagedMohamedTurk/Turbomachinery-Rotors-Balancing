@@ -38,4 +38,5 @@ def test_simple_LSE(param, expected):
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',
           tools.rmse(tools.residual_vibration(my_ALPHA.value, expected_W, A)))
-    np.testing.assert_allclose(W, expected_W, rtol=0.05) # allowance 1% error
+    print(my_model.expected_residual_vibration())
+    np.testing.assert_allclose(W, expected_W, rtol=0.05) # allowance 5% error

@@ -84,7 +84,6 @@ ALPHA_direct:
                 - [[47.69+79.32j, -16.09+13.5j], 
                   [10.74+1.89j, -29.89+23.33j]]
 
-#TODO 
 ALPHA_from_matrices:
     test_cases : 
         'dummy_test_case': 
@@ -97,10 +96,23 @@ ALPHA_from_matrices:
                            U:
                             - 1@0 
                             - 1@0 
-
-
+                           keep_trial: False
                      -    - [1@0, 1@0]
                           - [1@0, 1@0]
+        'dummy_test_case 2': 
+                     - -   A:
+                            - [1@0]
+                            - [1@0]
+                           B:
+                            - [3@0, 1@0]
+                            - [3@0, 1@0]
+                           U:
+                            - 1@0 
+                            - 1@0 
+                           keep_trial: True
+
+                     -    - [2@0, -2@0]
+                          - [2@0, -2@0]
 
         'test_case_1': 
                      - -   A:
@@ -114,8 +126,8 @@ ALPHA_from_matrices:
                             - 1.15@0
 
 
-                     -    - [80.38@57.2, 14.93@135]
-                          - [9.45@10, 32.96@142]
+                     -    - [78.4@58, 78.8@-133]
+                          - [9.45@10, 39.5@152]
 
 ############################################################
 # Balancing Test cases
@@ -150,6 +162,25 @@ least_squares:
 
                     -   - [1.96@-122]
                         - [1.06@121]
+        'Balanceit_Example_Two_Plane': 
+                    -   
+                        - A:
+                            - [.68@32]
+                            - [.56@86]
+                            - [1.94@231]
+                            - [2.07@335]
+                          B:
+                            - [1.31@1,.54@9]
+                            - [1.25@75, .52@75]
+                            - [.93@251, .81@196]
+                            - [1@342, .9@296]
+                          U: 
+                            - 11.1@35
+                            - 3.7@135 
+                          keep_trial: True
+
+                    -   - [5.4@-137]  # Aft Plane Author stated 15.3@3deg here but                                      I believe it is a typing error as the Fwd                                         plane, rmse, and residual vibration are                                          all the same.
+                        - [6.6@113]  # Fwd Plane
 
         'Goodman64':
             # Thomas P.Goodman one of the first who published algorithms 

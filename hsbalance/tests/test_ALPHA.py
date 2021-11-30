@@ -30,11 +30,14 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('ALPHA_from_matrices')
                          )
 @pytest.mark.timeout(timeout)
 def test_ALPHA_from_matrices(param, expected):
-    print(param[0])
+    print(param, expected)
     for key, value in param[0].items():
-        globals()[key] = tools.convert_matrix_to_cart(value)
+        globals()[key] = value
     my_ALPHA = ALPHA()
-    print(A, B, U)
-    my_ALPHA.add(A=A, B=B, U=U)
-    expected = (B- A)/U 
+    my_A = tools.convert_matrix_to_cart(A)
+    my_B = tools.convert_matrix_to_cart(B)
+    my_U = tools.convert_matrix_to_cart(U)
+    print(A, B, U, keep_trial)
+    my_ALPHA.add(A=my_A, B=my_B, U=my_U, keep_trial=keep_trial)
+    expected = tools.convert_matrix_to_cart(expected)
     np.testing.assert_allclose(my_ALPHA.value, expected, rtol=0.05)  # allowance 5% error

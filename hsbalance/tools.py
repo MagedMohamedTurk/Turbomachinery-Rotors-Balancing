@@ -39,6 +39,7 @@ def convert_math_cart(str):
     output: Complex number in cartesian number ex. 12+23j
          -> <class 'complex'>
     '''
+    # TODO BUG: accept real numbers without @
     polar = tuple(map(float, str.split(sep='@')))
     return convert_to_cartesian(polar)
 
