@@ -120,3 +120,17 @@ def test_rmse(param, expected):
     print('output=', output, '\n expected', expected,
           '\nerror', error)
     assert error < 0.01
+
+# Testing convert_cart_math
+tests, tests_id, timeout = get_tests_from_yaml('convert_cart_math')
+
+
+@pytest.mark.parametrize('param, expected',
+                         tests,
+                         ids=tests_id
+                         )
+@pytest.mark.timeout(timeout)
+def test_convert_cart_math(param, expected):
+
+    output = tools.convert_cart_math(complex(param))
+    assert expected == str(output)

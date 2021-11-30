@@ -9,7 +9,7 @@ import test_tools
 from ALPHA import ALPHA
 
 
-tests, tests_id, timeout = test_tools.get_tests_from_yaml('least_squares')
+tests, tests_id, timeout = test_tools.get_tests_from_yaml('Min_max')
 
 
 @pytest.mark.parametrize('param, expected',
@@ -17,7 +17,7 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('least_squares')
                          ids=tests_id
                          )
 @pytest.mark.timeout(timeout)
-def test_simple_LSE(param, expected):
+def test_Min_max(param, expected):
     my_ALPHA = ALPHA()
     A = tools.convert_matrix_to_cart(param[0]['A'])
     try:
@@ -33,7 +33,7 @@ def test_simple_LSE(param, expected):
             my_ALPHA.add(A=A, B=B, U=U)
 
     expected_W = tools.convert_matrix_to_cart(expected)
-    my_model = model.LeastSquares(name='simple_least_square', A=A, ALPHA=my_ALPHA.value)
+    my_model = model.Min_max(name='Min_max', A=A, ALPHA=my_ALPHA.value)
     W = my_model.solve()
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',

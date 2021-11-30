@@ -43,6 +43,19 @@ def convert_math_cart(str):
     polar = tuple(map(float, str.split(sep='@')))
     return convert_to_cartesian(polar)
 
+convert_math_cart = np.vectorize(convert_math_cart)
+
+def convert_cart_math(complex_num):
+    """TODO: inverse of convert_math_cart
+
+    :complex: TODO
+    :returns: TODO
+
+    """
+    polar = convert_to_polar(complex_num)
+    return (str(round(polar[0], 1)))+'@'+(str(round(polar[1], 1)))
+
+convert_cart_math = np.vectorize(convert_cart_math)
 def convert_matrix_to_cart(ALPHA_math):
     """
     docs: Convert influence coeffecient matrix ALPHA from mathematical expression
@@ -54,17 +67,15 @@ def convert_matrix_to_cart(ALPHA_math):
     :returns: np.dnarray with cartesian form
 
     """
-    try: # test if input is list of list or a simple list
-        ALPHA = list(list(map(convert_math_cart, item))
-                         for item in ALPHA_math)
-    except IndexError:
-        try:
-            ALPHA = list(list(convert_math_cart(item) for item in ALPHA_math))
-        except TypeError:
-            ALPHA = list(map(convert_math_cart, item)
-                             for item in ALPHA_math)
-    ALPHA = np.array(ALPHA)
-    return ALPHA
+    return convert_math_cart(ALPHA_math)
+
+
+def convert_matrix_to_math(matrix):
+    """
+    inverse of convert_matrix_to_cart
+
+    """
+    return convert_cart_math(matrix)
 
 def rmse(residual_vibration):
     return round(np.sqrt(np.abs(residual_vibration) ** 2).mean(), 4)
