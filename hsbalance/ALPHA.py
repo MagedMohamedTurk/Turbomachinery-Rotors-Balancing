@@ -1,6 +1,7 @@
 import numpy as np
 import cmath as cm
-import tools
+import hsbalance.tools
+import warnings
 
 
 class CustomError(Exception):
@@ -36,3 +37,37 @@ class ALPHA():
                     self.value = (B - (A_keep_trial-A0)) / U
             except AttributeError:
                 raise CustomError('Either direct_matrix or (A,B,U) should be passed')
+
+    def check(self, ill_condition_remove=False):
+        self.M = self.value.shape[0]
+        self.N = self.value.shape[1]
+        if self.M == self.N:
+            check_sym = np.allclose(self.value, self.value.T, 0.1, 1e-06)
+            if not check_sym:
+                warnings.warn('Warning: Influence Matrix is asymmetrical!')
+                check_status_sym = 'Influence Matrix is asymmetrical, check your data'
+            else:
+                check_status_sym = 'Influence Matrix is symmetric --> OK'
+        else:
+            check_status_sym = 'Not a square matrix --> no exact solution'
+        # Checking ILL-CONDITIONED planes
+        Q, R = np.linalg.qr(self.value)
+        dep = []
+        Rdia = abs(np.diag(R))
+        for i in range(R.shape[0]):
+            if abs(Rdia[i]/max(Rdia)) < 0.2:
+                dep.append(i)
+                warnings.warn('Warning ! one or more planes are ill-Conditioned!!')
+                print('Plane# ' + str(i) + ' is ill-Conditioned!!')
+                check_status_ill = "ill-conditioned plane #{} found".format(i)
+        if dep != []:
+            if ill_condition_remove:
+                self.value = np.delete(self.value, dep, axis=1)
+                check_status_ill = 'Removed ill-conditioned planes'
+            else:
+                check_status_ill = 'Ill-conditioned planes found in the model, choose\
+                                                 ill_condition_remove = True to remove them'
+        else:
+            check_status_ill = 'No ill-conditioned planes --> OK'
+        return print('{}\n\n{}'.format(check_status_sym, check_status_ill))
+

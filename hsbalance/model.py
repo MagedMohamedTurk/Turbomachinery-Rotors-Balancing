@@ -1,15 +1,15 @@
 import cvxpy as cp
 import numpy as np
-import cmath as cm
-import tools
-import ALPHA
-from ALPHA import CustomError
+from hsbalance import ALPHA, tools
+from hsbalance.ALPHA import CustomError
+
 
 class Model:
 
     # TODO
     """Abstract class for models"""
 
+    #TODO ALPHA to be instance of ALPHA class not np to be checked
     def __init__(self, A:np.array, ALPHA:np.array, name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
@@ -45,7 +45,7 @@ class LeastSquares(Model):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
-        super().__init__(A, ALPHA, name='')
+        super().__init__(A, ALPHA, name=name)
 
     def solve(self, solver=None):
         W = cp.Variable((self.N, 1), complex=True)
@@ -54,6 +54,7 @@ class LeastSquares(Model):
         prob.solve()
         self.W = W.value
         return W.value
+
 
 class Min_max(Model):
 
@@ -66,7 +67,7 @@ class Min_max(Model):
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
         self.weight_const = weight_const
-        super().__init__(A, ALPHA, name='')
+        super().__init__(A, ALPHA, name=name)
 
     def solve(self, solver=None):
         W=cp.Variable((self.N,1),complex=True)
@@ -81,9 +82,10 @@ class Min_max(Model):
         else:
             pass
         prob=cp.Problem(objective, constrains)
-        prob.solve()
+        prob.solve(cp.CVXOPT, kktsolver=cp.ROBUST_KKTSOLVER)
         self.W = W.value
         return W.value
+
 
 class LMI(Model):
 
@@ -102,7 +104,7 @@ class LMI(Model):
         self.weight_const = weight_const
         self.critical_planes = list(critical_planes)
         self.V_max = V_max
-        super().__init__(A, ALPHA, name='')
+        super().__init__(A, ALPHA, name=name)
 
     def solve(self, solver=None):
 

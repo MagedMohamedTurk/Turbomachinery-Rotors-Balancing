@@ -3,8 +3,8 @@ import sys
 import yaml
 import pytest
 sys.path.insert(0, '../')
-from ALPHA import ALPHA
-import tools
+from hsbalance.ALPHA import ALPHA
+from hsbalance import tools
 import test_tools
 
 '''This module if for testing ALPHA class'''
