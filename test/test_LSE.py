@@ -33,7 +33,7 @@ def test_simple_LSE(param, expected):
             my_ALPHA.add(A=A, B=B, U=U)
 
     expected_W = tools.convert_matrix_to_cart(expected)
-    my_model = model.LeastSquares(name='simple_least_square', A=A, ALPHA=my_ALPHA.value)
+    my_model = model.LeastSquares(A, my_ALPHA, name='simple_least_square')
     W = my_model.solve()
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',

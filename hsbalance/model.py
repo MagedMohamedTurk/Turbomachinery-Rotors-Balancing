@@ -9,12 +9,13 @@ class Model:
     """Abstract class for models"""
 
     #TODO ALPHA to be instance of ALPHA class not np to be checked
-    def __init__(self, A:np.array, ALPHA:np.array, name=''):
+    def __init__(self, A:'intial_vibration', alpha: 'instance of Alpha class', name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> MxN np.ndarray"""
         self.name = name
         self.A = A
+        ALPHA = alpha.value
         try:
             _ = ALPHA.shape
             self.ALPHA = ALPHA
@@ -40,11 +41,11 @@ class LeastSquares(Model):
     """Docstring for OLE
     subclass of model"""
 
-    def __init__(self, A:np.array, ALPHA:np.array, name=''):
+    def __init__(self, A:np.array, alpha:'instance of Alpha class', name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
-        super().__init__(A, ALPHA, name=name)
+        super().__init__(A, alpha, name=name)
 
     def solve(self, solver=None):
         W = cp.Variable((self.N, 1), complex=True)
@@ -61,12 +62,12 @@ class Min_max(Model):
     """Docstring for OLE
     subclass of model"""
 
-    def __init__(self, A:np.array, ALPHA:np.array, weight_const={}, name=''):
+    def __init__(self, A:np.array, alpha:'instance of Alpha class', weight_const={}, name=''):
         """TODO: to be defined.
         A: Intial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
         self.weight_const = weight_const
-        super().__init__(A, ALPHA, name=name)
+        super().__init__(A, alpha, name=name)
 
     def solve(self, solver=None):
         W=cp.Variable((self.N,1),complex=True)
@@ -92,7 +93,7 @@ class LMI(Model):
     """Docstring for OLE
     subclass of model"""
 
-    def __init__(self, A:np.array, ALPHA:np.array,
+    def __init__(self, A:np.array, alpha:'instance of Alpha class',
                  weight_const={},
                  critical_planes={}, V_max=None, name=''):
         """TODO: to be defined.
@@ -103,7 +104,7 @@ class LMI(Model):
         self.weight_const = weight_const
         self.critical_planes = list(critical_planes)
         self.V_max = V_max
-        super().__init__(A, ALPHA, name=name)
+        super().__init__(A, alpha, name=name)
 
     def solve(self, solver=None):
 
@@ -183,3 +184,6 @@ class LMI(Model):
         W = WR + WI * 1j
         self.W = W.value
         return self.W
+
+
+

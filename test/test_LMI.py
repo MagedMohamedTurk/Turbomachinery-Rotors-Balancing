@@ -35,10 +35,10 @@ def test_LMI(param, expected):
 
     expected_W = tools.convert_matrix_to_cart(expected)
 
-    my_model = model.LMI(name='LMI', A=A, ALPHA=my_ALPHA.value,
+    my_model = model.LMI(A, my_ALPHA,
                          weight_const=weight_const
                          , V_max=76,
-                        critical_planes={1,9})
+                        critical_planes={1,9}, name='LMI')
     W = my_model.solve()
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',

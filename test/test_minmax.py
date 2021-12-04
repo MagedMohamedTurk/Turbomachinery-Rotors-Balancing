@@ -35,8 +35,8 @@ def test_Min_max(param, expected):
 
     expected_W = tools.convert_matrix_to_cart(expected)
 
-    my_model = model.Min_max(name='Min_max', A=A, ALPHA=my_ALPHA.value,
-                             weight_const=weight_const)  # Setting the model almost with no constraints
+    my_model = model.Min_max(A, my_ALPHA,
+                             weight_const=weight_const,name='Min_max')  # Setting the model almost with no constraints
     W = my_model.solve()
     print((expected))
     print('Residual Vibration rmse calculated = ', my_model.rmse())
