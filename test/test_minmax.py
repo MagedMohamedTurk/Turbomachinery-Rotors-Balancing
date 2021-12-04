@@ -6,7 +6,7 @@ sys.path.insert(0, '../')
 from hsbalance import model
 from hsbalance import tools
 import test_tools
-from hsbalance.ALPHA import ALPHA
+from hsbalance.CI_matrix import Alpha
 
 
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('Min_max')
@@ -18,7 +18,7 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('Min_max')
                          )
 @pytest.mark.timeout(timeout)
 def test_Min_max(param, expected):
-    my_ALPHA = ALPHA()
+    my_ALPHA = Alpha()
     A = tools.convert_matrix_to_cart(param[0]['A'])
     weight_const = param[0]['weight_const']
     try:

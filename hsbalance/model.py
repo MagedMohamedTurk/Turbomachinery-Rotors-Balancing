@@ -1,7 +1,6 @@
 import cvxpy as cp
 import numpy as np
-from hsbalance import ALPHA, tools
-from hsbalance.ALPHA import CustomError
+from hsbalance import tools
 
 
 class Model:
@@ -22,7 +21,7 @@ class Model:
             self.N = ALPHA.shape[1]
             self.M = ALPHA.shape[0]
         except AttributeError:
-            raise CustomError('Missing valid ALPHA value')
+            raise tools.CustomError('Missing valid ALPHA value')
 
 
     def solve(self):
@@ -78,7 +77,7 @@ class Min_max(Model):
                 for key, value in self.weight_const.items():
                     constrains += [cp.norm(W[key]) <= value]
             except NameError:
-                raise CustomError('Invalid weight constraint format')
+                raise tools.CustomError('Invalid weight constraint format')
         else:
             pass
         prob=cp.Problem(objective, constrains)
@@ -117,7 +116,7 @@ class LMI(Model):
                 for key, value in self.weight_const.items():
                     wc[key] = value
             except NameError:
-                raise CustomError('Invalid weight constraint format')
+                raise tools.CustomError('Invalid weight constraint format')
         else:
             pass
 
@@ -125,12 +124,12 @@ class LMI(Model):
         if self.V_max:
             Vm = self.V_max
         else:
-            raise CustomError('V_max is not specified')
+            raise tools.CustomError('V_max is not specified')
 
         if self.critical_planes and len(self.critical_planes)>0:
             list_cr = self.critical_planes
         else:
-            raise CustomError('Critical Planes are not set.')
+            raise tools.CustomError('Critical Planes are not set.')
 
         ALPHA = self.ALPHA.copy()
         A = self.A.copy()

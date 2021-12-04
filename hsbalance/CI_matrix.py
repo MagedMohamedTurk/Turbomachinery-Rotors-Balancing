@@ -4,11 +4,9 @@ import hsbalance.tools
 import warnings
 
 
-class CustomError(Exception):
-    pass
 
 
-class ALPHA():
+class Alpha():
 
     """Docstring for ALPHA. """
 
@@ -36,7 +34,7 @@ class ALPHA():
                     A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)), -1, axis=1)
                     self.value = (B - (A_keep_trial-A0)) / U
             except AttributeError:
-                raise CustomError('Either direct_matrix or (A,B,U) should be passed')
+                raise tools.CustomError('Either direct_matrix or (A,B,U) should be passed')
 
     def check(self, ill_condition_remove=False):
         self.M = self.value.shape[0]

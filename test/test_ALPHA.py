@@ -3,7 +3,7 @@ import sys
 import yaml
 import pytest
 sys.path.insert(0, '../')
-from hsbalance.ALPHA import ALPHA
+from hsbalance.CI_matrix import Alpha
 from hsbalance import tools
 import test_tools
 
@@ -16,7 +16,7 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('ALPHA_direct')
                          )
 @pytest.mark.timeout(timeout)
 def test_ALPHA_direct(param, expected):
-    my_ALPHA = ALPHA()
+    my_ALPHA = Alpha()
     my_ALPHA.add(direct_matrix=tools.convert_matrix_to_cart(param))
     expected = list(list(complex(x) for x in item) for item in expected)
     np.testing.assert_allclose(my_ALPHA.value, expected, rtol=0.05)  # allowance 5% error
@@ -32,7 +32,7 @@ def test_ALPHA_from_matrices(param, expected):
     print(param, expected)
     for key, value in param[0].items():
         globals()[key] = value
-    my_ALPHA = ALPHA()
+    my_ALPHA = Alpha()
     my_A = tools.convert_matrix_to_cart(A)
     my_B = tools.convert_matrix_to_cart(B)
     my_U = tools.convert_matrix_to_cart(U)
@@ -43,7 +43,7 @@ def test_ALPHA_from_matrices(param, expected):
 
 
 # Test symmetric
-alpha = ALPHA()
+alpha = Alpha()
 alpha.add(direct_matrix=np.array([[1, 2], [2, 1]]))
 alpha.add(direct_matrix=np.array([[1, 2], [2.8, 0.9]]))
 alpha.check()

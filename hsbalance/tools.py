@@ -1,6 +1,8 @@
 import numpy as np
 import cmath as cm
 
+class CustomError(Exception):
+    pass
 
 def convert_to_polar(cart):
     '''

@@ -6,7 +6,7 @@ sys.path.insert(0, '../')
 from hsbalance import model
 from hsbalance import tools
 import test_tools
-from hsbalance.ALPHA import ALPHA
+from hsbalance.CI_matrix import Alpha
 
 
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('least_squares')
@@ -18,7 +18,7 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('least_squares')
                          )
 @pytest.mark.timeout(timeout)
 def test_simple_LSE(param, expected):
-    my_ALPHA = ALPHA()
+    my_ALPHA = Alpha()
     A = tools.convert_matrix_to_cart(param[0]['A'])
     try:
         direct_matrix = tools.convert_matrix_to_cart(param[0]['ALPHA'])
