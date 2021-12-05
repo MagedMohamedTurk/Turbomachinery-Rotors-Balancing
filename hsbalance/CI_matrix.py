@@ -1,9 +1,6 @@
 import numpy as np
-import cmath as cm
-import hsbalance.tools
+from hsbalance import tools
 import warnings
-
-
 
 
 class Alpha():
@@ -17,8 +14,7 @@ class Alpha():
         pass
 
     def add(self, direct_matrix=None, A=None,
-            A0=np.array([0]), B=None, U=None,
-            keep_trial=False, name=''):
+            B=None, U=None, keep_trial=False, name=''):
         '''docs'''
         try:  # test if direct input
             _ = direct_matrix.shape
@@ -29,12 +25,14 @@ class Alpha():
             try:
                 all([A.shape, B.shape, U.shape])
                 if not keep_trial:
-                    self.value = (B - (A-A0)) / U
+                    self.value = (B - A) / U
                 else:
-                    A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)), -1, axis=1)
-                    self.value = (B - (A_keep_trial-A0)) / U
+                    A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)),
+                                             -1, axis=1)
+                    self.value = (B - A_keep_trial) / U
             except AttributeError:
-                raise tools.CustomError('Either direct_matrix or (A,B,U) should be passed')
+                raise tools.CustomError('Either direct_matrix or (A,B,U)\
+                                        should be passed')
 
     def check(self, ill_condition_remove=False):
         self.M = self.value.shape[0]
