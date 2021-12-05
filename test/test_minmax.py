@@ -21,18 +21,18 @@ def test_Min_max(param, expected):
     my_ALPHA = Alpha()
     A = tools.convert_matrix_to_cart(param[0]['A'])
     weight_const = param[0]['weight_const']
+    A0 = [0]
     try:
         direct_matrix = tools.convert_matrix_to_cart(param[0]['ALPHA'])
         my_ALPHA.add(direct_matrix=direct_matrix)
     except KeyError:
         B = tools.convert_matrix_to_cart(param[0]['B'])
         U = tools.convert_matrix_to_cart(param[0]['U'])
-        try:
-             A0 = tools.convert_matrix_to_cart(param[0]['ALPHA'])
-             my_ALPHA.add(A=A, B=B, A0=A0, U=U)
-        except KeyError:
-            my_ALPHA.add(A=A, B=B, U=U)
-
+        my_ALPHA.add(A=A, B=B, U=U)
+    try:
+         A0 = tools.convert_matrix_to_cart(param[0]['A0'])
+    except KeyError:
+        pass
     expected_W = tools.convert_matrix_to_cart(expected)
 
     my_model = model.Min_max(A, my_ALPHA,

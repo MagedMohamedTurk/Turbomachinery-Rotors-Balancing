@@ -55,7 +55,7 @@ def convert_cart_math(complex_num):
 
     """
     polar = convert_to_polar(complex_num)
-    return (str(round(polar[0], 1)))+'@'+(str(round(polar[1], 1)))
+    return (str(round(polar[0], 3)))+'@'+(str(round(polar[1], 1)))
 
 convert_cart_math = np.vectorize(convert_cart_math)
 def convert_matrix_to_cart(ALPHA_math):

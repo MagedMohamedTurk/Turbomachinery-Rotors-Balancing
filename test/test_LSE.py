@@ -20,20 +20,20 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('least_squares')
 def test_simple_LSE(param, expected):
     my_ALPHA = Alpha()
     A = tools.convert_matrix_to_cart(param[0]['A'])
+    A0 = [0]
     try:
         direct_matrix = tools.convert_matrix_to_cart(param[0]['ALPHA'])
         my_ALPHA.add(direct_matrix=direct_matrix)
     except KeyError:
         B = tools.convert_matrix_to_cart(param[0]['B'])
         U = tools.convert_matrix_to_cart(param[0]['U'])
-        try:
-             A0 = tools.convert_matrix_to_cart(param[0]['ALPHA'])
-             my_ALPHA.add(A=A, B=B, A0=A0, U=U)
-        except KeyError:
-            my_ALPHA.add(A=A, B=B, U=U)
-
+        my_ALPHA.add(A=A, B=B, U=U)
+    try:
+         A0 = tools.convert_matrix_to_cart(param[0]['A0'])
+    except KeyError:
+        pass
     expected_W = tools.convert_matrix_to_cart(expected)
-    my_model = model.LeastSquares(A, my_ALPHA, name='simple_least_square')
+    my_model = model.LeastSquares(A-A0, my_ALPHA, name='simple_least_square')
     W = my_model.solve()
     print('Residual Vibration rmse calculated = ', my_model.rmse())
     print('Residual Vibration rmse from test_case = ',
