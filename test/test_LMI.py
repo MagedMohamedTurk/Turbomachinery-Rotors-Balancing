@@ -47,3 +47,4 @@ def test_LMI(param, expected):
           tools.convert_matrix_to_math(my_model.expected_residual_vibration()))
     print('Correction weights', tools.convert_cart_math(W))
     np.testing.assert_allclose(W, expected_W, rtol=0.05) # allowance 5% error
+

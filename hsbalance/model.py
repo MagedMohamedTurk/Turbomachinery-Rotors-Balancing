@@ -1,6 +1,7 @@
 import cvxpy as cp
 import numpy as np
 from hsbalance import tools
+from hsbalance.CI_matrix import Alpha
 
 
 class Model:
@@ -15,7 +16,11 @@ class Model:
         ALPHA: Influence coefficient matrix -> MxN np.ndarray"""
         self.name = name
         self.A = A
-        ALPHA = alpha.value
+        if isinstance(alpha, Alpha):
+            ALPHA = alpha.value
+        else:
+            raise tools.CustomError('Please create Alpha instance first --> ex. alpha = Alpha()')
+
         try:
             _ = ALPHA.shape
             self.ALPHA = ALPHA

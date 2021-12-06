@@ -6,6 +6,7 @@ sys.path.insert(0, '../')
 from hsbalance.CI_matrix import Alpha
 from hsbalance import tools
 import test_tools
+import warnings
 
 '''This module if for testing ALPHA class'''
 
@@ -43,11 +44,17 @@ def test_ALPHA_from_matrices(param, expected):
 
 
 # Test symmetric
-alpha = Alpha()
-alpha.add(direct_matrix=np.array([[1, 2], [2, 1]]))
-alpha.add(direct_matrix=np.array([[1, 2], [2.8, 0.9]]))
-alpha.check()
+@pytest.fixture()
+def test_alpha():
+    return Alpha()
+
+def test_alpha_check(test_alpha):
+    with pytest.warns(UserWarning):
+        test_alpha.add(direct_matrix=np.array([[1, 2], [2.8, 0.9]]))
+        test_alpha.check()
 # Test ill_condition
-alpha.add(direct_matrix=np.array([[1, 3], [2.5, 6.5]]))
-alpha.check(ill_condition_remove=True)
-print(alpha.value)
+def test_alpha_ill(test_alpha):
+    test_alpha.add(direct_matrix=np.array([[1, 3], [2.5, 6.5]]))
+    with pytest.warns(UserWarning):
+        test_alpha.check(ill_condition_remove=True)
+        np.testing.assert_allclose(test_alpha.value, np.array([[1], [2.5]]))

@@ -18,7 +18,12 @@ class Alpha():
         '''docs'''
         try:  # test if direct input
             _ = direct_matrix.shape
-            self.value = direct_matrix
+            if direct_matrix.shape[0] <= direct_matrix.shape[1]:
+                self.value = direct_matrix
+            else:
+                raise CustomError('Number of rows(measuring points) should be\
+                                  equal or  more than the number of columns\
+                                  (balancing planes)!')
         except AttributeError:
             # if direct matrix is not input calculate it from A, B, U
             # test the exstiance of A, A0, B, U to calculate ALPHA

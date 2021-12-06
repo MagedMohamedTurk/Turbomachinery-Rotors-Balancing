@@ -8,7 +8,8 @@
 - [ ] spelling check for notebook.
 - [ ] doc strings for all functions check
 - [ ] package test
--
-
+- [ ] Test least square with intial conditions
+- [ ] Refactor Alpha check method 
+- [ ] splitting
 
 
