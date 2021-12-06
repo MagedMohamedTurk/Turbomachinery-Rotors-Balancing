@@ -58,3 +58,34 @@ def test_alpha_ill(test_alpha):
     with pytest.warns(UserWarning):
         test_alpha.check(ill_condition_remove=True)
         np.testing.assert_allclose(test_alpha.value, np.array([[1], [2.5]]))
+
+def test_direct_matrix_dim(test_alpha):
+    with pytest.raises(tools.CustomError) as e_info:
+        test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
+    assert 'Number of rows(measuring points)' in str(e_info)
+
+def test_alpha_dim(test_alpha):
+    with pytest.raises(tools.CustomError) as e_info:
+        # wrong dim matrix
+        test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
+    assert 'Number of rows(measuring points)' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # not numpy array 
+        test_alpha.add(direct_matrix=[[2,3], [3,4]])
+    assert 'numpy arrays' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # missing U and B
+        test_alpha.add(A=np.array([[1],[2]]))
+    assert 'Either' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # A mismatch dim
+        test_alpha.add(A=np.array([[1,2],[1,2]]), B=np.array([[1,2], [2,3]]), U=np.array([1, 3]))
+    assert '`A` should be column ' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # B mismatch dim
+        test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2,3], [2,3,3]]), U=np.array([1, 3]))
+    assert '`B` dimensions' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # U mismatch dim
+        test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U=np.array([[1, 3, 3, 4]]))
+    assert '`U` should be row' in str(e_info)
