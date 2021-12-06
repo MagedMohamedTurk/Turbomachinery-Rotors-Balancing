@@ -89,3 +89,7 @@ def test_alpha_dim(test_alpha):
         # U mismatch dim
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U=np.array([[1, 3, 3, 4]]))
     assert '`U` should be row' in str(e_info)
+    with pytest.raises(tools.CustomError) as e_info:
+        # U mismatch dim
+        test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U='this is non sense')
+    assert 'numpy arrays' in str(e_info)
