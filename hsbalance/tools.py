@@ -84,3 +84,4 @@ def rmse(residual_vibration):
 
 def residual_vibration(ALPHA, W, A):
     return ALPHA @ W + A
+

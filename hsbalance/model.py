@@ -1,3 +1,4 @@
+import cmath
 import cvxpy as cp
 import numpy as np
 from hsbalance import tools
@@ -29,15 +30,55 @@ class Model:
         except AttributeError:
             raise tools.CustomError('Missing valid ALPHA value')
 
-
     def solve(self):
-        pass
+        return self.W
 
     def expected_residual_vibration(self):
         return tools.residual_vibration(self.ALPHA, self.W, self.A)
 
     def rmse(self):
         return tools.rmse(self.expected_residual_vibration())
+
+    def split(self, balancing_plane_index, max_number_weights_per_hole=None,
+              max_weight_per_plane=None, holes_available=[],
+              weights_available=[]):
+        weight = self.W[balancing_plane_index]
+        # Vectorizing cmath `rect` function to be applied on holes
+        vrect = np.vectorize(cmath.rect)
+        # list to np.array
+        holes_available = np.array(holes_available)
+        weights_available = np.array(weights_available)
+        # Transfer holes from row to column
+        weights_available = weights_available[:, np.newaxis]
+        # Make weight matrix in complex form
+        weight_available_matrix = weights_available * vrect(1, holes_available * cmath.pi/180)  # from deg to rad
+        # define mixed integer matrix in cvxpy
+        S = cp.Variable(weight_available_matrix.shape, integer=True)
+        # define objective function
+        Real = cp.norm((cp.sum(cp.multiply(np.real(weight_available_matrix), S)) - np.real(weight)))
+        Imag = cp.norm((cp.sum(cp.multiply(np.imag(weight_available_matrix), S)) - np.imag(weight)))
+        Residuals = cp.norm(cp.hstack([Real, Imag]), 1)
+        obj_split = cp.Minimize(Residuals)
+        # constraints
+        const_splitting = [S >= 0]
+        if max_number_weights_per_hole:
+            if isinstance(max_number_weights_per_hole, int):
+                const_splitting += [cp.sum(S, axis=0)
+                                    <= max_number_weights_per_hole]
+            else:
+                raise tools.CustomError('`max_number_weights_per_hole` should be integer number')
+        if max_weight_per_plane:
+            if isinstance(max_weight_per_plane, (float, int)):
+                    const_splitting += [cp.sum(S.T @ weights_available, axis=1)
+                                    <= max_weight_per_plane]
+            else:
+                raise tools.CustomError('`max_weight_per_plane` should be float number')
+
+        # solve
+        Prob_S = cp.Problem(obj_split, const_splitting)
+        Prob_S.solve()
+        S = np.array(np.round(S.value))
+        return S
 
 
 class LeastSquares(Model):

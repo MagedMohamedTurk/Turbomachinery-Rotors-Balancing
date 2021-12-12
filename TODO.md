@@ -10,5 +10,6 @@
 - [ ] Test least square with intial conditions
 - [ ] Refactor Alpha check method 
 - [ ] splitting
+- [ ] try to make alpha three dimensions with conditions as third dimension.
 
 

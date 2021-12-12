@@ -2,3 +2,5 @@
 **/.pytest_cache
 *.sw*
 *.pyc
+.env
+.env.leave
