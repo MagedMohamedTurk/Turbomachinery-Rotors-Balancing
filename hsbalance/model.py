@@ -69,7 +69,7 @@ class Model:
         # define objective function
         Real = cp.sum(cp.multiply(np.real(weight_available_matrix), S)) - np.real(weight)
         Imag = cp.sum(cp.multiply(np.imag(weight_available_matrix), S)) - np.imag(weight)
-        Residuals = cp.norm(cp.hstack([Real, Imag]), 'inf')
+        Residuals = cp.norm(cp.hstack([Real, Imag]))
         obj_split = cp.Minimize(Residuals)
         # constraints
         const_splitting = [S >= 0]
@@ -88,7 +88,7 @@ class Model:
 
         # solve
         Prob_S = cp.Problem(obj_split, const_splitting)
-        Prob_S.solve(solver=PYTHON_MIP())
+        Prob_S.solve(solver=cp.XPRESS)  # TODO make solver options PYTHON_MIP(), ECOS_BB
         S = np.array(np.round(S.value))
         df_splitting = pd.DataFrame(S, index=weights_available.flatten(), columns=holes_available.flatten())
         df_splitting = df_splitting.loc[:, (df_splitting != 0).any(axis=0)]
