@@ -163,7 +163,7 @@ class Model:
 class LeastSquares(Model):
 
     # TODO
-    """Docstring for OLE
+    """Docstring for LeastSquares
     subclass of model"""
 
     def __init__(self, A:np.array, alpha:'instance of Alpha class', name=''):
@@ -172,9 +172,14 @@ class LeastSquares(Model):
         ALPHA: Influence coefficient matrix -> NxM np.ndarray"""
         super().__init__(A, alpha, name=name)
 
-    def solve(self, solver=None):
+    def solve(self, solver='OLE'):
         W = cp.Variable((self.N, 1), complex=True)
-        objective = cp.Minimize(cp.sum_squares(self.ALPHA @ W + self.A))
+        if solver == 'OLE': # Ordinary least squares
+            objective = cp.Minimize(cp.sum_squares(self.ALPHA @ W + self.A))
+        elif solver == 'Huber':  # TODO test Huber solver for robust optimization
+            real = cp.real(self.ALPHA @ W + self.A)
+            imag = cp.imag(self.ALPHA @ W + self.A)
+            objective = cp.Minimize(cp.sum_squares(cp.huber(cp.hstack([real, imag]))))
         prob = cp.Problem(objective)
         prob.solve()
         self.W = W.value
