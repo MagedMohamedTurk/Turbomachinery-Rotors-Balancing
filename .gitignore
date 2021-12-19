@@ -4,5 +4,5 @@
 *.pyc
 .env
 .env.leave
-**/.ipynb_checkpoints
+**/.ipynb_checkpoints/
 
