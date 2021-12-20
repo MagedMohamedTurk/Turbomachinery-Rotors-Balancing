@@ -8,7 +8,7 @@ from hsbalance import tools
 import test_tools
 import warnings
 
-'''This module if for testing ALPHA class'''
+'''This module is for testing ALPHA class'''
 
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('ALPHA_direct')
 @pytest.mark.parametrize('param, expected',

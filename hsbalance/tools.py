@@ -2,6 +2,9 @@ import numpy as np
 import cmath as cm
 
 class CustomError(Exception):
+    '''
+    The class is used to raise custom expections
+    '''
     pass
 
 def convert_to_polar(cart):
@@ -80,8 +83,26 @@ def convert_matrix_to_math(matrix):
     return convert_cart_math(matrix)
 
 def rmse(residual_vibration):
+    '''
+    Calculate the root mean square error for residual_vibration column matrix
+    subtract each residual vibration from zero and taking the square root
+    of the summation, rounding the result to the fourth decimal point
+    Args:
+        residual_vibration: numpy array
+    Return: RMSE deviated from 0
+    '''
     return round(np.sqrt(np.abs(residual_vibration) ** 2).mean(), 4)
 
 def residual_vibration(ALPHA, W, A):
+    '''
+    Calculate the residual vibration between ALPHA matrix
+    and solution W with intial vibration A
+    Args:
+        ALPHA : Influence coefficient matrix -> np.array
+        A : Initial vibration column array -> np.array
+        W : Solution balancing weight row vector -> np.array
+    Return:
+        residual_vibration column array -> np.array
+    '''
     return ALPHA @ W + A
 

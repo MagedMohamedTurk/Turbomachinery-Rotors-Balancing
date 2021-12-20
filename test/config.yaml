@@ -4,10 +4,10 @@ timeout : 5  # Time that cause timeout for functions
 ######################################################################
 # Test Case Format
 # function name: (as in the code file)
-#   test_cases: (always the same)
+#   test_cases: (always the same DON'T CHANGE!)
 #       'test_case_1': (can be renamed anything between '')
-#           - Input parameters (multiple paramters should be in a list [])
-#           - Expected output  (exmaple for tuple >> !!python/tuple [1, 2]) 
+#           - Input parameters (multiple parameters should be in a list [])
+#           - Expected output  (example for tuple >> !!python/tuple [1, 2]) 
 ######################################################################
 
 
