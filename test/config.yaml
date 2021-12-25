@@ -256,6 +256,56 @@ least_squares:
 
                     -   - [17.5@230] 
                         - [30.3@-9] # changed the correction from 0 to -9 degrees                                       to get in 5% error from manual calculations.
+        'Darlow_1':
+                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the first was normal least squares case where no ill conditioned planes found 
+                    -   
+                        -  ALPHA:
+                            - [1.41@45, 2.24@27, 3.61@34]
+                            - [3.16@72, 4.47@27, 2.24@27]
+                            - [2.83@45, 2.24@27, 5@37]
+                            - [3.16@18, 3.61@34, 4.47@27]
+                           A:
+                            - [3.16@72]
+                            - [3.16@18]
+                            - [4.12@14]
+                            - [5.39@68]
+
+                    -   - [1.39@-4] 
+                        - [1.25@-144]
+                        - [.98@168]
+        'Darlow_2':
+                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the second was normal least squares case with ill conditioned planes found 
+                    -   
+                        -  ALPHA:
+                            - [1.41@45, 3.61@34, 3.61@34]
+                            - [3.16@72, 2.24@27, 2.24@27]
+                            - [2.83@45, 5@37, 5@37]
+                            - [3.16@18, 3.61@34, 4.47@27]
+                           A:
+                            - [3.16@72]
+                            - [3.16@18]
+                            - [4.12@14]
+                            - [5.39@68]
+
+                    -   - [0.87@101] 
+                        - [4.74@100]
+                        - [5.08@-87]
+        'Darlow_3':
+                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the second was normal least squares case with ill conditioned planes found and corrected.
+                    -   
+                        -  ALPHA:
+                            - [1.41@45, 3.61@34]
+                            - [3.16@72, 2.24@27]
+                            - [2.83@45, 5@37]
+                            - [3.16@18, 4.47@27]
+                           A:
+                            - [3.16@72]
+                            - [3.16@18]
+                            - [4.12@14]
+                            - [5.39@68]
+
+                    -   - [0.51@46] 
+                        - [1.13@-155]
 
 Min_max:
     test_cases : 
@@ -399,3 +449,21 @@ splitting:
                     -   - [17.5@230] 
                         - [30.3@-9] # changed the correction from 0 to -9 degrees                                       to get in 5% error from manual calculations.
 
+ill_condition_test:
+    test_cases : 
+        'Darlow_3':
+                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the second was normal least squares case with ill conditioned planes found and corrected.
+                    -   
+                        -  ALPHA:
+                            - [1.41@45, 3.61@34, 3.61@34]
+                            - [3.16@72, 2.24@27, 2.24@27]
+                            - [2.83@45, 5@37, 5@37]
+                            - [3.16@18, 3.61@34, 4.47@27]
+                           A:
+                            - [3.16@72]
+                            - [3.16@18]
+                            - [4.12@14]
+                            - [5.39@68]
+
+                    -   - [0.51@46] 
+                        - [1.13@-155]

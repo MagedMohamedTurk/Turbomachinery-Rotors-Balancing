@@ -8,6 +8,8 @@ from hsbalance import tools
 import test_tools
 from hsbalance.CI_matrix import Alpha
 
+'''This module is for testing LMI model solver'''
+# Reading the test cases from config.yaml file, to add more tests follow the rules on the file
 
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('LMI')
 
@@ -18,10 +20,14 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('LMI')
                          )
 @pytest.mark.timeout(timeout)
 def test_LMI(param, expected):
+    '''
+    Testing insantiate Least square model and test it against test cases
+    '''
     my_ALPHA = Alpha()
     A = tools.convert_matrix_to_cart(param[0]['A'])
     weight_const = param[0]['weight_const']
     A0 = [0]
+    # It is acceptable to enter either direct_matrix or A,B,U matrices
     try:
         direct_matrix = tools.convert_matrix_to_cart(param[0]['ALPHA'])
         my_ALPHA.add(direct_matrix=direct_matrix)

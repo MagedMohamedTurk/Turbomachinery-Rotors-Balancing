@@ -9,16 +9,24 @@ import test_tools
 import warnings
 
 '''This module is for testing ALPHA class'''
-
+# Reading the test cases from config.yaml file
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('ALPHA_direct')
+# Parametrized the test for all testcases
 @pytest.mark.parametrize('param, expected',
                          tests,
                          ids=tests_id
                          )
 @pytest.mark.timeout(timeout)
 def test_ALPHA_direct(param, expected):
+    '''
+    Pytest function to test instantiate Alpha from direct_matrix
+    Inputs:
+        param, expected : from config.yaml file
+    '''
+    # Instantiate Alpha class
     my_ALPHA = Alpha()
-    my_ALPHA.add(direct_matrix=tools.convert_matrix_to_cart(param))
+    # Add direct matrix to the instance
+    my_ALPHA.add(direct_matrix = tools.convert_matrix_to_cart(param))
     expected = list(list(complex(x) for x in item) for item in expected)
     np.testing.assert_allclose(my_ALPHA.value, expected, rtol=0.05)  # allowance 5% error
 
@@ -30,7 +38,10 @@ tests, tests_id, timeout = test_tools.get_tests_from_yaml('ALPHA_from_matrices')
                          )
 @pytest.mark.timeout(timeout)
 def test_ALPHA_from_matrices(param, expected):
-    print(param, expected)
+    '''
+    Function to test instantiating Alpha class from matrices
+    param, expected : from config.yaml file
+    '''
     for key, value in param[0].items():
         globals()[key] = value
     my_ALPHA = Alpha()
@@ -46,25 +57,42 @@ def test_ALPHA_from_matrices(param, expected):
 # Test symmetric
 @pytest.fixture()
 def test_alpha():
+    '''
+    Creating alpha instance to test throwing faults
+    '''
     return Alpha()
 
 def test_alpha_check(test_alpha):
+    '''
+    Test raising symmetric matrix warning
+    '''
     with pytest.warns(UserWarning):
         test_alpha.add(direct_matrix=np.array([[1, 2], [2.8, 0.9]]))
         test_alpha.check()
 # Test ill_condition
 def test_alpha_ill(test_alpha):
+    '''
+    Test ill conditioned planes
+    '''
     test_alpha.add(direct_matrix=np.array([[1, 3], [2.5, 6.5]]))
     with pytest.warns(UserWarning):
         test_alpha.check(ill_condition_remove=True)
+        # ill_condition_remove should remove the second column as it is depending of the first
+        # (multiplied by 2 approx.)
         np.testing.assert_allclose(test_alpha.value, np.array([[1], [2.5]]))
 
 def test_direct_matrix_dim(test_alpha):
+    '''
+    Check raising error due to improper dimension of matrix
+    '''
     with pytest.raises(tools.CustomError) as e_info:
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
     assert 'Number of rows(measuring points)' in str(e_info)
 
 def test_alpha_dim(test_alpha):
+    '''
+    Check raising error due to improper dimension of matrix
+    '''
     with pytest.raises(tools.CustomError) as e_info:
         # wrong dim matrix
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
