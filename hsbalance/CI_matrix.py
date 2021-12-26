@@ -88,24 +88,13 @@ class Alpha():
                 __check_status_sym = 'Influence Matrix is symmetric --> OK'
         else:
             __check_status_sym = 'Not a square matrix --> no exact solution'
-        # Checking ILL-CONDITIONED planes
-        _ , __R = np.linalg.qr(self.value)
-        __dep = []
-        __Rdia = abs(np.diag(__R))
-        for i in range(__R.shape[0]):
-            if abs(__Rdia[i]/max(__Rdia)) < 0.2:
-                __dep.append(i)
-                warnings.warn('Warning ! one or more planes are ill-Conditioned!!')
-                print('Plane# ' + str(i) + ' is ill-Conditioned!!')
-                __check_status_ill = "ill-conditioned plane #{} found".format(i)
-        if __dep != []:
-            if ill_condition_remove:
-                self.value = np.delete(self.value, __dep, axis=1)
-                __check_status_ill = 'Removed ill-conditioned planes'
-            else:
-                __check_status_ill = 'Ill-conditioned planes found in the model, choose\
-                                                 ill_condition_remove = True to remove them'
-        else:
-            __check_status_ill = 'No ill-conditioned planes --> OK'
-        return print('{}\n\n{}'.format(__check_status_sym, __check_status_ill))
 
+        # Checking ILL-CONDITIONED planes
+        ill_plane = tools.ill_condition(self.value)
+        if ill_plane:
+            __check_ill_condition = 'Ill condition found in plane{}'.format(ill_plane)
+            if ill_condition_remove:
+                self.value = np.delete(self.value,[ill_plane], axis=1)
+        else:
+            __check_ill_condition ='No ill conditioned planes --> ok' 
+        return print('{}\n\n{}'.format(__check_status_sym, __check_ill_condition))

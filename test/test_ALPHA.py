@@ -79,7 +79,7 @@ def test_alpha_ill(test_alpha):
         test_alpha.check(ill_condition_remove=True)
         # ill_condition_remove should remove the second column as it is depending of the first
         # (multiplied by 2 approx.)
-        np.testing.assert_allclose(test_alpha.value, np.array([[1], [2.5]]))
+        np.testing.assert_allclose(test_alpha.value, np.array([[3], [6.5]]))
 
 def test_direct_matrix_dim(test_alpha):
     '''

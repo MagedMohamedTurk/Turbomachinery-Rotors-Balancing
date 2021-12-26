@@ -452,7 +452,7 @@ splitting:
 ill_condition_test:
     test_cases : 
         'Darlow_3':
-                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the second was normal least squares case with ill conditioned planes found and corrected.
+                # Darlow discussed in his paper `Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.` three test cases, the third case will delete the ill conditioned planes found and corrected with significance factor tolerance 0.2 as recommended by Darlow.
                     -   
                         -  ALPHA:
                             - [1.41@45, 3.61@34, 3.61@34]

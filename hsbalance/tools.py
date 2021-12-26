@@ -106,3 +106,45 @@ def residual_vibration(ALPHA, W, A):
     '''
     return ALPHA @ W + A
 
+def ill_condition(alpha):
+    # Checking ILL-CONDITIONED planes
+    # Using the algorithm as in Darlow `Balancing of High Speed Machinery 1989 chapter 6`
+    # Find the norm of the influence matrix columns
+    alpha_value = alpha.copy()
+    U = np.linalg.norm(alpha_value, axis = 0)
+    # arrange the influence matrix by the magnitude of the norm (descending)
+    index = np.argsort(U)[::-1]
+    alpha_arranged_by_column_norm = alpha_value[:, index]
+    def u(i):
+        '''
+        returns column vector by index i in alpha_arranged_by_column_norm
+        '''
+        return alpha_arranged_by_column_norm[:, i, np.newaxis]
+
+    def normalized(vector):
+        '''
+        Normalize vector = vector / norm(vector)
+        Arg:
+            vector -> complex of vector
+            returns: normalized vector
+            '''
+
+        return vector / np.linalg.norm(vector)
+
+    sf =[]  # Significance Factor
+    # find e = u/norm(u)
+    e = normalized(u(0))
+    sigma = (np.conjugate(e).T @ u(1)) * e
+    for i in range(0, len(index)-1):
+        # find v1 = u1 - (conjugate(e0).T * u2)e1
+        v = u(i+1) - sigma
+        # sf1 = norm(v1) / norm(u1)
+        sf.append(np.linalg.norm(v) / np.linalg.norm(u(i+1)))
+        # calculate e1 = v2 / norm(v2)
+        e = normalized(v)
+        sigma += (np.conjugate(e).T @ u(i+1)) * e
+    ill_plane = []
+    for i, factor in enumerate(sf):
+        if factor <= 0.2:
+            ill_plane.append(index[i+1])
+    return ill_plane
