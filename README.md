@@ -1,4 +1,5 @@
 # Turbomachinery-Flexible-Rotors-Balancing  
+Python Tools to Model and Solve the problem of High speed Rotor Balancing.  
 ## Introduction  
 The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed is required and where there are a large number of bearings.  
 
