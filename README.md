@@ -2,7 +2,26 @@
 Python Tools to Model and Solve the problem of High speed Rotor Balancing.  
 ## Introduction  
 The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed is required and where there are a large number of bearings.  
+## The Rotor Balancing Module
+The software in this repository is to give help to field balancing for large machinery. The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
+This module is still available in .\Rotor_Balance_Module\, in order to use it:
+1. Clone the repo to your local machine.  
+`$ git clone https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing`
+2. `$ cd Rotor_Balance_Module`
+3. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
+4. Installed required packages (cvxpy - panadas - click)   
+`$ pip install -r requirement.txt`
+4. Run the program  
+`$ python3 -m Rotor_Balanceing `
 
+## `hsbalance` package:
+Alternatively, I am developing a python package that essentially do the same job and more that the original module does. The package takes advantage of object oriented programming which makes it easier to build, extend and maintain.  
+The package also make it possible to easily use the code in a notebook which is a great advantage to work freely, try different method of optimization and splitting for your case, get to compare results and RMS erros and even plot charts and diagrams.  
+To quickly use the package:
+1. Clone the repo to your local machine.  
+`$ git clone https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing`
+2. `$ pip install hsbalance`
+3. Take a look at the notebooks attached in the repo to see `hsbalance` in action.
 ### Descripting the problem  
 #### Back to Basics
 > Balancing simply is to bring the center of mass of a rotating component to its center of rotation.  

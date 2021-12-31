@@ -483,7 +483,7 @@ def Split(W):
     obj_split= cp.Minimize(Residules)
 
     # =============================================================================
-    #     # Set the CONSTRAINTS
+    #     # Set thelver  CONSTRAINTS
     # =============================================================================
     Nh_max= ck.prompt('Enter maximum number of weights per hole',type=int)
     Const1=[cp.sum(S,axis=0)<=Nh_max]
@@ -491,7 +491,7 @@ def Split(W):
     #     # Solve the poblem
     # =============================================================================
     Prob_S=cp.Problem(obj_split,Const1)
-    Prob_S.solve()
+    Prob_S.solve(solver=cp.ECOS_BB)
     S=np.array(np.round(S.value))
     # =============================================================================
     #     # PRINTING RESULTS
