@@ -31,9 +31,9 @@ The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pd
 
 | Trial Mass|Sensor 1|Sensor 2|  
 |-|-|-|
-|None|170 mm/s @ 112$^\circ$|53 mm/s @ 78 $^\circ$|
-|1.15 g on Plane 1|235 mm/s @ 94 $^\circ$|58 mm/s @ 68 $^\circ$|
-|1.15 g on Plane 2|185 mm/s @ 115 $^\circ$| 77 mm/s @ 104 $^\circ$|  
+|None|170 mm/s @ 112 deg|53 mm/s @ 78 deg|
+|1.15 g on Plane 1|235 mm/s @ 94 deg|58 mm/s @ 68 deg|
+|1.15 g on Plane 2|185 mm/s @ 115 deg| 77 mm/s @ 104 deg|  
 
 
 1. Stating Problem Data  
