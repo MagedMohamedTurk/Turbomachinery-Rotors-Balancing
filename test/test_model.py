@@ -12,7 +12,7 @@ from CI_matrix import Alpha
 
 def test_faults():
     with pytest.raises(tools.CustomError) as error:
-        model.Model([1, 2], [1, 2])
+        model._Model([1, 2], [1, 2])
 
 @pytest.fixture()
 def test_alpha():

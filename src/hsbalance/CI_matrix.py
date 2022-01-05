@@ -58,9 +58,9 @@ class Alpha():
                     if not keep_trial:
                         self.value = (B - A) / U
                     else:
-                        __A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)),
+                        _A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)),
                                                  -1, axis=1)
-                        self.value = (B - __A_keep_trial) / U
+                        self.value = (B - _A_keep_trial) / U
             except AttributeError:
                 raise tools.CustomError('Either direct_matrix or (A,B,U) '
                                         'should be passed "numpy arrays"')
@@ -80,21 +80,21 @@ class Alpha():
         self.M = self.value.shape[0]
         self.N = self.value.shape[1]
         if self.M == self.N:
-            __check_sym = np.allclose(self.value, self.value.T, 0.1, 1e-06)
-            if not __check_sym:
+            _check_sym = np.allclose(self.value, self.value.T, 0.1, 1e-06)
+            if not _check_sym:
                 warnings.warn('Warning: Influence Matrix is asymmetrical!')
-                __check_status_sym = 'Influence Matrix is asymmetrical, check your data'
+                _check_status_sym = 'Influence Matrix is asymmetrical, check your data'
             else:
-                __check_status_sym = 'Influence Matrix is symmetric --> OK'
+                _check_status_sym = 'Influence Matrix is symmetric --> OK'
         else:
-            __check_status_sym = 'Not a square matrix --> no exact solution'
+            _check_status_sym = 'Not a square matrix --> no exact solution'
 
         # Checking ILL-CONDITIONED planes
         ill_plane = tools.ill_condition(self.value)
         if ill_plane:
-            __check_ill_condition = 'Ill condition found in plane{}'.format(ill_plane)
+            _check_ill_condition = 'Ill condition found in plane{}'.format(ill_plane)
             if ill_condition_remove:
                 self.value = np.delete(self.value,[ill_plane], axis=1)
         else:
-            __check_ill_condition ='No ill conditioned planes --> ok' 
-        return print('{}\n\n{}'.format(__check_status_sym, __check_ill_condition))
+            _check_ill_condition ='No ill conditioned planes --> ok' 
+        return print('{}\n\n{}'.format(_check_status_sym, _check_ill_condition))
