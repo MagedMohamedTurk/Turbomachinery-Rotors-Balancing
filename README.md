@@ -87,6 +87,54 @@ b. **MinMax**: This model tries to minimize the maximum residual_vibration. This
 c. **LMI**: Linear Matrix Inequality model which allows lazy constraints.  
 Lazy constraints mean that the model tries to relax the solution at certain sensors in order to get the best results at critical planes. This can be practically useful where not all planes should be treated equally. Sometimes, journal bearings with small clearance should be treated as critical planes (usually with low alarm and trip vibration limit), other planes can be considered non critical like casing sensors using accelerometers which we need to only to get the vibration below the alarm limit.  
 For more details take a tour over the notebooks.
+## Performance Test:
+I tested the package against injected random Influence coefficient matrices (Alpha) with N x N size. 
+The output can be summarized in the following plot. 
+![plot](./data/performace_test.png)  
+
+The graph was a test for the Least Squares model. It shows a good time performance of 800 x 800 matrix under 3 minutes.  
+The hardware and software for the machine running the test can be found [data/test_conditions.txt](./data/test_conditions.txt)  
+The code below is to generate the previous plot.  
+```
+def test_performance(n):
+    '''
+    Test the performance of model time_wise.
+    Args:
+      n : dimension of influence coefficient matrix nxn.
+    Output:
+      t : time elapsed in the test rounded to 2 decimal.
+    '''
+    # Generate alpha matrix nxn dimension
+    alpha = Alpha()
+    real = np.random.uniform(0, 10, [n, n])
+    imag = np.random.uniform(0, 10, [n, n])
+    alpha.add(real + imag * 1j)
+    # Generate initial condition A matrix nx1
+    real = np.random.uniform(0, 10, [n, 1])
+    imag = np.random.uniform(0, 10, [n, 1])
+    A= real + imag * 1j
+    # start timing
+    start = time.time()
+    # building model LeastSquare.
+    w =  model.LeastSquares(A, alpha).solve()
+    # implement the model to get run time.
+    error = tools.residual_vibration(alpha.value, w, A)
+    t = time.time() - start
+    return round(t, 2)
+performance_time = []
+N = [2, 10, 50, 100, 200, 400, 600, 800]
+for n in N:
+    performance_time.append(test_performance(n))
+print(N, performance_time)
+spline = make_interp_spline(N, performance_time)
+x = np.linspace(min(N), max(N), 500)
+y  = spline(x)
+plt.plot(x, y, label="Performace Test")
+plt.xlabel('N (dimension of a Squared Influence Coeffecient Matrix)')
+plt.ylabel('Time (seconds)')
+plt.title('Performance Test of LeastSquares model')
+plt.show()
+```
 ## Describing the problem  
 ### Back to Basics
 > Balancing simply is to bring the center of mass of a rotating component to its center of rotation.  

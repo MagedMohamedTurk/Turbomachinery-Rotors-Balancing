@@ -64,7 +64,6 @@ class Alpha():
             except AttributeError:
                 raise tools.CustomError('Either direct_matrix or (A,B,U) '
                                         'should be passed "numpy arrays"')
- 
     def check(self, ill_condition_remove=False):
         '''
         Method to check the alpha value

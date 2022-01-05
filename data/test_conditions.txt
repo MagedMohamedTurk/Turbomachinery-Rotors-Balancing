@@ -1,0 +1,36 @@
+Linux linux 5.4.0-90-generic #101-Ubuntu SMP Fri Oct 15 20:00:55 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+H/W path       Device      Class          Description
+=====================================================
+                           system         Computer
+/0                         bus            Motherboard
+/0/0                       memory         15GiB System memory
+/0/1                       processor      Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz
+/0/100                     bridge         Xeon E3-1200 v6/7th Gen Core Processor Host Bridge/DRAM Registers
+/0/100/2                   display        UHD Graphics 620
+/0/100/4                   generic        Xeon E3-1200 v5/E3-1500 v5/6th Gen Core Processor Thermal Subsystem
+/0/100/14                  bus            Sunrise Point-LP USB 3.0 xHCI Controller
+/0/100/14.2                generic        Sunrise Point-LP Thermal subsystem
+/0/100/15                  generic        Sunrise Point-LP Serial IO I2C Controller #0
+/0/100/16                  communication  Sunrise Point-LP CSME HECI #1
+/0/100/17                  storage        Sunrise Point-LP SATA Controller [AHCI mode]
+/0/100/1c                  bridge         Sunrise Point-LP PCI Express Root Port #1
+/0/100/1c/0                display        Topaz XT [Radeon R7 M260/M265 / M340/M360 / M440/M445 / 530/535 / 620/625 Mobile]
+/0/100/1c.4                bridge         Sunrise Point-LP PCI Express Root Port #5
+/0/100/1c.4/0  enp2s0      network        RTL810xE PCI Express Fast Ethernet controller
+/0/100/1c.5                bridge         Sunrise Point-LP PCI Express Root Port #6
+/0/100/1c.5/0  wlp3s0      network        QCA9377 802.11ac Wireless Network Adapter
+/0/100/1f                  bridge         Sunrise Point LPC Controller/eSPI Controller
+/0/100/1f.2                memory         Memory controller
+/0/100/1f.3                multimedia     Sunrise Point-LP HD Audio
+/0/100/1f.4                bus            Sunrise Point-LP SMBus
+/0/2                       system         PnP device PNP0c02
+/0/3                       system         PnP device PNP0b00
+/0/4                       generic        PnP device INT3f0d
+/0/5                       input          PnP device PNP0303
+/0/6                       generic        PnP device DLL0810
+/0/7                       system         PnP device PNP0c02
+/0/8                       system         PnP device PNP0c02
+/0/9                       system         PnP device PNP0c02
+/0/a                       system         PnP device PNP0c02
+/0/b           scsi1       storage        
+/0/b/0.0.0     /dev/cdrom  disk           DVD+-RW GU90N

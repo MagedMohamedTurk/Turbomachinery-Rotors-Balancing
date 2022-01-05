@@ -17,7 +17,15 @@ class _Model:
         name: optional name of the model -> string
         """
         self.name = name
-        self.A = A
+        try:
+            if A.shape[1] == 1:
+                self.A = A
+        except AttributeError:
+            raise tools.CustomError('Either direct_matrix or (A,B,U) '
+                                    'should be passed "numpy arrays"')
+        except IndexError:
+            raise tools.CustomError('`A` should be a column vector (Nx1) dimension')
+
         self.split_instance = []  # List of all related splits that has modified the solution
         # Test if Alpha is an instance of Alpha class
         if not isinstance(alpha, Alpha):
