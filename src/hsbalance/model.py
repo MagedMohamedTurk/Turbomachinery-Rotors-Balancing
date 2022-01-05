@@ -1,8 +1,8 @@
 import cmath
 import cvxpy as cp
 import numpy as np
-from hsbalance import tools
-from hsbalance.CI_matrix import Alpha
+import tools
+from CI_matrix import Alpha
 import pandas as pd
 import warnings
 
@@ -20,16 +20,15 @@ class Model:
         self.A = A
         self.split_instance = []  # List of all related splits that has modified the solution
         # Test if Alpha is an instance of Alpha class
-        if isinstance(alpha, Alpha):
-            ALPHA = alpha.value
+        if not isinstance(alpha, Alpha):
+            raise tools.CustomError('Please create an `Alpha instance` first --> ex. alpha = Alpha()')
         else:
-            raise tools.CustomError('Please create Alpha instance first --> ex. alpha = Alpha()')
+            self.ALPHA = alpha.value
 
         try:
-            _ = ALPHA.shape  # Test that alpha.value returns np.array
-            self.ALPHA = ALPHA
-            self.N = ALPHA.shape[1]  # Get N number of balancing_planes
-            self.M = ALPHA.shape[0] # Get M number of measuring points
+            _ = self.ALPHA.shape  # Test that alpha.value returns np.array
+            self.N = self.ALPHA.shape[1]  # Get N number of balancing_planes
+            self.M = self.ALPHA.shape[0] # Get M number of measuring points
         except AttributeError:
             raise tools.CustomError('Missing valid ALPHA value')
 

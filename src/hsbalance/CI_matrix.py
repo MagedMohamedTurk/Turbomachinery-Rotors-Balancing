@@ -1,5 +1,5 @@
 import numpy as np
-from hsbalance import tools
+import tools
 import warnings
 
 
@@ -35,13 +35,13 @@ class Alpha():
             alpha = (A - B) / U
         '''
         try:  # test if direct input
-            _ = direct_matrix.shape
+            _ = direct_matrix.shape # TODO raise error when matrix is 1 dim
             if direct_matrix.shape[0] >= direct_matrix.shape[1]:
                 self.value = direct_matrix
             else:
-                raise tools.CustomError('Number of rows(measuring points) should be\
-                                  equal or  more than the number of columns\
-                                  (balancing planes)!')
+                raise tools.CustomError('Number of rows(measuring points) should be '
+                                  'equal or  more than the number of columns '
+                                  '(balancing planes)!')
         except AttributeError:
             # if direct matrix is not input calculate it from A, B, U
             # test the exstiance of A, A0, B, U to calculate ALPHA
@@ -62,9 +62,9 @@ class Alpha():
                                                  -1, axis=1)
                         self.value = (B - __A_keep_trial) / U
             except AttributeError:
-                raise tools.CustomError('Either direct_matrix or (A,B,U)\
-                                        should be passed "numpy arrays"')
-
+                raise tools.CustomError('Either direct_matrix or (A,B,U) '
+                                        'should be passed "numpy arrays"')
+ 
     def check(self, ill_condition_remove=False):
         '''
         Method to check the alpha value

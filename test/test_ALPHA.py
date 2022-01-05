@@ -2,10 +2,10 @@ import numpy as np
 import sys
 import yaml
 import pytest
-sys.path.insert(0, '../')
-from hsbalance.CI_matrix import Alpha
-from hsbalance import tools
 import test_tools
+sys.path.insert(0, '../src/hsbalance/')
+from CI_matrix import Alpha
+import tools
 import warnings
 
 '''This module is for testing ALPHA class'''
@@ -98,7 +98,7 @@ def test_alpha_dim(test_alpha):
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
     assert 'Number of rows(measuring points)' in str(e_info)
     with pytest.raises(tools.CustomError) as e_info:
-        # not numpy array 
+        # not numpy array
         test_alpha.add(direct_matrix=[[2,3], [3,4]])
     assert 'numpy arrays' in str(e_info)
     with pytest.raises(tools.CustomError) as e_info:

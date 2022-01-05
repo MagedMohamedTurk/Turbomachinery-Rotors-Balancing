@@ -2,11 +2,11 @@ import numpy as np
 import sys
 import yaml
 import pytest
-sys.path.insert(0, '../')
-from hsbalance import model
-from hsbalance import tools
 import test_tools
-from hsbalance.CI_matrix import Alpha
+sys.path.insert(0, '../src/hsbalance/')
+import model
+import tools
+from CI_matrix import Alpha
 
 
 '''This module is for testing Least square model solver'''
