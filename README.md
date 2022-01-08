@@ -1,22 +1,19 @@
 # Turbomachinery-Flexible-Rotors-Balancing  
 Python Tools to Model and Solve the problem of High speed Rotor Balancing.  
 ## Introduction  
-The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed is required and where there are a large number of bearings.  
-## The Rotor Balancing Module
-The software in this repository is to give help to field balancing for large machinery. The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
-This module is still available in .\Rotor_Balance_Module\, in order to use it:
-1. Clone the repo to your local machine.  
-`$ git clone https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing`
-2. `$ cd Rotor_Balance_Module`
-3. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
-4. Installed required packages (cvxpy - panadas - click)   
-`$ pip install -r requirement.txt`
-5. Run the program: 
-`$ python3 -m Rotor_Balanceing `
+The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed are required and where there are a large number of bearings.  
 
 ## `hsbalance` Package:
+
+[![Downloads](https://pepy.tech/badge/hsbalance)](https://pepy.tech/project/hsbalance)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![pic](https://img.shields.io/badge/Python-14354C?&logo=python&logoColor=white)
+![pic](https://img.shields.io/badge/-Jupyter-white?logo=Jupyter)
+[![Generic badge](https://img.shields.io/badge/Build-Dev-red.svg)]()
+[![Generic badge](https://img.shields.io/badge/Test-Passing-Green.svg)]()
+ 
 Alternatively, I am developing a python package that essentially do the same job and more that the original module does. The package takes advantage of object oriented programming which makes it easier to build, extend and maintain.  
-The package also make it possible to easily use the code in a notebook which is a great advantage to work freely, try different method of optimization and splitting for your case, get to compare results and RMS erros and even plot charts and diagrams.  
+The package also make it possible to easily use the code in a notebook which is a great advantage to work freely, try different method of optimization and splitting for your case, get to compare results and RMS errors and even plot charts and diagrams.  
 To quickly use the package:
 1. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
 2. `$ pip install hsbalance`
@@ -27,7 +24,7 @@ Script can be found in `example_script.py`
 Import package  
 `>>> import hsbalance as hs`  
 
-The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pdf) Table 1 for example 4.  
+The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pdf) Table 2 for example 6.  
 
 | Trial Mass|Sensor 1|Sensor 2|  
 |-|-|-|
@@ -96,6 +93,15 @@ The graph was a test for the Least Squares model. It shows a good time performan
 The hardware and software for the machine running the test can be found [data/test_conditions.txt](./data/test_conditions.txt)  
 The code below is to generate the previous plot.  
 ```
+
+import time
+from scipy.interpolate import make_interp_spline
+import numpy as np
+import matplotlib.pyplot as plt
+from hsbalance import Alpha, model, tools
+
+
+
 def test_performance(n):
     '''
     Test the performance of model time_wise.
@@ -135,6 +141,17 @@ plt.ylabel('Time (seconds)')
 plt.title('Performance Test of LeastSquares model')
 plt.show()
 ```
+## The Rotor Balancing Module
+The software in this repository is to give help to field balancing for large machinery. The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
+This module is still available in .\Rotor_Balance_Module\, in order to use it:
+1. Clone the repo to your local machine.  
+`$ git clone https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing`
+2. `$ cd Rotor_Balance_Module`
+3. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
+4. Installed required packages (cvxpy - panadas - click)   
+`$ pip install -r requirement.txt`
+5. Run the program: 
+`$ python -m Rotor_Balanceing `
 ## Describing the problem  
 ### Back to Basics
 > Balancing simply is to bring the center of mass of a rotating component to its center of rotation.  
@@ -168,8 +185,9 @@ You can help the project in various ways:
 ## About the Author:
 Maged M.Eltorkoman   
 1. B.SC in Mechanical engineering 2000, Alexandria University, Egypt.
-2. [Certified ISO-CAT II vibration analyst.](https://certificates.mobiusinstitute.com/d8973420-d21e-42f8-a7ba-a13f889e035f#gs.kz6fsv)  
-3. [Udacity Nanodegree in Advanced Data analysing]('https://www.linkedin.com/in/maged-eltorkoman/overlay/1611041255110/single-media-viewer/')
+2. [Certified ISO-CAT II Vibration Analyst.](https://certificates.mobiusinstitute.com/d8973420-d21e-42f8-a7ba-a13f889e035f#gs.kz6fsv)  
+3. [Udacity Nanodegree in Advanced Data Analysing](https://www.linkedin.com/in/maged-eltorkoman/overlay/1611041255110/single-media-viewer/)
+4. [Freelance Data Analyst](https://www.upwork.com/freelancers/~010cf5d4f25c9fa689)
 ## Contact:
-LinkedIn: https://www.linkedin.com/in/maged-eltorkoman/  
-Email: newmaged@gmail.com
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=plastic&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/maged-eltorkoman/)  [![Email](https://img.shields.io/badge/Gmail-D14836?style=plastic&logo=gmail&logoColor=white)](mailto:newmaged@gmail.com)  
+Email: newmage@gmail.com
