@@ -95,5 +95,5 @@ class Alpha():
             if ill_condition_remove:
                 self.value = np.delete(self.value,[ill_plane], axis=1)
         else:
-            _check_ill_condition ='No ill conditioned planes --> ok' 
+            _check_ill_condition ='No ill conditioned planes --> ok'
         return print('{}\n\n{}'.format(_check_status_sym, _check_ill_condition))

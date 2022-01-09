@@ -246,15 +246,19 @@ class LeastSquares(_Model):
     """
 
 
-    def __init__(self, A:np.array, alpha:'instance of Alpha class', name=''):
+    def __init__(self, A:np.array, alpha:'instance of Alpha class', C=np.zeros(1), name=''):
         """ Instantiate the model
         Args:
         A: Initial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> class Alpha
+        C: Weighted Least squares coefficients
         name: optional name of the model -> string
         """
         super().__init__(A, alpha, name=name)
-
+        if C.any():
+            self.C = C
+        else:
+            self.C = np.ones(A.shape)
     def solve(self, solver='OLE'):
         '''
         Method to solve the model
@@ -263,12 +267,16 @@ class LeastSquares(_Model):
             'Huber': Uses Huber smoother to down estimate the outliers.
         '''
         W = cp.Variable((self.N, 1), complex=True)
-        if solver == 'OLE': # Ordinary least squares
+        if solver.upper() == 'OLE': # Ordinary least squares
             _objective = cp.Minimize(cp.sum_squares(self.ALPHA @ W + self.A))
-        elif solver == 'Huber':  # TODO test Huber solver for robust optimization
+        elif solver.upper() == 'Huber':  # TODO test Huber solver for robust optimization
             _real = cp.real(self.ALPHA @ W + self.A)
             _imag = cp.imag(self.ALPHA @ W + self.A)
             _objective = cp.Minimize(cp.sum_squares(cp.huber(cp.hstack([_real, _imag]))))
+        elif solver.upper() == 'WLS':  #  TODO test weighted least squares
+            _objective = cp.Minimize(cp.sum_squares(cp.diag(self.C) @ (self.ALPHA @ W + self.A)))
+        else:
+            raise tools.CustomError('Unrecognized Solver name')
         prob = cp.Problem(_objective)
         prob.solve()
         self.W = W.value

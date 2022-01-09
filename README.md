@@ -36,9 +36,9 @@ The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pd
 1. Stating Problem Data  
 Vibration can be expressed in `hsbalance` as string 'amplitude @ phase' where amplitude is in any desired unit
 (micro - mils - mm/sec) and phase in degrees as measured by tachometer.  
-**A**: Initial Condition Matrix should be input as nested column vector (a list of a list) --> shape 1 x*M*  
+**A**: Initial Condition Matrix should be input as nested column vector (a list of a list) --> shape *M x 1*
 **B**: Trial masses Runs Matrix should be input as nested column vector (list of lists) --> shape *M x N*  
-**U**: Trial masses vector should be input as nested column vector (a list) --> Shape *N x 1*
+**U**: Trial masses vector should be input as nested column vector (a list) --> Shape *1 X N*
 Where  
 *M* : Number of measuring points (number of sensors x number of balancing speeds)  
 *N* : Number of balancing planes  
@@ -67,9 +67,9 @@ model_LeastSquares = hs.LeastSquares(A=A, alpha=alpha)
 w = model_LeastSquares.solve() #  Solve the model and get the correction weights vector
 # Calculate Residual vibration vector
 residual_vibration = hs.residual_vibration(alpha.value, w, A)
-# Caculate Root mean square error for model
+# Calculate Root mean square error for model
 RMSE = hs.rmse(residual_vibration)
-# Convert w back into mathmatical expression 
+# Convert w back into mathematical expression 
 w = hs.convert_cart_math(w)
 # print results
 print('Correction Weights are: \n{}\n Root Mean Squares = {}\n '
@@ -158,8 +158,8 @@ This module is still available in .\Rotor_Balance_Module\, in order to use it:
 
 Every rotating component such as impellers, discs of a motor, turbine, or compressor has a center of gravity in which the mass is distributed, and it has a center of rotation which is the line between their bearings.
 At the manufacturing phase, they never coincide. But why?  
-Simple answer: it's too expensive to machine each component to have the same centerline of mass and rotation. Second, bearings and impellers are usually made by different manufacturers at different places. However, even though the equipment is produced by the same company, their installation setup impacts the balance and thus the center of rotation of the equipment.  
-Ubalance problem 
+Simple answer: it's too expensive to machine each component to have the same centreline of mass and rotation. Second, bearings and impellers are usually made by different manufacturers at different places. However, even though the equipment is produced by the same company, their installation setup impacts the balance and thus the center of rotation of the equipment.  
+### Unbalance problem 
 Why should we be concerned about unbalanced rotors?  
 It generates large centrifugal forces on the rotor and bearings, resulting in high stresses on the bearings and other rotating parts of the machine. They lead to premature failure! Unplanned shutdowns happen, high-risk damages endanger lives and assets.
 ### Flexible Rotors
@@ -168,7 +168,7 @@ Failure may occur if the machine is run at a critical speed. We can all relate t
 Two measures are necessary to overcome such a problem. First, to pass the critical speed as fast as possible, and then to balance the critical mode. Otherwise, the machine will never start due to vibration protection controls.  
 For balancing the turbine at different critical speeds, you must be knowledgeable about the various modes and try to optimize. For example, balancing the first critical will not affect the second critical. This has been the traditional approach which is called “Modal Balancing”.  
 The second method is to empirically find the balancing weights which give you the best vibration at all critical and running speeds. Commonly known as the “Influence Coefficient Method”.  
-### The Mathmatical Model
+### The Mathematical Model
 Balance of flexible rotors is important in order to get optimal vibration levels at all rotor bearings since balancing weights must be calculated for each balancing plane. Turbines and compressors usually have measuring planes that are more than balancing planes. This creates an [over-determined mathematical model](https://en.wikipedia.org/wiki/Overdetermined_system#:~:text=In%20mathematics%2C%20a%20system%20of,when%20constructed%20with%20random%20coefficients.) that needs optimization methods to get the best results. The optimization problem is set to be [convex optimization](https://en.wikipedia.org/wiki/Convex_optimization#:~:text=Convex%20optimization%20is%20a%20subfield,is%20in%20general%20NP%2Dhard.) with constraints regarding balancing weights and maximum vibration allowed for certain locations. The challenge was also to beat the problem of ill-conditioned planes [multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity#:~:text=Multicollinearity%20refers%20to%20a%20situation,equal%20to%201%20or%20%E2%88%921.)
 The whole work was a trial to convert [Darlow "Balancing of High-Speed Machinery"](https://www.springer.com/gp/book/9781461281948) work published 1989 to a working python script that can be used in the filed.  
 ## How to Contribute:
@@ -178,9 +178,8 @@ You can help the project in various ways:
 3. If you have enough vibration knowledge in the subject, you can assist in rewriting this article.
 4. If you have enough mathematical knowledge, you can help in reformulating the optimization equations and expressions.
 5. If you are a python developer you can contribute in the actual code. (fork and pull request).
-6. Donate to the project via [paypal](Maged Mohamed Eltorkoman
-@maged78)
-7. [Buy me coffee](https://www.buymeacoffee.com/MagedM)
+6. [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/MagedM)
+
 
 ## About the Author:
 Maged M.Eltorkoman   

@@ -12,5 +12,6 @@
 - [x] Refactor Alpha check method 
 - [x] splitting
 - [ ] try to make alpha three dimensions with conditions as third dimension.
+- [ ] Change W to be row instead of column vector
 
 
