@@ -12,7 +12,7 @@ The purpose of this project is to solve the problem of turbomachinery [rotor bal
 [![Generic badge](https://img.shields.io/badge/Build-Dev-red.svg)]()
 [![Generic badge](https://img.shields.io/badge/Test-Passing-Green.svg)]()
  
-Alternatively, I am developing a python package that essentially do the same job and more that the original module does. The package takes advantage of object oriented programming which makes it easier to build, extend and maintain.  
+HSBALANCE package is a python tools that enables field engineer to do rotor balancing job on large number of measuring and balancing planes. It facilitates testing various scenarios through applying different optimization methods and applying different constraints. The package takes advantage of object oriented programming which makes it easier to build, extend and maintain.  
 The package also make it possible to easily use the code in a notebook which is a great advantage to work freely, try different method of optimization and splitting for your case, get to compare results and RMS errors and even plot charts and diagrams.  
 To quickly use the package:
 1. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
@@ -22,7 +22,7 @@ To quickly use the package:
 Script can be found in `example_script.py`  
 
 Import package  
-`>>> import hsbalance as hs`  
+`import hsbalance as hs`  
 
 The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pdf) Table 2 for example 6.  
 
@@ -51,15 +51,15 @@ U = ['1.15@0', '1.15@0']  # Trial masses 2.5 g at plane 1 and 2 consequently
 2. Convert from mathematical expression into complex numbers:  
 using `convert_math_cart` function
 ```
->>> A = hs.convert_math_cart(A)
->>> B = hs.convert_math_cart(B)
->>> U = hs.convert_math_cart(U)
+A = hs.convert_math_cart(A)
+B = hs.convert_math_cart(B)
+U = hs.convert_math_cart(U)
 ```
 
 3. Create Influence Coefficient Matrix Alpha  
 ```
->>> alpha = hs.Alpha()  # Instantiate Alpha class
->>> alpha.add(A=A, B=B, U=U)
+alpha = hs.Alpha()  # Instantiate Alpha class
+alpha.add(A=A, B=B, U=U)
 ```
 4. Now we have alpha instance and initial condition A; we can create a model  
 ```
@@ -75,6 +75,17 @@ w = hs.convert_cart_math(w)
 print('Correction Weights are: \n{}\n Root Mean Squares = {}\n '
       '\n Residule Vibration vector\n{}'.format(w, RMSE, residual_vibration))
 ```
+Output:
+--------
+Correction Weights are:  
+ [['1.979@236.2']  
+ ['1.071@121.8']]  
+ Root Mean Squares = 0.0  
+ 
+ Residule Vibration vector  
+[[-7.10542736e-15+0.j]  
+ [-1.77635684e-15+0.j]]  
+
 5. As expected for when *M* = *N*, we can have an exact solution of the model and residual vibration and rmse comes to zero.  
 The Real problem arises when *M* > *N* which is quite normal in large machines where two proximity installed in each bearing and number of bearings is high. Moreover, the number of balancing speeds can be up to 3 or 4 speeds (large machinery usually exceeds their first critical speeds). Recall that *M = Number of sensors x number of speeds*.  
 6. In this case there is no exact solution and we are seeking for optimized solution that minimized the error.  
@@ -142,7 +153,7 @@ plt.title('Performance Test of LeastSquares model')
 plt.show()
 ```
 ## The Rotor Balancing Module
-The software in this repository is to give help to field balancing for large machinery. The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
+The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
 This module is still available in .\Rotor_Balance_Module\, in order to use it:
 1. Clone the repo to your local machine.  
 `$ git clone https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing`

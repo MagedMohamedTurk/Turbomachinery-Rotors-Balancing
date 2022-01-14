@@ -1,5 +1,5 @@
 import numpy as np
-import tools
+import hsbalance.tools as tools
 import warnings
 
 

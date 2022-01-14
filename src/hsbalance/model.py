@@ -1,8 +1,8 @@
 import cmath
 import cvxpy as cp
 import numpy as np
-import tools
-from CI_matrix import Alpha
+import hsbalance.tools as tools
+from hsbalance.CI_matrix import Alpha
 import pandas as pd
 import warnings
 

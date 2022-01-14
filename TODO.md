@@ -16,4 +16,5 @@
 - [ ] Change W to be row instead of column vector
 - [ ] if W is None raise no solution
 - [ ] replace custom error 
+- [ ] Make package dependent tests
 
