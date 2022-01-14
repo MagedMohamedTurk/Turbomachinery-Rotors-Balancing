@@ -13,8 +13,10 @@
 - [x] Refactor Alpha check method 
 - [x] splitting
 - [ ] try to make alpha three dimensions with conditions as third dimension.
-- [ ] Change W to be row instead of column vector
+- [ ] Change W to be row instead of column vector(maybe keeping w as column as per Goodman)
 - [ ] if W is None raise no solution
 - [ ] replace custom error 
 - [ ] Make package dependent tests
+- [ ] save and load model
+- [ ] save and load alpha
 
