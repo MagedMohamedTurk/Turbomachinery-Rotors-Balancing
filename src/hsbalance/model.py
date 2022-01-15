@@ -272,7 +272,7 @@ class LeastSquares(_Model):
         elif solver.upper() == 'HUBER':  # TODO test Huber solver for robust optimization
             _real = cp.real(self.ALPHA @ W + self.A)
             _imag = cp.imag(self.ALPHA @ W + self.A)
-            _objective = cp.Minimize(cp.sum_squares(cp.huber(cp.hstack([_real, _imag]), M=0.5)))
+            _objective = cp.Minimize(cp.sum_squares(cp.huber(cp.hstack([_real, _imag]), M=0)))
         elif solver.upper() == 'WLS':  #  TODO test weighted least squares
             _objective = cp.Minimize(cp.sum_squares(cp.diag(self.C) @ (self.ALPHA @ W + self.A)))
         else:
