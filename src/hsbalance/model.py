@@ -269,7 +269,7 @@ class LeastSquares(_Model):
         W = cp.Variable((self.N, 1), complex=True)
         if solver.upper() == 'OLE': # Ordinary least squares
             _objective = cp.Minimize(cp.sum_squares(self.ALPHA @ W + self.A))
-        elif solver.upper() == 'Huber':  # TODO test Huber solver for robust optimization
+        elif solver.upper() == 'HUBER':  # TODO test Huber solver for robust optimization
             _real = cp.real(self.ALPHA @ W + self.A)
             _imag = cp.imag(self.ALPHA @ W + self.A)
             _objective = cp.Minimize(cp.sum_squares(cp.huber(cp.hstack([_real, _imag]))))
