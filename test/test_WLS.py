@@ -3,10 +3,7 @@ import sys
 import yaml
 import pytest
 import test_tools
-sys.path.insert(0, '../src/hsbalance/')
-import model
-import tools
-from CI_matrix import Alpha
+import hsbalance as hs
 
 
 '''This module is for testing Least square model solver'''
@@ -32,7 +29,7 @@ def test_alpha(m, n):
     '''
     Creating alpha instance
     '''
-    alpha = Alpha()
+    alpha = hs.Alpha()
     real = np.random.uniform(0, 1, [m, n])
     imag = np.random.uniform(0, 1, [m, n])
     alpha.add(real + imag * 1j)
@@ -70,7 +67,7 @@ def test_matrix_WLS(test_alpha, test_A, m):
     # Carry out the test for c = 0 in all vector C indcies
     for c0 in range(len(C)):
         C[c0] = 0
-        w = model.LeastSquares(test_A, test_alpha, C).solve('WLS')
+        w = hs.model.LeastSquares(test_A, test_alpha, C).solve('WLS')
         # Cross check with the equation w = - pseudo_iverse(diag(C).alpha).A
         expected = - np.linalg.pinv(np.diag(C.T[0]) @ alpha) @ test_A
         np.testing.assert_allclose(expected, w)

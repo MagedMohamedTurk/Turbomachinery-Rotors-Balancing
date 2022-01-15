@@ -3,10 +3,8 @@ import sys
 import yaml
 import pytest
 import test_tools
-sys.path.insert(0, '../src/hsbalance/')
-from CI_matrix import Alpha
-import tools
 import warnings
+import hsbalance as hs
 
 '''This module is for testing ALPHA class'''
 # Reading the test cases from config.yaml file
@@ -24,9 +22,9 @@ def test_ALPHA_direct(param, expected):
         param, expected : from config.yaml file
     '''
     # Instantiate Alpha class
-    my_ALPHA = Alpha()
+    my_ALPHA = hs.Alpha()
     # Add direct matrix to the instance
-    my_ALPHA.add(direct_matrix = tools.convert_matrix_to_cart(param))
+    my_ALPHA.add(direct_matrix = hs.convert_matrix_to_cart(param))
     expected = list(list(complex(x) for x in item) for item in expected)
     np.testing.assert_allclose(my_ALPHA.value, expected, rtol=0.05)  # allowance 5% error
 
@@ -44,13 +42,13 @@ def test_ALPHA_from_matrices(param, expected):
     '''
     for key, value in param[0].items():
         globals()[key] = value
-    my_ALPHA = Alpha()
-    my_A = tools.convert_matrix_to_cart(A)
-    my_B = tools.convert_matrix_to_cart(B)
-    my_U = tools.convert_matrix_to_cart(U)
+    my_ALPHA = hs.Alpha()
+    my_A = hs.convert_matrix_to_cart(A)
+    my_B = hs.convert_matrix_to_cart(B)
+    my_U = hs.convert_matrix_to_cart(U)
     print(A, B, U, keep_trial)
     my_ALPHA.add(A=my_A, B=my_B, U=my_U, keep_trial=keep_trial)
-    expected = tools.convert_matrix_to_cart(expected)
+    expected = hs.convert_matrix_to_cart(expected)
     np.testing.assert_allclose(my_ALPHA.value, expected, rtol=0.05)  # allowance 5% error
 
 
@@ -60,7 +58,7 @@ def test_alpha():
     '''
     Creating alpha instance to test throwing faults
     '''
-    return Alpha()
+    return hs.Alpha()
 
 def test_alpha_check(test_alpha):
     '''
@@ -85,7 +83,7 @@ def test_direct_matrix_dim(test_alpha):
     '''
     Check raising error due to improper dimension of matrix
     '''
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
     assert 'Number of rows(measuring points)' in str(e_info)
 
@@ -93,31 +91,31 @@ def test_alpha_dim(test_alpha):
     '''
     Check raising error due to improper dimension of matrix
     '''
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # wrong dim matrix
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))
     assert 'Number of rows(measuring points)' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # not numpy array
         test_alpha.add(direct_matrix=[[2,3], [3,4]])
     assert 'numpy arrays' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # missing U and B
         test_alpha.add(A=np.array([[1],[2]]))
     assert 'Either' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # A mismatch dim
         test_alpha.add(A=np.array([[1,2],[1,2]]), B=np.array([[1,2], [2,3]]), U=np.array([1, 3]))
     assert '`A` should be column ' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # B mismatch dim
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2,3], [2,3,3]]), U=np.array([1, 3]))
     assert '`B` dimensions' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # U mismatch dim
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U=np.array([[1, 3, 3, 4]]))
     assert '`U` should be row' in str(e_info)
-    with pytest.raises(tools.CustomError) as e_info:
+    with pytest.raises(hs.CustomError) as e_info:
         # U mismatch dim
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U='this is non sense')
     assert 'numpy arrays' in str(e_info)
