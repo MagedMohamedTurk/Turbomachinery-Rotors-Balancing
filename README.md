@@ -17,9 +17,9 @@ The package also make it possible to easily use the code in a notebook which is 
 To quickly use the package:
 1. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
 2. `$ pip install hsbalance`
-3. Take a look at the notebooks attached in the repo to see `hsbalance` in action.  
+3. Take a look at the notebooks in 'examples\' attached in the repo to see `hsbalance` in action.  
 ### Quick Example 
-Script can be found in `example_script.py`  
+Script can be found in `examples\example_script.py`  
 
 Import package  
 `import hsbalance as hs`  
@@ -94,7 +94,7 @@ a. **Least Squares model**: Minimize the square errors, this is the traditional 
 b. **MinMax**: This model tries to minimize the maximum residual_vibration. This is beneficial to level of the residual vibrations to be almost equal preventing too-low too-high phenomena in the previous model.  
 c. **LMI**: Linear Matrix Inequality model which allows lazy constraints.  
 Lazy constraints mean that the model tries to relax the solution at certain sensors in order to get the best results at critical planes. This can be practically useful where not all planes should be treated equally. Sometimes, journal bearings with small clearance should be treated as critical planes (usually with low alarm and trip vibration limit), other planes can be considered non critical like casing sensors using accelerometers which we need to only to get the vibration below the alarm limit.  
-For more details take a tour over the notebooks.
+For more details take a tour over the notebooks in `examples\`.
 ## Performance Test:
 I tested the package against injected random Influence coefficient matrices (Alpha) with N x N size. 
 The output can be summarized in the following plot. 
