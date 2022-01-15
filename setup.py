@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="hsbalance",
-    version="0.2.1",
+    version="0.2.2",
     author="Maged M.Eltorkoman",
     author_email="newmaged@gmail.com",
     description="Python tools for Practical Modeling and Solving High Speed Rotor Unbalance Problem",
