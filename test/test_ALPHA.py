@@ -56,7 +56,7 @@ def test_ALPHA_from_matrices(param, expected):
 @pytest.fixture()
 def test_alpha():
     '''
-    Creating alpha instance to test throwing faults
+    creating alpha instance to test throwing faults
     '''
     return hs.Alpha()
 
@@ -119,3 +119,6 @@ def test_alpha_dim(test_alpha):
         # U mismatch dim
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U='this is non sense')
     assert 'numpy arrays' in str(e_info)
+
+
+

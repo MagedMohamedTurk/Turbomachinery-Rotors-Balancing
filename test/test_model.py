@@ -15,6 +15,14 @@ def test_faults():
         hs.LeastSquares([1, 2], [1, 2])
 
 @pytest.fixture()
+def test_A():
+    '''
+    Creating alpha instance to test throwing faults
+    '''
+    A = np.random.uniform(0, 10, [2, 1])
+    return A
+
+@pytest.fixture()
 def test_alpha():
     '''
     Creating alpha instance to test throwing faults
@@ -88,6 +96,33 @@ def test_big_matrix_LSQ(test_big_alpha, test_big_A, test_model_LSQ):
     print(error.shape)
     print ('Time elapsed = ', end-start)
     np.testing.assert_allclose(error, 0, atol=1e-5)
+
+# Testing Conditions
+def test_Condition(test_A, test_alpha):
+    condition = hs.Conditions()
+    condition.add(test_alpha, test_A)
+    assert condition.alpha == test_alpha
+    np.testing.assert_allclose(condition.A, test_A)
+
+    with pytest.raises(IndexError) as e_info:
+        row_A = np.random.rand(5)
+        condition.add(test_alpha, row_A)
+    assert 'A should be column vector of Mx1 dimension' in str(e_info)
+
+    with pytest.raises(IndexError) as e_info:
+        square_A = np.random.rand(5, 5)
+        condition.add(test_alpha, square_A)
+    assert 'A should be column vector of Mx1 dimension' in str(e_info)
+
+    with pytest.raises(IndexError) as e_info:
+        alpha = hs.Alpha()
+        alpha.add(np.random.rand(5,5))
+        wrong_first_dim_A = np.random.rand(3, 1)
+        condition.add(alpha, wrong_first_dim_A)
+    print(condition.alpha.value, condition.A)
+    assert 'same 0 dimension(M)' in str(e_info)
+
+
 
 if __name__ == '__main__':
     def test_performance(n):

@@ -19,7 +19,7 @@ class Alpha():
         """
         self.name = name
 
-    def add(self, direct_matrix:'np.array'=None, A:'intial_vibraion numpy.array'=None,
+    def add(self, direct_matrix:'np.array'=None, A:'initial_vibration numpy.array'=None,
             B:'trial matrix numpy.array'=None, U:'trial weight row vector numpy.array'=None,
             keep_trial:'optional keep the previous trial weight in every succeeding trial'=False,
             name:'string'=''):
@@ -97,3 +97,56 @@ class Alpha():
         else:
             _check_ill_condition ='No ill conditioned planes --> ok'
         return print('{}\n\n{}'.format(_check_status_sym, _check_ill_condition))
+
+
+
+class Conditions():
+
+    """
+    Docstring for conditions.
+    Condition is defined as speed or load or operating condition that is concerned in
+    the balancing process.
+    Conditions class is meant to be used for creating multispeed-multi_condition
+    It is designed to arrange the conditions speeds and loads in explicit way.
+    """
+
+    def __init__(self:'condition', name:'string'=''):
+        """
+        Instantiate a conditions instance that will encapsulate all model speeds and loads
+        name: optional name of Alpha
+        """
+        self.name = name
+
+    def add(self, alpha:'Alpha instance', A:'initial_vibration numpy.array', name:'string'=''):
+        '''
+        Method to add a new condition
+        Args:
+            alpha: Alpha class instance
+            A: Initial vibration column array -> numpy array
+        '''
+        self.name = name
+        if isinstance(alpha, Alpha):
+            self.alpha = alpha
+        else:
+            raise TypeError('alpha should be class Alpha')
+        try:
+            _ = A.shape
+            # Test dimensions
+            try:
+                if A.shape[1] == 1:
+                    if self.alpha.value.shape[0] == A.shape[0]:
+                        self.A = A
+                    else:
+                        raise IndexError('Alpha value and A should have the same 0 dimension (M).')
+                else:
+                    raise IndexError('A should be column vector of Mx1 dimension')
+            except IndexError:
+                raise IndexError('A should be column vector of Mx1 dimension')
+
+        except AttributeError:
+            raise TypeError('A should be passed as "numpy arrays"')
+
+
+
+
+
