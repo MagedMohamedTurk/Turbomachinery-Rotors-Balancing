@@ -1,7 +1,7 @@
 - [x] make scaled least squares method
   - [x] Objective cp.Minimize(cp.diag(scale) @ cp.sum_square(ALPHA@W+A))
   - [x] Scale vector[0, 0.5, 1.5] cancel sensor 1 and gives sensor 3 high importance
-  - [ ] Make notebook for weighted least squares
+  - [x] Make notebook for weighted least squares
   - [ ] Test Huber robust optimization
 - [x] Add weight constrains
 - [x] Make ALPHA class
@@ -9,14 +9,19 @@
 - [x] spelling check for notebook.
 - [ ] doc strings for all functions check
 - [ ] package test
+  - [x] Make test release
+  - [ ] make 1.0.0 release  
 - [ ] Test least square with intial conditions
 - [x] Refactor Alpha check method 
 - [x] splitting
-- [ ] try to make alpha three dimensions with conditions as third dimension.
+- [x] try to make alpha three dimensions with conditions as third dimension.
+  - Tried it but cvxpy does not support three dimensions
 - [ ] Change W to be row instead of column vector(maybe keeping w as column as per Goodman)
 - [ ] if W is None raise no solution
 - [ ] replace custom error 
-- [ ] Make package dependent tests
+- [x] Make package dependent tests
 - [ ] save and load model
 - [ ] save and load alpha
+- [ ] print alpha
+- [ ] print model
 

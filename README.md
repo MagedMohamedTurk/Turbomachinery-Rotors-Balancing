@@ -36,9 +36,10 @@ The example is taken from B&K document (https://www.bksv.com/media/doc/17-227.pd
 1. Stating Problem Data  
 Vibration can be expressed in `hsbalance` as string 'amplitude @ phase' where amplitude is in any desired unit
 (micro - mils - mm/sec) and phase in degrees as measured by tachometer.  
+The following nomenclature are taken from Goodman's paper.
 **A**: Initial Condition Matrix should be input as nested column vector (a list of a list) --> shape *M x 1*
 **B**: Trial masses Runs Matrix should be input as nested column vector (list of lists) --> shape *M x N*  
-**U**: Trial masses vector should be input as nested column vector (a list) --> Shape *1 X N*
+**U**: Trial masses vector should be input as nested column vector (a list) --> Shape *N X 1*
 Where  
 *M* : Number of measuring points (number of sensors x number of balancing speeds)  
 *N* : Number of balancing planes  
@@ -163,6 +164,7 @@ This module is still available in .\Rotor_Balance_Module\, in order to use it:
 `$ pip install -r requirement.txt`
 5. Run the program: 
 `$ python -m Rotor_Balanceing `
+
 ## Describing the problem  
 ### Back to Basics
 > Balancing simply is to bring the center of mass of a rotating component to its center of rotation.  
@@ -182,6 +184,16 @@ The second method is to empirically find the balancing weights which give you th
 ### The Mathematical Model
 Balance of flexible rotors is important in order to get optimal vibration levels at all rotor bearings since balancing weights must be calculated for each balancing plane. Turbines and compressors usually have measuring planes that are more than balancing planes. This creates an [over-determined mathematical model](https://en.wikipedia.org/wiki/Overdetermined_system#:~:text=In%20mathematics%2C%20a%20system%20of,when%20constructed%20with%20random%20coefficients.) that needs optimization methods to get the best results. The optimization problem is set to be [convex optimization](https://en.wikipedia.org/wiki/Convex_optimization#:~:text=Convex%20optimization%20is%20a%20subfield,is%20in%20general%20NP%2Dhard.) with constraints regarding balancing weights and maximum vibration allowed for certain locations. The challenge was also to beat the problem of ill-conditioned planes [multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity#:~:text=Multicollinearity%20refers%20to%20a%20situation,equal%20to%201%20or%20%E2%88%921.)
 The whole work was a trial to convert [Darlow "Balancing of High-Speed Machinery"](https://www.springer.com/gp/book/9781461281948) work published 1989 to a working python script that can be used in the filed.  
+
+## References:
+
+1. Goodman, Thomas P. "A least-squares method for computing balance corrections." (1964): 273-277.
+Foiles W.C., Allaire P.E., and Gunter E.J., 2000, “Min-max optimum flexible rotor balancing compared to weighted least squares”, Proceedings of the Seventh International Conference on Vibrations in Rotating Machinery, Nottingham, UK, C576/097/2000 , pp.141-148
+2. Feese, Troy D., and Phillip E. Grazier. "Balance This! Case Histories From Difficult Balance Jobs." Proceedings of the 33rd Turbomachinery Symposium. Texas A&M University. Turbomachinery Laboratories, 2004.
+3. Kelm, Ray, Walter Kelm, and Dustin Pavelek. "Rotor Balancing Tutorial." Proceedings of the 45th Turbomachinery Symposium. Turbomachinery Laboratories, Texas A&M Engineering Experiment Station, 2016.
+4. Darlow, M. S. "The identification and elimination of non-independent balance planes in influence coefficient balancing." Turbo Expo: Power for Land, Sea, and Air. Vol. 79603. American Society of Mechanical Engineers, 1982.
+5. Darlow, Mark S. Balancing of high-speed machinery. Springer Science & Business Media, 2012.
+
 ## How to Contribute:
 You can help the project in various ways:  
 1. Star, fork and clone the repository to keep the project active.
