@@ -21,6 +21,8 @@ class _Model:
         """
         self.name = name
         if conditions is None:
+            if A is None or alpha is None:
+                raise TypeError('Either (A and Alpha) or `conditions` should be assigned.')
             try:
                 if A.shape[1] == 1:
                     self.A = A

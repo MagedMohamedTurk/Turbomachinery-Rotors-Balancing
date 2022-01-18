@@ -9,7 +9,14 @@ import pytest
 import test_tools
 import hsbalance as hs
 
-
+def test_model_with_no_argument():
+    with pytest.raises(TypeError) as e_info:
+        model = hs.LeastSquares()
+        assert 'Either (A and Alpha) or `conditions` should be assigned.' in str(e_info)
+        A = np.random.rand(2,1)
+        condition = hs.Conditions()
+        model = hs.LeastSquares(A=A, conditions=[condition])
+        assert 'Either (A and Alpha) or `conditions` should be assigned.' in str(e_info)
 def test_faults():
     with pytest.raises(hs.CustomError) as error:
         hs.LeastSquares([1, 2], [1, 2])
