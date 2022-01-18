@@ -67,7 +67,7 @@ def test_matrix_WLS(test_alpha, test_A, m):
     # Carry out the test for c = 0 in all vector C indcies
     for c0 in range(len(C)):
         C[c0] = 0
-        w = hs.model.LeastSquares(test_A, test_alpha, C).solve('WLS')
+        w = hs.model.LeastSquares(test_A, test_alpha, C=C).solve('WLS')
         # Cross check with the equation w = - pseudo_iverse(diag(C).alpha).A
         expected = - np.linalg.pinv(np.diag(C.T[0]) @ alpha) @ test_A
         np.testing.assert_allclose(expected, w)

@@ -100,7 +100,7 @@ class Alpha():
 
 
 
-class Conditions():
+class Condition():
 
     """
     Docstring for conditions.
@@ -128,25 +128,20 @@ class Conditions():
         if isinstance(alpha, Alpha):
             self.alpha = alpha
         else:
-            raise TypeError('alpha should be class Alpha')
+            raise TypeError('alpha should be class Alpha.')
         try:
-            _ = A.shape
+            _A_shape = A.shape
             # Test dimensions
-            try:
-                if A.shape[1] == 1:
-                    if self.alpha.value.shape[0] == A.shape[0]:
-                        self.A = A
-                    else:
-                        raise IndexError('Alpha value and A should have the same 0 dimension (M).')
-                else:
-                    raise IndexError('A should be column vector of Mx1 dimension')
-            except IndexError:
-                raise IndexError('A should be column vector of Mx1 dimension')
-
+            if A.ndim != 2:
+                raise IndexError('A should be column vector of Mx1 dimension.')
+            elif _A_shape[1] != 1:
+                raise IndexError('A should be column vector of Mx1 dimension.')
+            elif _A_shape[0] != self.alpha.value.shape[0]:
+                raise IndexError('A and alpha should have the same 0 dimension(M).')
+            else:
+                self.A = A
         except AttributeError:
-            raise TypeError('A should be passed as "numpy arrays"')
-
-
+            raise TypeError('`A` should be passed as "numpy array"')
 
 
 

@@ -97,9 +97,9 @@ def test_big_matrix_LSQ(test_big_alpha, test_big_A, test_model_LSQ):
     print ('Time elapsed = ', end-start)
     np.testing.assert_allclose(error, 0, atol=1e-5)
 
-# Testing Conditions
+# Testing Condition
 def test_Condition(test_A, test_alpha):
-    condition = hs.Conditions()
+    condition = hs.Condition()
     condition.add(test_alpha, test_A)
     assert condition.alpha == test_alpha
     np.testing.assert_allclose(condition.A, test_A)
@@ -115,12 +115,43 @@ def test_Condition(test_A, test_alpha):
     assert 'A should be column vector of Mx1 dimension' in str(e_info)
 
     with pytest.raises(IndexError) as e_info:
+        mismatch_A = np.random.rand(3,1)
+        condition.add(test_alpha, mismatch_A)
+    assert 'A and alpha should have the same 0 dimension(M).' in str(e_info)
+
+    with pytest.raises(TypeError) as e_info:
+        A = [[3], [3], [3]]
+        condition.add(test_alpha, A)
+    assert 'numpy array' in str(e_info)
+
+    with pytest.raises(IndexError) as e_info:
         alpha = hs.Alpha()
         alpha.add(np.random.rand(5,5))
         wrong_first_dim_A = np.random.rand(3, 1)
         condition.add(alpha, wrong_first_dim_A)
     print(condition.alpha.value, condition.A)
     assert 'same 0 dimension(M)' in str(e_info)
+
+def test_model_conditions():
+    test_alpha_1 = hs.Alpha()
+    test_alpha_1.add(np.ones((2,2)))
+    test_alpha_2 = hs.Alpha()
+    test_alpha_2.add(np.ones((2,2)) * 2)
+    test_A_1 = np.ones((2,1))
+    test_A_2 = np.ones((2,1)) * 2
+    condition_1 = hs.Condition()
+    condition_1.add(test_alpha_1, test_A_1)
+    condition_2 = hs.Condition()
+    condition_2.add(test_alpha_2, test_A_2)
+    model = hs.LeastSquares(conditions =[condition_1, condition_2])
+    np.testing.assert_allclose(model.ALPHA , np.array([[1, 1],
+                                                              [1, 1],
+                                                              [2, 2],
+                                                              [2, 2]]))
+    np.testing.assert_allclose(model.A , np.array([[1],
+                                                   [1],
+                                                   [2],
+                                                   [2]]))
 
 
 

@@ -2,36 +2,49 @@ import cmath
 import cvxpy as cp
 import numpy as np
 import hsbalance.tools as tools
-from hsbalance.CI_matrix import Alpha
+from hsbalance.CI_matrix import Alpha, Condition
 import pandas as pd
 import warnings
 
 class _Model:
     """Abstract class for models"""
 
-    def __init__(self, A:'initial_vibration', alpha: 'instance of Alpha class', name:'string'=''):
+    def __init__(self, A:'initial_vibration'=None, alpha: 'instance of Alpha class'=None,
+                 conditions: 'list of condition instances'=None, name:'string'=''):
         """ Instantiate the model
         Args:
         A: Initial vibration vector -> np.ndarray
         ALPHA: Influence coefficient matrix -> class Alpha
+        conditions: List of conditions instance that express the model various
+                    setpoints for balancing -> list of `class Condition`
         name: optional name of the model -> string
         """
         self.name = name
-        try:
-            if A.shape[1] == 1:
-                self.A = A
-        except AttributeError:
-            raise tools.CustomError('Either direct_matrix or (A,B,U) '
-                                    'should be passed "numpy arrays"')
-        except IndexError:
-            raise tools.CustomError('`A` should be a column vector (Nx1) dimension')
+        if conditions is None:
+            try:
+                if A.shape[1] == 1:
+                    self.A = A
+            except AttributeError:
+                raise tools.CustomError('Either direct_matrix or (A,B,U) '
+                                        'should be passed "numpy arrays"')
+            except IndexError:
+                raise tools.CustomError('`A` should be a column vector (Mx1) dimension')
 
-        self.split_instance = []  # List of all related splits that has modified the solution
-        # Test if Alpha is an instance of Alpha class
-        if not isinstance(alpha, Alpha):
-            raise tools.CustomError('Please create an `Alpha instance` first --> ex. alpha = Alpha()')
+            self.split_instance = []  # List of all related splits that has modified the solution
+            # Test if Alpha is an instance of Alpha class
+            if not isinstance(alpha, Alpha):
+                raise tools.CustomError('Please create an `Alpha instance` first --> ex. alpha = Alpha()')
+            else:
+                self.ALPHA = alpha.value
+        elif isinstance(conditions, list) == False:
+            raise TypeError('Conditions should be a list')
         else:
-            self.ALPHA = alpha.value
+            if all(isinstance(condition, Condition) for condition in conditions):
+                self.ALPHA = np.vstack([condition.alpha.value for condition in conditions])
+                self.A = np.vstack([condition.A for condition in conditions])
+            else:
+                raise TypeError('''`conditions` should be a list of `Condition class` try condition
+                                = Condition()''')
 
         try:
             _ = self.ALPHA.shape  # Test that alpha.value returns np.array
@@ -52,7 +65,6 @@ class _Model:
         Returns the residual_vibration from tools module
         """
         return tools.residual_vibration(self.ALPHA, self.W, self.A)
-
     def rmse(self):
         """
         Returns the root mean squares from tools module
@@ -246,7 +258,7 @@ class LeastSquares(_Model):
     """
 
 
-    def __init__(self, A:np.array, alpha:'instance of Alpha class', C=np.zeros(1), name=''):
+    def __init__(self, A:np.array=None, alpha:'instance of Alpha class'=None, conditions=None, C=np.zeros(1), name=''):
         """ Instantiate the model
         Args:
         A: Initial vibration vector -> np.ndarray
@@ -254,11 +266,11 @@ class LeastSquares(_Model):
         C: Weighted Least squares coefficients
         name: optional name of the model -> string
         """
-        super().__init__(A, alpha, name=name)
+        super().__init__(A=A, alpha=alpha, conditions=conditions, name=name)
         if C.any():
             self.C = C
         else:
-            self.C = np.ones(A.shape)
+            self.C = np.ones(self.A.shape)
     def solve(self, solver='OLE'):
         '''
         Method to solve the model
