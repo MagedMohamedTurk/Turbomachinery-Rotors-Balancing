@@ -124,23 +124,34 @@ class Alpha():
         else:
             _name =''
         if self.value is not None:
-            _value = f'\nValue:\n{tools.convert_cart_math(self.value)}'
+            index = (f'Sensor {m+1}' for m in range(self.value.shape[0]))
+            columns = (f'Plane {n+1}' for n in range(self.value.shape[1]))
+            _value = f"""\n\nCoefficient Values:\n{pd.DataFrame(tools.convert_cart_math(self.value),
+                        index=index, columns=columns)}"""
         else:
             value = ''
         if self.A is not None:
-            _A = f'\nInitial Vibration:\n{tools.convert_cart_math(self.A)}'
+            index = (f'Sensor {m+1}' for m in range(self.A.shape[0]))
+            _A = f"""\n\nIntial Vibration:\n{pd.DataFrame(tools.convert_cart_math(self.A),
+                        index=index, columns=['Vibration'])}"""
+
         else:
             _A = ''
         if self.B is not None:
-            _B = f'\nTrial Runs Vibration:\n{tools.convert_cart_math(self.B)}'
+            index = (f'Sensor {m+1}' for m in range(self.B.shape[0]))
+            columns = (f'Plane {n+1}' for n in range(self.B.shape[1]))
+            _B = f"""\n\nTrial Runs Vibration:\n{pd.DataFrame(tools.convert_cart_math(self.B),
+                        index=index, columns=columns)}"""
         else:
             _B = ''
         if self.U is not None:
-            _U = f'\nTrial Masses:\n{tools.convert_cart_math(self.U)}'
+            index = (f'Plane {n+1}' for n in range(self.U.shape[0]))
+            _U = f"""\n\nTrial Masses:\n{pd.DataFrame(tools.convert_cart_math(self.U),
+                        index=index, columns=['mass'])}"""
         else:
             _U = ''
 
-        assembled = _header + _name + _value + _A + _B + _U
+        assembled = _header + _name + _value + _A + _U + _B
         return assembled
 
 
@@ -206,4 +217,4 @@ if __name__ == '__main__':
               U=np.random.rand(5)+np.random.rand(5)*1j)
     alpha2 = Alpha()
     alpha2.add(comp)
-    print(alpha2)
+    print(alpha1)
