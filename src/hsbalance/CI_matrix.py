@@ -1,6 +1,7 @@
 import numpy as np
 import hsbalance.tools as tools
 import warnings
+import pandas as pd
 
 
 class Alpha():
@@ -35,6 +36,9 @@ class Alpha():
             U: Trial weights row array -> numpy array
             alpha = (A - B) / U
         '''
+        self.A = A
+        self.B = B
+        self.U = U
         self.keep_trial = keep_trial
         try:  # test if direct input
             _ = direct_matrix.shape
@@ -46,7 +50,7 @@ class Alpha():
                 raise tools.CustomError('Number of rows(measuring points) should be '
                                   'equal or  more than the number of columns '
                                   '(balancing planes)!')
-            if A is not None or B is not None or U is not None:
+            if self.A is not None or self.B is not None or self.U is not None:
                 raise ValueError('Either (direct Matrix) or (A, B, U) should be input, but not both.')
 
 
@@ -118,7 +122,7 @@ class Alpha():
         if self.name:
             _name = f'\nName:\t{self.name}'
         else:
-            name =''
+            _name =''
         if self.value is not None:
             _value = f'\nValue:\n{tools.convert_cart_math(self.value)}'
         else:
@@ -192,12 +196,14 @@ class Condition():
 
 
 if __name__ == '__main__':
-    alpha = Alpha()
-    alpha.name = 'Turbine'
+    alpha1 = Alpha()
+    alpha1.name = 'Turbine'
     real = np.random.rand(2,2)
     imag = np.random.rand(2,2)
     comp= real + imag*1j
-    alpha.add(A = np.random.rand(3,1)+np.random.rand(3,1)*1j,
+    alpha1.add(A = np.random.rand(3,1)+np.random.rand(3,1)*1j,
               B=np.random.rand(3,5)+np.random.rand(3,5)*1j,
               U=np.random.rand(5)+np.random.rand(5)*1j)
-    print(alpha)
+    alpha2 = Alpha()
+    alpha2.add(comp)
+    print(alpha2)
