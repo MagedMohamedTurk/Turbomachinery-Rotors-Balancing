@@ -91,6 +91,10 @@ def test_alpha_dim(test_alpha):
     '''
     Check raising error due to improper dimension of matrix
     '''
+    with pytest.raises(IndexError) as e_info:
+        # one dim matrix
+        test_alpha.add(direct_matrix=np.array([1, 2, 3, 4, 5, 6]))
+    assert 'Influence coefficient matrix should be of more than 1 dimensions.' in str(e_info)
     with pytest.raises(hs.CustomError) as e_info:
         # wrong dim matrix
         test_alpha.add(direct_matrix=np.array([[1, 2, 3], [4, 5, 6]]))

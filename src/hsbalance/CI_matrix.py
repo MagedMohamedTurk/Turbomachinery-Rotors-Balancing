@@ -18,6 +18,7 @@ class Alpha():
         name: optional name of Alpha
         """
         self.name = name
+        self.value = None
 
     def add(self, direct_matrix:'np.array'=None, A:'initial_vibration numpy.array'=None,
             B:'trial matrix numpy.array'=None, U:'trial weight row vector numpy.array'=None,
@@ -34,14 +35,21 @@ class Alpha():
             U: Trial weights row array -> numpy array
             alpha = (A - B) / U
         '''
+        self.keep_trial = keep_trial
         try:  # test if direct input
-            _ = direct_matrix.shape # TODO raise error when matrix is 1 dim
+            _ = direct_matrix.shape
+            if direct_matrix.ndim < 2:
+                raise IndexError('Influence coefficient matrix should be of more than 1 dimensions.')
             if direct_matrix.shape[0] >= direct_matrix.shape[1]:
                 self.value = direct_matrix
             else:
                 raise tools.CustomError('Number of rows(measuring points) should be '
                                   'equal or  more than the number of columns '
                                   '(balancing planes)!')
+            if A is not None or B is not None or U is not None:
+                raise ValueError('Either (direct Matrix) or (A, B, U) should be input, but not both.')
+
+
         except AttributeError:
             # if direct matrix is not input calculate it from A, B, U
             # test the exstiance of A, A0, B, U to calculate ALPHA
@@ -55,15 +63,19 @@ class Alpha():
                 elif B.shape[0] != A.shape[0] or B.shape[1] != U.shape[0]:
                     raise tools.CustomError('`B` dimensions should match `A`and `U`')
                 else:
+                    self.A = A
+                    self.B = B
+                    self.U = U
                     if not keep_trial:
-                        self.value = (B - A) / U
+                        self.value = (self.B - self.A) / self.U
                     else:
-                        _A_keep_trial = np.delete((np.insert(B, [0], A, axis=1)),
+                        _A_keep_trial = np.delete((np.insert(self.B, [0], self.A, axis=1)),
                                                  -1, axis=1)
-                        self.value = (B - _A_keep_trial) / U
+                        self.value = (self.B - _A_keep_trial) / self.U
             except AttributeError:
                 raise tools.CustomError('Either direct_matrix or (A,B,U) '
                                         'should be passed "numpy arrays"')
+
     def check(self, ill_condition_remove=False):
         '''
         Method to check the alpha value
@@ -97,6 +109,37 @@ class Alpha():
         else:
             _check_ill_condition ='No ill conditioned planes --> ok'
         return print('{}\n\n{}'.format(_check_status_sym, _check_ill_condition))
+
+    def __repr__(self):
+        '''
+        Method to summarize the results for alpha.
+        '''
+        _header = f'\t\tInfluence Coefficient Matrix\t\t\n' + 60*'*'
+        if self.name:
+            _name = f'\nName:\t{self.name}'
+        else:
+            name =''
+        if self.value is not None:
+            _value = f'\nValue:\n{tools.convert_cart_math(self.value)}'
+        else:
+            value = ''
+        if self.A is not None:
+            _A = f'\nInitial Vibration:\n{tools.convert_cart_math(self.A)}'
+        else:
+            _A = ''
+        if self.B is not None:
+            _B = f'\nTrial Runs Vibration:\n{tools.convert_cart_math(self.B)}'
+        else:
+            _B = ''
+        if self.U is not None:
+            _U = f'\nTrial Masses:\n{tools.convert_cart_math(self.U)}'
+        else:
+            _U = ''
+
+        assembled = _header + _name + _value + _A + _B + _U
+        return assembled
+
+
 
 
 
@@ -143,5 +186,18 @@ class Condition():
         except AttributeError:
             raise TypeError('`A` should be passed as "numpy array"')
 
+    def __repr__():
+        pass
 
 
+
+if __name__ == '__main__':
+    alpha = Alpha()
+    alpha.name = 'Turbine'
+    real = np.random.rand(2,2)
+    imag = np.random.rand(2,2)
+    comp= real + imag*1j
+    alpha.add(A = np.random.rand(3,1)+np.random.rand(3,1)*1j,
+              B=np.random.rand(3,5)+np.random.rand(3,5)*1j,
+              U=np.random.rand(5)+np.random.rand(5)*1j)
+    print(alpha)
