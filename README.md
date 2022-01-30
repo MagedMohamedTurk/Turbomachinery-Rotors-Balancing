@@ -73,20 +73,115 @@ RMSE = hs.rmse(residual_vibration)
 # Convert w back into mathematical expression 
 w = hs.convert_cart_math(w)
 # print results
-print('Correction Weights are: \n{}\n Root Mean Squares = {}\n '
-      '\n Residule Vibration vector\n{}'.format(w, RMSE, residual_vibration))
+print(model_LeastSquares.info())
 ```
 Output:
 --------
-Correction Weights are:  
- [['1.979@236.2']  
- ['1.071@121.8']]  
- Root Mean Squares = 0.0  
- 
- Residule Vibration vector  
-[[-7.10542736e-15+0.j]  
- [-1.77635684e-15+0.j]]  
+```
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MODEL
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MODEL TYPE
+==================================================
+LeastSquares
+==================================================
+End of MODEL TYPE
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+INFLUENCE COEFFICIENT MATRIX
+==================================================
+
+++++++++++++++++++++++++++++++++++++++++
+Influence Coefficient Matrix
+++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++
+Coefficient Values
+==============================
+                Plane 1        Plane 2
+Sensor 1  78.433 @ 58.4  15.34 @ 145.3
+Sensor 2   9.462 @ 10.2  32.56 @ 142.4
+==============================
+End of Coefficient Values
+++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++
+Initial Vibration
+==============================
+              Vibration
+Sensor 1  170.0 @ 112.0
+Sensor 2    53.0 @ 78.0
+==============================
+End of Initial Vibration
+++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++
+Trial Runs Vibration
+==============================
+               Plane 1        Plane 2
+Sensor 1  235.0 @ 94.0  185.0 @ 115.0
+Sensor 2   58.0 @ 68.0   77.0 @ 104.0
+==============================
+End of Trial Runs Vibration
+++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++
+Trial Masses
+==============================
+               Mass
+Plane 1  1.15 @ 0.0
+Plane 2  1.15 @ 0.0
+==============================
+End of Trial Masses
+++++++++++++++++++++++++++++++++++++++++
+
+                   
+==================================================
+End of INFLUENCE COEFFICIENT MATRIX
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+INITIAL VIBRATION
+==================================================
+              Vibration
+Sensor 1  170.0 @ 112.0
+Sensor 2    53.0 @ 78.0
+==================================================
+End of INITIAL VIBRATION
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SOLUTION
+==================================================
+        Correction Masses
+Plane 1     1.979 @ 236.2
+Plane 2     1.071 @ 121.8
+==================================================
+End of SOLUTION
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+RMSE
+==================================================
+0.0
+==================================================
+End of RMSE
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                   
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+```
 5. As expected for when *M* = *N*, we can have an exact solution of the model and residual vibration and rmse comes to zero.  
 The Real problem arises when *M* > *N* which is quite normal in large machines where two proximity installed in each bearing and number of bearings is high. Moreover, the number of balancing speeds can be up to 3 or 4 speeds (large machinery usually exceeds their first critical speeds). Recall that *M = Number of sensors x number of speeds*.  
 6. In this case there is no exact solution and we are seeking for optimized solution that minimized the error.  

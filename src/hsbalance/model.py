@@ -23,7 +23,8 @@ class _Model:
         self.alpha = alpha
         self.W = None
         self.split_instance = []  # List of all related splits that has modified the solution
-        if conditions is None:
+        self.conditions = conditions
+        if self.conditions is None:
             if A is None or alpha is None:
                 raise TypeError('Either (A and Alpha) or `conditions` should be assigned.')
             try:
@@ -41,13 +42,12 @@ class _Model:
             else:
                 self.alpha = alpha
                 self.ALPHA = alpha.value
-        elif isinstance(conditions, list) == False:
+        elif isinstance(self.conditions, list) == False:
             raise TypeError('Conditions should be a list')
         else:
-            if all(isinstance(condition, Condition) for condition in conditions):
-                self.ALPHA = np.vstack([condition.alpha.value for condition in conditions])
-                self.A = np.vstack([condition.A for condition in conditions])
-                self.conditions = conditions
+            if all(isinstance(condition, Condition) for condition in self.conditions):
+                self.ALPHA = np.vstack([condition.alpha.value for condition in self.conditions])
+                self.A = np.vstack([condition.A for condition in self.conditions])
             else:
                 raise TypeError('''`conditions` should be a list of `Condition class` try condition
                                 = Condition()''')
@@ -283,8 +283,9 @@ class _Model:
         else:
             yield ('SOLUTION','No solution calculated.')
 
-        if self.split_instance is not None:
-            yield ('SPLITS','\n\n'.join(str(split.results()) for split in self.split_instance))
+        if self.split_instance is not None :
+            if self.split_instance:
+                yield ('SPLITS','\n\n'.join(str(split.results()) for split in self.split_instance))
     def info(self):
         formatter = tools.InfoFormatter(name='MODEL', info_parameters=self._info(), level=3)
         return ''.join(formatter.info())

@@ -17,5 +17,4 @@ RMSE = hs.rmse(residual_vibration)
 # Convert w back into mathmatical expression
 w = hs.convert_cart_math(w)
 # print results
-print('Correction Weights are: \n{}\n Root Mean Squares = {}\n '
-      '\n Residule Vibration vector\n{}'.format(w, RMSE, residual_vibration))
+print(model_LeastSquares.info())

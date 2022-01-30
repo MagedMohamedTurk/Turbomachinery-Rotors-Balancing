@@ -130,7 +130,7 @@ class Alpha():
         return generator of tuples(title:str, item)
         '''
         if self.name:
-            _name = ('Name', self.name)
+            yield ('Name', self.name)
         if self.value is not None:
             _index = (f'Sensor {m+1}' for m in range(self.value.shape[0]))
             _columns = (f'Plane {n+1}' for n in range(self.value.shape[1]))
