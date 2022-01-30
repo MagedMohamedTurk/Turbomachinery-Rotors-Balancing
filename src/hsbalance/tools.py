@@ -1,5 +1,9 @@
 import numpy as np
 import cmath as cm
+from colorama import Fore, Style
+from typing import Iterable
+import logging
+logger = logging.getLogger(__name__)
 
 class CustomError(Exception):
     '''
@@ -58,7 +62,7 @@ def convert_cart_math(complex_num):
 
     """
     polar = convert_to_polar(complex_num)
-    return (str(round(polar[0], 3)))+'@'+(str(round(polar[1], 1)))
+    return (str(round(polar[0], 3)))+' @ '+(str(round(polar[1], 1)))
 
 convert_cart_math = np.vectorize(convert_cart_math)
 def convert_matrix_to_cart(ALPHA_math):
@@ -148,3 +152,38 @@ def ill_condition(alpha):
         if factor <= 0.2:
             ill_plane.append(index[i+1])
     return ill_plane
+
+
+
+class InfoFormatter:
+    '''
+    Class to format info method of every class.
+    '''
+    def __init__(self, name:str, info_parameters:Iterable, level:int=1) -> str:
+        '''Args: info_parameters generator of tuple(name, parm) from _info method
+        level: level for nested appearance 
+        '''
+        self.info_parameters = info_parameters
+        self.name = name
+        self.line_header = f'\n{Fore.GREEN+(30+10*level)*"+"+Style.RESET_ALL}\n'
+        self.line_separator = f'\n{(20+10*level)*"="}\n'
+
+    def info(self):
+        '''
+        return generator with the strings to be printed
+        '''
+        # Header
+        yield f'{self.line_header}{self.name}{self.line_header}'
+        # parameters
+        for item in self.info_parameters:
+            title, param = item
+            yield f'''{self.line_header}{title}{self.line_separator}{param
+                    }{self.line_separator}End of {title}{
+                    self.line_header}
+                   '''
+
+
+
+
+
+

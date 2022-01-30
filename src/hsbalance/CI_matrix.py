@@ -1,9 +1,17 @@
+import logging
+import warnings
 import numpy as np
 import hsbalance.tools as tools
-import warnings
 import pandas as pd
 
+logger = logging.getLogger(__name__)
+logger.propagate = False
+logger.setLevel(logging.DEBUG)
+console_handle = logging.StreamHandler()
+console_handle.setLevel(logging.INFO)
+logger.addHandler(console_handle)
 
+pd.set_option('display.max_columns', 1000)  # Set maximum number of columns to 1000
 class Alpha():
 
     """
@@ -33,8 +41,6 @@ class Alpha():
                         N columns -> balancing planes
             A: Initial vibration column array -> numpy array
             B: Trial matrix MxN array -> numpy array
-            U: Trial weights row array -> numpy array
-            alpha = (A - B) / U
         '''
         self.A = A
         self.B = B
@@ -79,80 +85,88 @@ class Alpha():
             except AttributeError:
                 raise tools.CustomError('Either direct_matrix or (A,B,U) '
                                         'should be passed "numpy arrays"')
+        if self.value is not None:
+            self.M = self.value.shape[0]
+            self.N = self.value.shape[1]
+
 
     def check(self, ill_condition_remove=False):
         '''
         Method to check the alpha value
             * check the symmetrical of the matrix (check for square matrix only,
-            for square matrix it should be symmetric obeyin the reciprocity law)
+            for square matrix it should be symmetric obeying the reciprocity law)
             * check for ill conditioned planes:
                 if for any reason two or more planes has independent readings
                 for example [[1, 2 , 3], [2, 4, 6]] this is named as ill-conditioned planes
                 as they does not carry new information from the system and considering them
-                cause solution infliteration.
+                cause solution infiltration.
             ill_condition_remove = True : remove the ill_condition planes after the check
         '''
-        self.M = self.value.shape[0]
-        self.N = self.value.shape[1]
         if self.M == self.N:
             _check_sym = np.allclose(self.value, self.value.T, 0.1, 1e-06)
             if not _check_sym:
-                warnings.warn('Warning: Influence Matrix is asymmetrical!')
-                _check_status_sym = 'Influence Matrix is asymmetrical, check your data'
+                warnings.warn('\nWarning: Influence Matrix is asymmetrical!')
+                logger.info('\nInfluence Matrix is asymmetrical, check your data.')
             else:
-                _check_status_sym = 'Influence Matrix is symmetric --> OK'
+                logger.info('\nInfluence Matrix is symmetric --> OK')
         else:
-            _check_status_sym = 'Not a square matrix --> no exact solution'
+            logger.info('\nNot a square matrix --> no exact solution.')
 
         # Checking ILL-CONDITIONED planes
         ill_plane = tools.ill_condition(self.value)
         if ill_plane:
-            _check_ill_condition = 'Ill condition found in plane{}'.format(ill_plane)
+            logger.info(f'\nIll-conditioned found in plane # {ill_plane}')
             if ill_condition_remove:
+                logger.warn(f'\nRemoving Ill-conditioned plane # {ill_plane}')
+                logger.info(f'\nIC matrix before removing\n{tools.convert_cart_math(self.value)}\n')
                 self.value = np.delete(self.value,[ill_plane], axis=1)
+                logger.info(f'\nIC matrix after removing\n{tools.convert_cart_math(self.value)}\n')
         else:
-            _check_ill_condition ='No ill conditioned planes --> ok'
-        return print('{}\n\n{}'.format(_check_status_sym, _check_ill_condition))
+            logger.info('\nNo ill conditioned planes --> ok')
+
+    def _info(self):
+        '''
+        Method to summarize the results for alpha.
+        return generator of tuples(title:str, item)
+        '''
+        if self.name:
+            _name = ('Name', self.name)
+        if self.value is not None:
+            _index = (f'Sensor {m+1}' for m in range(self.value.shape[0]))
+            _columns = (f'Plane {n+1}' for n in range(self.value.shape[1]))
+            yield ('Coefficient Values', pd.DataFrame(tools.convert_cart_math(self.value),
+                        index=_index, columns=_columns))
+        if self.A is not None:
+            _index = (f'Sensor {m+1}' for m in range(self.A.shape[0]))
+            yield ('Initial Vibration', pd.DataFrame(tools.convert_cart_math(self.A),
+                        index=_index, columns=['Vibration']))
+        if self.B is not None:
+            _index = (f'Sensor {m+1}' for m in range(self.B.shape[0]))
+            _columns = (f'Plane {n+1}' for n in range(self.B.shape[1]))
+            yield ('Trial Runs Vibration', pd.DataFrame(tools.convert_cart_math(self.B),
+                        index=_index, columns=_columns))
+        if self.U is not None:
+            _index = (f'Plane {n+1}' for n in range(self.U.shape[0]))
+            yield ('Trial Masses', pd.DataFrame(tools.convert_cart_math(self.U),
+                        index=_index, columns=['Mass']))
 
     def __repr__(self):
         '''
-        Method to summarize the results for alpha.
+        Method to print out alpha value
         '''
-        _header = f'\t\tInfluence Coefficient Matrix\t\t\n' + 60*'*'
-        if self.name:
-            _name = f'\nName:\t{self.name}'
-        else:
-            _name =''
-        if self.value is not None:
-            index = (f'Sensor {m+1}' for m in range(self.value.shape[0]))
-            columns = (f'Plane {n+1}' for n in range(self.value.shape[1]))
-            _value = f"""\n\nCoefficient Values:\n{pd.DataFrame(tools.convert_cart_math(self.value),
-                        index=index, columns=columns)}"""
-        else:
-            value = ''
-        if self.A is not None:
-            index = (f'Sensor {m+1}' for m in range(self.A.shape[0]))
-            _A = f"""\n\nIntial Vibration:\n{pd.DataFrame(tools.convert_cart_math(self.A),
-                        index=index, columns=['Vibration'])}"""
+        formatter = tools.InfoFormatter(name = 'Influence Coefficient Matrix', info_parameters=
+                                        self._info())
+        return ''.join(formatter.info())
 
-        else:
-            _A = ''
-        if self.B is not None:
-            index = (f'Sensor {m+1}' for m in range(self.B.shape[0]))
-            columns = (f'Plane {n+1}' for n in range(self.B.shape[1]))
-            _B = f"""\n\nTrial Runs Vibration:\n{pd.DataFrame(tools.convert_cart_math(self.B),
-                        index=index, columns=columns)}"""
-        else:
-            _B = ''
-        if self.U is not None:
-            index = (f'Plane {n+1}' for n in range(self.U.shape[0]))
-            _U = f"""\n\nTrial Masses:\n{pd.DataFrame(tools.convert_cart_math(self.U),
-                        index=index, columns=['mass'])}"""
-        else:
-            _U = ''
 
-        assembled = _header + _name + _value + _A + _U + _B
-        return assembled
+    @property
+    def shape(self):
+        '''
+        returns shape of Influence coefficient matrix
+        (no. Measuring Points, no. Balancing Planes)
+        '''
+        if (self.M is not None) and (self.N is not None):
+            return (self.M, self.N)
 
 
 
@@ -175,14 +189,13 @@ class Condition():
         """
         self.name = name
 
-    def add(self, alpha:'Alpha instance', A:'initial_vibration numpy.array', name:'string'=''):
+    def add(self, alpha:'Alpha instance', A:'initial_vibration numpy.array'):
         '''
         Method to add a new condition
         Args:
             alpha: Alpha class instance
             A: Initial vibration column array -> numpy array
         '''
-        self.name = name
         if isinstance(alpha, Alpha):
             self.alpha = alpha
         else:
@@ -201,20 +214,28 @@ class Condition():
         except AttributeError:
             raise TypeError('`A` should be passed as "numpy array"')
 
-    def __repr__():
-        pass
+
+    def _info(self):
+        '''
+        Method to summarize the results for condition.
+        '''
+        if self.name:
+            yield ('Name', self.name)
+        if self.alpha is not None:
+            yield ('Condition IC Matrix', str(self.alpha))
+        if self.A is not None:
+            _index = (f'Sensor {m+1}' for m in range(self.A.shape[0]))
+            yield ('Initial Vibration', pd.DataFrame(tools.convert_cart_math(self.A),
+                        index=_index, columns=['Vibration']))
 
 
+    def __repr__(self):
+        '''
+        Method to print out condition value
+        '''
 
-if __name__ == '__main__':
-    alpha1 = Alpha()
-    alpha1.name = 'Turbine'
-    real = np.random.rand(2,2)
-    imag = np.random.rand(2,2)
-    comp= real + imag*1j
-    alpha1.add(A = np.random.rand(3,1)+np.random.rand(3,1)*1j,
-              B=np.random.rand(3,5)+np.random.rand(3,5)*1j,
-              U=np.random.rand(5)+np.random.rand(5)*1j)
-    alpha2 = Alpha()
-    alpha2.add(comp)
-    print(alpha1)
+        formatter = tools.InfoFormatter(name = 'Operation Condition', info_parameters=
+                                        self._info(), level=2)
+
+        return ''.join(formatter.info())
+

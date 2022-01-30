@@ -24,4 +24,5 @@
 - [ ] save and load alpha
 - [ ] print alpha
 - [ ] print model
-
+- [ ] Test package on Windows
+- [ ] ISO grade calculation

@@ -124,5 +124,29 @@ def test_alpha_dim(test_alpha):
         test_alpha.add(A=np.array([[1],[1]]), B=np.array([[1,2], [2,3]]), U='this is non sense')
     assert 'numpy arrays' in str(e_info)
 
+def test_alpha_shape(test_alpha):
+    test_alpha.add(np.random.rand(6,4))
+    assert test_alpha.shape == (6,4)
 
 
+def test_info():
+    # Set random data
+    np.random.seed(42)
+    alpha1 = hs.Alpha()
+    alpha1.name = 'Turbine'
+    m = 3
+    n = 3
+    real = np.random.rand(m, n)
+    imag = np.random.rand(m, n)
+    comp= real + imag*1j
+    # alpha1 from A, B, U
+    alpha1.add(A = np.random.rand(3,1)+np.random.rand(3,1)*1j,
+              B=np.random.rand(3,5)+np.random.rand(3,5)*1j,
+              U=np.random.rand(5)+np.random.rand(5)*1j)
+    # alpha2 from direct_matrix
+    alpha2 = hs.Alpha()
+    alpha2.add(comp)
+    # Condition logging and printing
+    condition1 = hs.Condition(name='Speed 2500')
+    condition1.add(alpha2, A=np.random.rand(m,1))
+    print(alpha1, alpha2, condition1)

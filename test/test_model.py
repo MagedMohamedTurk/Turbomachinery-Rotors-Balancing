@@ -160,6 +160,40 @@ def test_model_conditions():
                                                    [2],
                                                    [2]]))
 
+def test_info_model():
+    # Set random data
+    np.random.seed(42)
+    m = 3
+    n = 3
+    real = np.random.rand(m, n)
+    imag = np.random.rand(m, n)
+    comp= real + imag*1j
+    alpha1 = hs.Alpha()
+    alpha1.add(comp)
+    real = np.random.rand(m, n)
+    imag = np.random.rand(m, n)
+    comp= real + imag*1j
+    alpha2 = hs.Alpha()
+    alpha2.add(comp)
+    # Condition logging and printing
+    condition1 = hs.Condition(name='Speed 1300')
+    condition1.add(alpha2, A=np.random.rand(m,1))
+    condition2 = hs.Condition(name='Speed 2500')
+    condition2.add(alpha2, A=np.random.rand(m,1))
+    model = hs.LeastSquares(conditions=[condition1, condition2])
+    model.solve()
+    angles = np.arange(100,300,10)  # angles
+    split1 = model.create_split()
+    split1.split_setup(0, max_number_weights_per_hole=1, holes_available=[angles]
+                                                   ,weights_available=[0.1])
+    split2 = model.create_split()
+    split2.split_setup(1, max_number_weights_per_hole=1, holes_available=[angles]
+                                                   ,weights_available=[0.2])
+    split1.split_solve()
+    split2.split_solve()
+    split1.update(confirm=True)
+    split2.update(confirm=True)
+    print(model.info())
 
 
 if __name__ == '__main__':

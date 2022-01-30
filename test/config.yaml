@@ -45,7 +45,7 @@ convert_cart_math:
     test_cases : 
         'test_case_1': 
                 - 8j
-                - 8.0@90.0
+                - 8.0 @ 90.0
 
 convert_matrix_to_cart:
     test_cases : 
