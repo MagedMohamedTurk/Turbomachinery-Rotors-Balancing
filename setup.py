@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="hsbalance",
-    version="0.5.1",
+    version="0.5.2",
     author="Maged M.Eltorkoman",
     author_email="newmaged@gmail.com",
     description="Python tools for Practical Modeling and Solving High Speed Rotor Unbalance Problem",
@@ -15,7 +15,7 @@ setuptools.setup(
     project_urls={
         "Bug Tracker": "https://github.com/pypa/sampleproject/issues",
     },
-    install_requires=['cvxpy>=1.1.18', 'pandas>=1.3.5'],
+    install_requires=['cvxpy>=1.1.18', 'pandas>=1.3.5', 'cvxopt>=1.2'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
