@@ -1,6 +1,5 @@
 import numpy as np
 import cmath as cm
-from colorama import Fore, Style
 from typing import Iterable
 import logging
 logger = logging.getLogger(__name__)
@@ -165,7 +164,7 @@ class InfoFormatter:
         '''
         self.info_parameters = info_parameters
         self.name = name
-        self.line_header = f'\n{Fore.GREEN+(30+10*level)*"+"+Style.RESET_ALL}\n'
+        self.line_header = f'\n{(30+10*level)*"+"}\n'
         self.line_separator = f'\n{(20+10*level)*"="}\n'
 
     def info(self):
