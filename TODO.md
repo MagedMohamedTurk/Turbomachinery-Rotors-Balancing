@@ -11,18 +11,18 @@
 - [ ] package test
   - [x] Make test release
   - [ ] make 1.0.0 release  
-- [ ] Test least square with intial conditions
+- [ ] Test least square with initial conditions
 - [x] Refactor Alpha check method 
 - [x] splitting
 - [x] try to make alpha three dimensions with conditions as third dimension.
   - Tried it but cvxpy does not support three dimensions
-- [ ] Change W to be row instead of column vector(maybe keeping w as column as per Goodman)
+- [x] Change W to be row instead of column vector(maybe keeping w as column as per Goodman)
 - [ ] if W is None raise no solution
 - [ ] replace custom error 
 - [x] Make package dependent tests
 - [ ] save and load model
 - [ ] save and load alpha
-- [ ] print alpha
-- [ ] print model
+- [x] print alpha
+- [x] print model
 - [ ] Test package on Windows
 - [ ] ISO grade calculation
