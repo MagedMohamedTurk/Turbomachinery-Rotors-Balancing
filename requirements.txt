@@ -1,0 +1,8 @@
+cvxopt==1.2.7
+cvxpy==1.1.18
+hsbalance==0.5.2
+pytz==2021.3
+six==1.16.0
+matplotlib
+ipympl
+
