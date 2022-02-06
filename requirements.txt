@@ -77,7 +77,6 @@ pbr==5.7.0
 pep517==0.12.0
 pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
 pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
-Pillow==8.4.0
 pkginfo==1.8.2
 pluggy==1.0.0
 prometheus-client @ file:///tmp/build/80754af9/prometheus_client_1637050397234/work
