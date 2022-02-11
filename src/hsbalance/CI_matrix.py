@@ -158,6 +158,23 @@ class Alpha():
                                         self._info())
         return ''.join(formatter.info())
 
+    def save(self, file:str):
+        '''
+        Method to save influence coefficient values
+        '''
+        if isinstance(file, str):
+            self.file = file
+        np.save(file, self.value)
+
+
+    def load(self, file:str):
+        '''
+        Method to load influence coefficient value
+        '''
+        if isinstance(file, str):
+            self.file = file + '.npy'
+        _matrix = np.load(self.file)
+        self.add(direct_matrix=_matrix)
 
     @property
     def shape(self):
@@ -238,4 +255,18 @@ class Condition():
                                         self._info(), level=2)
 
         return ''.join(formatter.info())
+
+def test_save():
+    alpha = Alpha(name='Model_IC')
+    alpha.add(np.random.rand(3, 3))
+    alpha.save('my_alpha')
+
+
+if __name__ == '__main__':
+    test_save()
+    my_alpha = Alpha()
+    my_alpha.load('my_alpha')
+    print(my_alpha)
+
+
 
