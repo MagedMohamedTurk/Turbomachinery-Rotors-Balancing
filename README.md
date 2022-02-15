@@ -10,10 +10,14 @@ The purpose of this project is to solve the problem of turbomachinery [rotor bal
 ![pic](https://img.shields.io/badge/Python-14354C?&logo=python&logoColor=white)
 ![pic](https://img.shields.io/badge/-Jupyter-white?logo=Jupyter)
 [![Generic badge](https://img.shields.io/badge/Build-Dev-red.svg)]()
-[![Generic badge](https://img.shields.io/badge/Test-Passing-Green.svg)]()
+[![Generic badge](https://img.shields.io/badge/Test-Passing-Green.svg)]()  
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F)
  
 HSBALANCE package is a python tool-kit that enables field engineer to do rotor balancing job on large number of measuring and balancing planes. It facilitates testing various scenarios through applying different optimization methods and applying different constraints. The package takes advantage of object oriented programming which makes it easier to build, extend and maintain.  
 The package also make it possible to easily use the code in a notebook which is a great advantage to work freely, try different method of optimization and splitting for your case, get to compare results and RMS errors and even plot charts and diagrams.  
+## Binder  
+Use [mybinder link](https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F) to quickly navigate through examples with no installation required.  
+## Installation  
 To quickly use the package:
 1. Optional create an isolated environment for python 3.8. (for Anaconda users `e.g. $ conda create -n myenv python=3.8`)
 2. `$ pip install hsbalance`
