@@ -32,8 +32,10 @@ This size is convenient for practical rotor balancing (i.e. number of angles ava
 |-|-|-|
 |xpress|56.5 ms ± 4.21 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)|array([2.10034846])|
 |mip_cvxpy[2](#2)| 154 ms ± 1.01 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)|array([2.10034846])|
-|ECOS_BB[3](#3)| 1.62 s ± 6.36 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)|array([2.10034846])|
+|ECOS_BB[3](#3)| 1.62 s ± 6.36 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)|array([2.10034846])|  
+|SCIP[4](#4)| 242 ms ± 19.8 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)|array([2.10034846])|
 <a id="1">[1]</a>  Huang, Bin, et al. "Constrained balancing of two industrial rotor systems: Least squares and min-max approaches." Shock and Vibration 16.1 (2009): 1-12.  
 <a id="2">[2]</a> solving with objective function minimize L1 norm  
-<a id="3">[3]</a> solving with objective function minimize L1 norm
+<a id="3">[3]</a> solving with objective function minimize L1 norm  
+<a id="4">[4]</a> solving with SCIP interface with Python [PySCIPOpt](https://github.com/scipopt/PySCIPOpt). The solver is free, capable of solving MISOCP(Mixed Integer Second Order Cone Programming) and accurate but it is way too slow and not easy to install.
 
