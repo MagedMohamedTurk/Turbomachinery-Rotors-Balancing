@@ -3,6 +3,7 @@ import warnings
 import numpy as np
 import hsbalance.tools as tools
 import pandas as pd
+import pickle
 
 _logger = logging.getLogger(__name__)
 _logger.propagate = False
@@ -256,17 +257,24 @@ class Condition():
 
         return ''.join(formatter.info())
 
-def test_save():
-    alpha = Alpha(name='Model_IC')
-    alpha.add(np.random.rand(3, 3))
-    alpha.save('my_alpha')
+    def save(self, file:str):
+        '''
+        Method to save condition instance.
+        '''
+        if isinstance(file, str):
+            self.file = file
+        with open(self.file, 'wb') as f:
+            pickle.dump(self, f)
 
 
-if __name__ == '__main__':
-    test_save()
-    my_alpha = Alpha()
-    my_alpha.load('my_alpha')
-    print(my_alpha)
 
-
+    def load(self, file:str):
+        '''
+        Method to load condition instance.
+        '''
+        if isinstance(file, str):
+            self.file = file
+        with open(self.file, 'rb') as f:
+            _loaded_instance = pickle.load(f)
+            self.add(_loaded_instance.alpha, _loaded_instance.A)
 
