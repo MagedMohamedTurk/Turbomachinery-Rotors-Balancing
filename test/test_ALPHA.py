@@ -5,6 +5,10 @@ import pytest
 import test_tools
 import warnings
 import hsbalance as hs
+import tempfile
+import logging
+logger = logging.getLogger(__name__)
+temp_file = tempfile.NamedTemporaryFile()
 
 '''This module is for testing ALPHA class'''
 # Reading the test cases from config.yaml file
@@ -150,3 +154,11 @@ def test_info():
     condition1 = hs.Condition(name='Speed 2500')
     condition1.add(alpha2, A=np.random.rand(m,1))
     print(alpha1, alpha2, condition1)
+
+def test_alpha_save_load(test_alpha):
+    np.random.seed(42)
+    test_alpha.add(np.random.rand(6,4))
+    test_alpha.save(temp_file.name)
+    loaded_alpha = hs.Alpha()
+    loaded_alpha.load(temp_file.name)
+    np.testing.assert_allclose(loaded_alpha.value, test_alpha.value)

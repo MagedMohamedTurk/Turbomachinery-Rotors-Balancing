@@ -1,13 +1,14 @@
 import time
-from scipy.interpolate import make_interp_spline
-import matplotlib.pyplot as plt
-import scipy.optimize as opt
 import numpy as np
 import sys
 import yaml
 import pytest
 import test_tools
 import hsbalance as hs
+import tempfile
+import logging
+logger = logging.getLogger(__name__)
+temp_file = tempfile.NamedTemporaryFile()
 
 def test_model_with_no_argument():
     with pytest.raises(TypeError) as e_info:
@@ -195,8 +196,23 @@ def test_info_model():
     split2.update(confirm=True)
     print(model.info())
 
+# Testing save and load conditions
+
+def test_Condition_save_load(test_A, test_alpha):
+    condition = hs.Condition()
+    condition.add(test_alpha, test_A)
+    condition.save(temp_file.name)
+    loaded_condition = hs.Condition()
+    loaded_condition.load(temp_file.name)
+    np.testing.assert_allclose(loaded_condition.alpha.value, test_alpha.value)
+    np.testing.assert_allclose(loaded_condition.A, test_A)
+
 
 if __name__ == '__main__':
+    from scipy.interpolate import make_interp_spline
+    import matplotlib.pyplot as plt
+    import scipy.optimize as opt
+
     def test_performance(n):
         alpha = hs.Alpha()
         real = np.random.uniform(0, 10, [n, n])

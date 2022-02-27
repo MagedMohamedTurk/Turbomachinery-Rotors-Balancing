@@ -8,6 +8,7 @@ import warnings
 
 class _Model:
     """Abstract class for models"""
+    # TODO init model by only name to be able to load from previous saved instance
 
     def __init__(self, A:'initial_vibration'=None, alpha: 'instance of Alpha class'=None,
                  conditions: 'list of condition instances'=None, name:'string'=''):
@@ -289,6 +290,7 @@ class _Model:
     def info(self):
         formatter = tools.InfoFormatter(name='MODEL', info_parameters=self._info(), level=3)
         return ''.join(formatter.info())
+
 
 
 class LeastSquares(_Model):

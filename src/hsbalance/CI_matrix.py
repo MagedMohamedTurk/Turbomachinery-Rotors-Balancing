@@ -3,13 +3,14 @@ import warnings
 import numpy as np
 import hsbalance.tools as tools
 import pandas as pd
+import pickle
 
-logger = logging.getLogger(__name__)
-logger.propagate = False
-logger.setLevel(logging.DEBUG)
-console_handle = logging.StreamHandler()
-console_handle.setLevel(logging.INFO)
-logger.addHandler(console_handle)
+_logger = logging.getLogger(__name__)
+_logger.propagate = False
+_logger.setLevel(logging.DEBUG)
+_console_handle = logging.StreamHandler()
+_console_handle.setLevel(logging.INFO)
+_logger.addHandler(_console_handle)
 
 pd.set_option('display.max_columns', 1000)  # Set maximum number of columns to 1000
 class Alpha():
@@ -106,23 +107,23 @@ class Alpha():
             _check_sym = np.allclose(self.value, self.value.T, 0.1, 1e-06)
             if not _check_sym:
                 warnings.warn('\nWarning: Influence Matrix is asymmetrical!')
-                logger.info('\nInfluence Matrix is asymmetrical, check your data.')
+                _logger.info('\nInfluence Matrix is asymmetrical, check your data.')
             else:
-                logger.info('\nInfluence Matrix is symmetric --> OK')
+                _logger.info('\nInfluence Matrix is symmetric --> OK')
         else:
-            logger.info('\nNot a square matrix --> no exact solution.')
+            _logger.info('\nNot a square matrix --> no exact solution.')
 
         # Checking ILL-CONDITIONED planes
         ill_plane = tools.ill_condition(self.value)
         if ill_plane:
-            logger.info(f'\nIll-conditioned found in plane # {ill_plane}')
+            _logger.info(f'\nIll-conditioned found in plane # {ill_plane}')
             if ill_condition_remove:
-                logger.warn(f'\nRemoving Ill-conditioned plane # {ill_plane}')
-                logger.info(f'\nIC matrix before removing\n{tools.convert_cart_math(self.value)}\n')
+                _logger.warn(f'\nRemoving Ill-conditioned plane # {ill_plane}')
+                _logger.info(f'\nIC matrix before removing\n{tools.convert_cart_math(self.value)}\n')
                 self.value = np.delete(self.value,[ill_plane], axis=1)
-                logger.info(f'\nIC matrix after removing\n{tools.convert_cart_math(self.value)}\n')
+                _logger.info(f'\nIC matrix after removing\n{tools.convert_cart_math(self.value)}\n')
         else:
-            logger.info('\nNo ill conditioned planes --> ok')
+            _logger.info('\nNo ill conditioned planes --> ok')
 
     def _info(self):
         '''
@@ -256,17 +257,24 @@ class Condition():
 
         return ''.join(formatter.info())
 
-def test_save():
-    alpha = Alpha(name='Model_IC')
-    alpha.add(np.random.rand(3, 3))
-    alpha.save('my_alpha')
+    def save(self, file:str):
+        '''
+        Method to save condition instance.
+        '''
+        if isinstance(file, str):
+            self.file = file
+        with open(self.file, 'wb') as f:
+            pickle.dump(self, f)
 
 
-if __name__ == '__main__':
-    test_save()
-    my_alpha = Alpha()
-    my_alpha.load('my_alpha')
-    print(my_alpha)
 
-
+    def load(self, file:str):
+        '''
+        Method to load condition instance.
+        '''
+        if isinstance(file, str):
+            self.file = file
+        with open(self.file, 'rb') as f:
+            _loaded_instance = pickle.load(f)
+            self.add(_loaded_instance.alpha, _loaded_instance.A)
 
