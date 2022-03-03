@@ -21,7 +21,7 @@
 - [ ] replace custom error 
 - [x] Make package dependent tests
 - [ ] save and load model
-- [ ] save and load alpha
+- [x] save and load alpha
 - [x] print alpha
 - [x] print model
 - [ ] Test package on Windows
