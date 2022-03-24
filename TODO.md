@@ -26,3 +26,6 @@
 - [x] print model
 - [ ] Test package on Windows
 - [ ] ISO grade calculation
+- [ ] Improve the readability of model summary
+  - [ ] make the model summary in Panadas table
+  - [ ] export to excel
