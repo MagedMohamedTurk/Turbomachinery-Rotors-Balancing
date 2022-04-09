@@ -69,7 +69,7 @@ class Alpha():
                 # Test dimensions
                 if A.shape[1] > 1:
                     raise tools.CustomError('`A` should be column vector')
-                elif U.ndim > 1:
+                elif U.ndim < 1:
                     raise tools.CustomError('`U` should be row vector')
                 elif B.shape[0] != A.shape[0] or B.shape[1] != U.shape[0]:
                     raise tools.CustomError('`B` dimensions should match `A`and `U`')
@@ -78,7 +78,7 @@ class Alpha():
                     self.B = B
                     self.U = U
                     if not keep_trial:
-                        self.value = (self.B - self.A) / self.U
+                        self.value = (self.B - self.A) @ np.linalg.inv(self.U)
                     else:
                         _A_keep_trial = np.delete((np.insert(self.B, [0], self.A, axis=1)),
                                                  -1, axis=1)
@@ -148,6 +148,7 @@ class Alpha():
                         index=_index, columns=_columns))
         if self.U is not None:
             _index = (f'Plane {n+1}' for n in range(self.U.shape[0]))
+            _columns = (f'Plane {n+1}' for n in range(self.U.shape[1])
             yield ('Trial Masses', pd.DataFrame(tools.convert_cart_math(self.U),
                         index=_index, columns=['Mass']))
 
