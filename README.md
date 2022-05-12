@@ -252,6 +252,16 @@ plt.ylabel('Time (seconds)')
 plt.title('Performance Test of LeastSquares model')
 plt.show()
 ```
+### Test Cases   
+A lot of test cases were extracted from references and text books.
+To run the test cases you can automatically run the following in the main repo directory:  
+$ make test  
+
+To rebuild everything related to the package locally from the repo and run the tests:  
+$ make  
+
+
+
 ## The Rotor Balancing Module
 The original attempt by me was to create a single python module that takes user variables and give results in an easy way that the balancing personnel does not need heavy knowledge in programming or python language.  
 This module is still available in .\Rotor_Balance_Module\, in order to use it:
@@ -262,7 +272,7 @@ This module is still available in .\Rotor_Balance_Module\, in order to use it:
 4. Installed required packages (cvxpy - panadas - click)   
 `$ pip install -r requirement.txt`
 5. Run the program: 
-`$ python -m Rotor_Balanceing `
+`$ python -m Rotor_Balancing `
 
 ## Describing the problem  
 ### Back to Basics

@@ -2,7 +2,6 @@ import numpy as np
 import sys
 import yaml
 import pytest
-sys.path.insert(0, '../')
 from hsbalance import tools
 
 # Import test data from test_cases.yaml
@@ -18,7 +17,7 @@ def get_tests_from_yaml(function):
 
     """
     try:
-        with open('config.yaml') as f:
+        with open('./test/config.yaml') as f:
             test_cases = yaml.load(f, Loader=yaml.FullLoader)
             # Loading global parameters
             timeout = test_cases['timeout']  # TODO check time to be a number
