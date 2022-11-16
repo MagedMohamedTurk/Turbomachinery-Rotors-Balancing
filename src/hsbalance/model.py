@@ -2,7 +2,7 @@ import cmath
 import cvxpy as cp
 import numpy as np
 import hsbalance.tools as tools
-from hsbalance.CI_matrix import Alpha, Condition
+from hsbalance.IC_matrix import Alpha, Condition
 import pandas as pd
 import warnings
 

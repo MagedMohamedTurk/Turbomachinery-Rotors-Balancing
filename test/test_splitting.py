@@ -6,7 +6,7 @@ sys.path.insert(0, '../')
 from hsbalance import model
 from hsbalance import tools
 import test_tools
-from hsbalance.CI_matrix import Alpha
+from hsbalance.IC_matrix import Alpha
 
 
 tests, tests_id, timeout = test_tools.get_tests_from_yaml('splitting')
