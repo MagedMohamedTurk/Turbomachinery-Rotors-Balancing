@@ -16,33 +16,58 @@ pd.set_option('display.max_columns', 1000)  # Set maximum number of columns to 1
 class Alpha():
 
     """
-    Docstring for ALPHA.
-    Alpha is the an influence coefficient matrix
-    Influence coefficient matrix is a representation of the change of vibration
-    vector in a measuring point when putting a unit weight on a balancing plane.
+    ``Alpha``: **Influence Coefficient Matrix**
+    ------------------------------------------------
+
+         *Influence coefficient matrix* is a representation of the change of vibration
+         vector in a measuring point when putting a unit weight on a balancing plane.
     """
 
     def __init__(self:'Influence matrix', name:'string'=''):
         """
         Instantiate an instance of Alpha
-        name: optional name of Alpha
+        :param name: Name of Alpha, defaults to `None`
+        :type name: str
         """
         self.name = name
         self.value = None
 
-    def add(self, direct_matrix:'np.array'=None, A:'initial_vibration numpy.array'=None,
-            B:'trial matrix numpy.array'=None, U:'trial weight row vector numpy.array'=None,
-            keep_trial:'optional keep the previous trial weight in every succeeding trial'=False,
-            name:'string'=''):
-        '''
-        Method to add new values for Alpha instance
-        either the direct_matrix is needed or ALL of (A, B, U)
-        Args:
-            direct_matrix: numpy array M rows -> measuring points,
-                        N columns -> balancing planes
-            A: Initial vibration column array -> numpy array
-            B: Trial matrix MxN array -> numpy array
-        '''
+    def add(self, direct_matrix: np.array = None, 
+            A: np.array = None,
+            B: np.array = None, 
+            U: np.array = None,
+            keep_trial: bool = False,
+            name: str = '') -> None:
+        """
+        :class:`Alpha` Method to add new values for Alpha instance
+
+        **Important**: either the direct_matrix is needed or **ALL** of ``(A, B, U)``
+        
+        :param direct_matrix: ``M x N`` matrix rows where:
+
+                                ``M``: Number of rows representing the measuring points 
+
+                                ``N``: Number of columns -> balancing planes
+        :type direct_matrix: Numpy ndarray
+        :param A: Initial vibration column vector
+        :type A: Numpy ndarray ``M x 1`` 
+        :param B: Trial Mass Matrix 
+        :type B: Numpy ndarray ``M x N``
+        :param U: Trial weight row vector 
+        :type B: Numpy ndarray ``M``
+        :param keep_trial: defaults to `False` ``true:`` Keeps the previous trial weight in every succeeding trials, It means the trial weights are not removed after their run.
+        :type keep_trial: bool, optional 
+        :param name: Describes the ``Alpha`` matrix with a name, defaults to None 
+        :type name: str, optional
+        :raises IndexError: if direct_matrix is single dimensional.
+        :raises CustomError: if direct_matrix rows is less than columns.
+        :raises ValueError: if both direct_matrix and ``(A, B, U)`` were given.
+        :raises CustomError: if ``A`` is not a column matrix.
+        :raises CustomError: if ``U`` is not a row vector.
+        :raises CustomError: if ``B`` dimensions does not match ``A`` and ``U``
+        :raises CustomError: if either direct_matrix or ``(A, B, U)`` were not passed as ``Numpy ndArray``.
+
+        """
         self.A = A
         self.B = B
         self.U = U
