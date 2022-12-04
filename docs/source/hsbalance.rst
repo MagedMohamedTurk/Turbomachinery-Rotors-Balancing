@@ -4,7 +4,7 @@ hsbalance package
 Submodules
 ----------
 
-hsbalance.IC\_matrix module
+IC\_matrix module
 ---------------------------
 
 .. automodule:: hsbalance.IC_matrix
@@ -12,7 +12,7 @@ hsbalance.IC\_matrix module
    :undoc-members:
    :show-inheritance:
 
-hsbalance.model module
+model module
 ----------------------
 
 .. automodule:: hsbalance.model
@@ -20,7 +20,7 @@ hsbalance.model module
    :undoc-members:
    :show-inheritance:
 
-hsbalance.tools module
+tools module
 ----------------------
 
 .. automodule:: hsbalance.tools

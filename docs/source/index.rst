@@ -6,10 +6,13 @@
 Welcome to hsbalance's documentation!
 =====================================
 
+.. include:: intro.rst
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-   modules
+   :maxdepth: 3
+
+   README <README>
+   API Reference<modules>
 
 
 
