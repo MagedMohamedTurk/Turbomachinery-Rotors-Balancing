@@ -11,7 +11,7 @@ Welcome to hsbalance's documentation!
 .. toctree::
    :maxdepth: 3
 
-   README <README>
+   Documentations <README>
    API Reference<modules>
 
 

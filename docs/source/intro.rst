@@ -24,29 +24,42 @@ Introduction
   different optimization methods and applying different constraints. The
   package takes advantage of object oriented programming which makes it
   easier to build, extend and maintain.
-| The package also make it possible to easily use the code in a notebook
+| The package also make it possible to easily use the code in a `notebook <https://jupyter.org/>`__
   which is a great advantage to work freely, try different method of
   optimization and splitting for your case, get to compare results and
   RMS errors and even plot charts and diagrams.
 
 Binder:
-======
+=======
 
 | Use `mybinder
-  link <https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F>`__
-  to quickly navigate through examples with no installation required.
+  link <https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F>`__ to quickly navigate through examples with no installation required.
+
 Installation:
 =============
 
-| To quickly use the package: 
-.. admonition:: Optional
+Prerequisites:
+--------------
 
-    1. Create an isolated environment for python 3.8. (for Anaconda users):
-        ``$ conda create -n myenv python=3.8``
+    `Python <https://www.python.org/downloads/release/python-380/>`__ >= 3.8
 
-2. Using PIP:
-    ``$ pip install hsbalance`` 
-3. Take a look at the notebooks in
+Quick Use:
+----------
+
+1. Create an isolated environment for python 3.8. :
+
+.. note:: This step is optional
+
+    * for `Anaconda <https://www.anaconda.com/>`__ users:
+        ``$ conda create -n hsbalance python=3.8``
+
+2. Installing Using PIP:
+        ``$ pip install hsbalance``
+
+hsbalance In Action:
+====================
+
+take a tour in `examples <https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/tree/master/examples>`__ to see ``hsbalance`` in action.
 
 .. |Downloads| image:: https://pepy.tech/badge/hsbalance
 .. |License: MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
