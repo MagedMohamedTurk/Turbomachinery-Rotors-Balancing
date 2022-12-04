@@ -8,11 +8,14 @@ Welcome to hsbalance's documentation!
 
 .. include:: intro.rst
 
+Table of Contents
+=================
+
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    Documentations <README>
-   API Reference<modules>
+   API Reference <hsbalance>
 
 
 

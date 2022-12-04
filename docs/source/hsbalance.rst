@@ -1,11 +1,8 @@
 hsbalance package
 =================
 
-Submodules
-----------
-
 IC\_matrix module
----------------------------
++++++++++++++++++
 
 .. automodule:: hsbalance.IC_matrix
    :members:
@@ -13,7 +10,7 @@ IC\_matrix module
    :show-inheritance:
 
 model module
-----------------------
+++++++++++++
 
 .. automodule:: hsbalance.model
    :members:
@@ -21,17 +18,10 @@ model module
    :show-inheritance:
 
 tools module
-----------------------
+++++++++++++
 
 .. automodule:: hsbalance.tools
    :members:
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: hsbalance
-   :members:
-   :undoc-members:
-   :show-inheritance:
