@@ -13,7 +13,9 @@ author = 'Maged Torkoman'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary',
+            'sphinx_copybutton',]
+
 templates_path = ['_templates']
 exclude_patterns = []
 

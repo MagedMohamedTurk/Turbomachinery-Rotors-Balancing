@@ -33,7 +33,7 @@ Coding
 ++++++
 
 1. Stating Problem Data
-   Vibration can be expressed in ``hsbalance`` as string ‘amplitude @
+   Vibration can be expressed in ``hsBalance`` as string ‘amplitude @
    phase’ where amplitude is in any desired unit (micro - mils - mm/sec)
    and phase in degrees as measured by tachometer.
    The following nomenclature are taken from Goodman’s paper. **A**:
@@ -256,7 +256,7 @@ Performance Test
    from scipy.interpolate import make_interp_spline
    import numpy as np
    import matplotlib.pyplot as plt
-   from hsbalance import Alpha, model, tools
+   from hsBalance import Alpha, model, tools
 
 
 
@@ -311,6 +311,8 @@ Test Cases
   run the tests:
 | $ make
 
+.. _module:
+
 The Rotor Balancing Module
 --------------------------
 
@@ -328,6 +330,8 @@ The Rotor Balancing Module
   packages (cvxpy - panadas - click)
 | ``$ pip install -r requirement.txt`` 5. Run the program:
   ``$ python -m Rotor_Balancing``
+
+.. _primer:
 
 Describing the problem
 ----------------------
