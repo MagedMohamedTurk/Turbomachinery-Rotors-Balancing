@@ -6,7 +6,7 @@
 Welcome to hsbalance's documentation!
 =====================================
 
-.. include:: intro.rst
+.. include:: README.rst
 
 Table of Contents
 =================
@@ -14,7 +14,7 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   Documentations <README>
+   Documentations <documentation>
    API Reference <hsbalance>
 
 
