@@ -25,4 +25,12 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
+html_theme_options = {
+        'show_powered_by' : False,
+        'githuv_user' : 'requests',
+        'github_repo' : 'requests',
+        'github_banner' : True,
+        'show_related' : False,
+        'note_bg' : '#FFF59C'
+        }
 html_static_path = ['_static']
