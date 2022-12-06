@@ -9,8 +9,6 @@ Documentations
 
 .. include:: README.rst
 
-.. include:: walkThroughExample.rst
-
 .. include:: performanceTest.rst
 
 .. include:: testCases.rst
