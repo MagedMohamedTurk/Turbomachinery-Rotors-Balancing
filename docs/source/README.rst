@@ -6,7 +6,8 @@ Turbomachinery-Flexible-Rotors-Balancing
 
 Python Tools to Model and Solve the problem of High speed Rotor Balancing.
 
-Jump to :ref:`The Walk-Through Example <walkthrough example>` for a quick starter. 
+Jump to :ref:`The Walk-Through Example <walkthrough example>` for
+a quick starter.
 
 
 
@@ -17,24 +18,28 @@ Introduction
   when more than one `critical speed <https://en.wikipedia.org/wiki/Critical_speed>`__ are required and where there are a large
   number of measuring points.
 
-.. admonition:: Rotor Balancing 
+.. admonition:: Rotor Balancing
 
      When a rotating object does not have a *perfect* mass distribution, the `center of gravity <https://en.wikipedia.org/wiki/Center_of_mass#Center_of_gravity>`__ does not lay on its `rotation axis <https://simple.wikipedia.org/wiki/Axis_of_rotation>`__.
-     This causes rotating `centrifugal force <https://en.wikipedia.org/wiki/Centrifugal_force>`__ to occur and generates `vibrating <http://www.vibrationschool.com/mans/SpecInter/SpecInter02.htm>`__ force transmitted to the support `bearings <https://en.wikipedia.org/wiki/Bearing_(mechanical)>`__. 
-     
+     This causes rotating `centrifugal force <https://en.wikipedia.org/wiki/Centrifugal_force>`__ to occur and generates `vibrating <http://www.vibrationschool.com/mans/SpecInter/SpecInter02.htm>`__ force transmitted to the support `bearings <https://en.wikipedia.org/wiki/Bearing_(mechanical)>`__.
      | The vibration forces is usually of destructive type and reduces the life of the machine.
      | Perfect mass distribution is generally impossible to achieve in real world, so the need to reduce the effect of unbalance force is needed.
+
      The solution is usually to install a counter weight to produce the same magnitude of force as mush as the unbalance but in the opposite direction. This is called rotor balancing.
 
-| If you wish to be more familiar to dynamic rotor balancing and this documentation terminology refer to :ref:`primer to rotor balancing <primer>`
+If you wish to be more familiar to dynamic rotor balancing and
+this documentation terminology
+refer to :ref:`primer to rotor balancing <primer>`
 
 
 What is ``hsBalance``?
 ----------------------
 
-hsBalance is Python package used as an API interface to provide programmers with tools to analyze balancing flexible rotors.
+hsBalance is Python package used as an API interface
+to provide programmers with tools to analyze balancing
+flexible rotors.
 
-.. note:: This is **not** a user interacting program which asks for inputs and give outputs back. A premitive trial by me was 
+.. note:: This is **not** a user interacting program which asks for inputs and give outputs back. A premitive trial by me was
    :ref:`this program <module>` *(which still needs heavy documentation to be used properly)*.
 
 
@@ -65,7 +70,7 @@ Binder
 
 Installation
 ------------
-.. warning:: The installation steps was tested in Linux OS, other systems may differ accordingly. 
+.. warning:: The installation steps was tested in Linux OS, other systems may differ accordingly.
 
 Prerequisites
 +++++++++++++
@@ -91,7 +96,7 @@ Quick Use
             $ virtualenv hsbalance
             $ source hsbalance/bin/activate
 
-        OR: To specify python 3.8 version 
+        OR: To specify python 3.8 version
 
         ::
 
@@ -113,7 +118,9 @@ Take a tour in `examples <https://github.com/MagedMohamedTurk/Turbomachinery-Rot
 Walkthrough Example
 -------------------
 
-A walkthrough through an example with detailed discussion can be found :ref:`here <walkthrough example>`.
+A walkthrough through an example with detailed
+discussion can be found
+:ref:`here <walkthrough example>`.
 
 
 .. |Downloads| image:: https://pepy.tech/badge/hsbalance
