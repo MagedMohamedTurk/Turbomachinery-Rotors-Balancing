@@ -38,20 +38,22 @@ def convert_to_cartesian(polar):
     return complex(polar[0]*cm.cos(theta), polar[0] * cm.sin(theta))
 
 
-def convert_math_cart(str):
+def convert_math_cart(string):
     '''
     docs: Convert from polar mathematical expression to cartesian.
     :inputs:
-    str: mathematical expression for polar number in form of
+    string: mathematical expression for polar number in form of
         modulus@angle(degrees) ex. 12@20 -> 12 at 20 degree angle.
     output: Complex number in cartesian number ex. 12+23j
          -> <class 'complex'>
     '''
+
     # TODO BUG: accept real numbers without @
-    polar = tuple(map(float, str.split(sep='@')))
+    polar = tuple(map(float, string.split(sep='@')))
     return convert_to_cartesian(polar)
 
 convert_math_cart = np.vectorize(convert_math_cart)
+
 
 def convert_cart_math(complex_num):
     """TODO: inverse of convert_math_cart
@@ -64,6 +66,7 @@ def convert_cart_math(complex_num):
     return (str(round(polar[0], 3)))+' @ '+(str(round(polar[1], 1)))
 
 convert_cart_math = np.vectorize(convert_cart_math)
+
 def convert_matrix_to_cart(ALPHA_math):
     """
     docs: Convert influence coeffecient matrix ALPHA from mathematical expression
@@ -180,7 +183,6 @@ class InfoFormatter:
                     }{self.line_separator}End of {title}{
                     self.line_header}
                    '''
-
 
 
 

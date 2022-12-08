@@ -1,8 +1,8 @@
 
 .. _references:
 
-References:
------------
+References
+----------
 
 1. Goodman, Thomas P. “A least-squares method for computing balance
    corrections.” (1964): 273-277. Foiles W.C., Allaire P.E., and Gunter

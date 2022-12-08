@@ -1,8 +1,8 @@
 
 .. _contribution:
 
-How to Contribute:
-------------------
+How to Contribute
+-----------------
 
 | You can help the project in various ways:
 | 1. Star, fork and clone the repository to keep the project active. 2.

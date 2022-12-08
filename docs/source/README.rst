@@ -2,9 +2,13 @@
 .. _README:
 
 Turbomachinery-Flexible-Rotors-Balancing
-----------------------------------------
+========================================
 
 Python Tools to Model and Solve the problem of High speed Rotor Balancing.
+
+Jump to :ref:`The Walk-Through Example <walkthrough example>` for a quick starter. 
+
+
 
 Introduction
 ------------
@@ -13,7 +17,7 @@ Introduction
   when more than one `critical speed <https://en.wikipedia.org/wiki/Critical_speed>`__ are required and where there are a large
   number of measuring points.
 
-.. admonition:: Rotor Balancing... 
+.. admonition:: Rotor Balancing 
 
      When a rotating object does not have a *perfect* mass distribution, the `center of gravity <https://en.wikipedia.org/wiki/Center_of_mass#Center_of_gravity>`__ does not lay on its `rotation axis <https://simple.wikipedia.org/wiki/Axis_of_rotation>`__.
      This causes rotating `centrifugal force <https://en.wikipedia.org/wiki/Centrifugal_force>`__ to occur and generates `vibrating <http://www.vibrationschool.com/mans/SpecInter/SpecInter02.htm>`__ force transmitted to the support `bearings <https://en.wikipedia.org/wiki/Bearing_(mechanical)>`__. 
@@ -36,8 +40,8 @@ hsBalance is Python package used as an API interface to provide programmers with
 
 
 
-``hsBalance`` Package  :
-------------------------
+``hsBalance`` Package
+---------------------
 
 | |Downloads| |License: MIT| |pic1| |pic2| |Generic badge1| |Generic badge2|
 | |Binder|
@@ -53,23 +57,23 @@ hsBalance is Python package used as an API interface to provide programmers with
   optimization and splitting for your case, get to compare results and
   RMS errors and even plot charts and diagrams.
 
-Binder:
--------
+Binder
+------
 
 | Use `mybinder
   link <https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F>`__ to quickly navigate through examples with no installation required.
 
-Installation:
--------------
+Installation
+------------
 .. warning:: The installation steps was tested in Linux OS, other systems may differ accordingly. 
 
-Prerequisites:
-++++++++++++++
+Prerequisites
++++++++++++++
 
     `Python <https://www.python.org/downloads/release/python-380/>`__ >= 3.8
 
-Quick Use:
-++++++++++
+Quick Use
++++++++++
 
 1. Create an isolated virtual environment for python 3.8. :
 
@@ -101,13 +105,13 @@ Quick Use:
 
         $ pip install hsbalance
 
-hsBalance In Action:
---------------------
+hsBalance In Action
+-------------------
 
 Take a tour in `examples <https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/tree/master/examples>`__ to see ``hsBalance`` in action.
 
-Walkthrough Example:
---------------------
+Walkthrough Example
+-------------------
 
 A walkthrough through an example with detailed discussion can be found :ref:`here <walkthrough example>`.
 

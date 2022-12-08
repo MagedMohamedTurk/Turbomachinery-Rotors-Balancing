@@ -1,8 +1,10 @@
 
 .. _walkthrough example:
 
-Walkthrough Example
--------------------
+Walk-through Example
+--------------------
+
+.. _data:
 
 Data
 ++++
@@ -10,6 +12,8 @@ Data
 The example is taken from B&K document
 (https://www.bksv.com/media/doc/17-227.pdf) Table 2 for example 6.
 
+.. _Table-1:
+   
 ================= ================== =================
 Trial Mass        Sensor 1           Sensor 2
 ================= ================== =================
@@ -18,33 +22,84 @@ None              170 mm/s @ 112 deg 53 mm/s @ 78 deg
 1.15 g on Plane 2 185 mm/s @ 115 deg 77 mm/s @ 104 deg
 ================= ================== =================
 
+.. _figure-1:
+
+|schema|
+
 Coding
 ++++++
 
-1. Stating Problem Data
-   Vibration can be expressed in ``hsBalance`` as string ‘amplitude @
-   phase’ where amplitude is in any desired unit (micro - mils - mm/sec)
+1. **Stating Problem Data:**
+
+   Vibration can be expressed in ``hsBalance`` as ``string`` *‘amplitude @
+   phase’*.
+   
+   :func:`hsbalance.tools.convert_matrix_to_cart` function is used to parse the vibration value from the mathematical like expression to Cartesian.
+
+   Where amplitude is in any desired unit (micro - mils - mm/sec)
    and phase in degrees as measured by tachometer.
-   The following nomenclature are taken from Goodman’s paper. **A**:
-   Initial Condition Matrix should be input as nested column vector (a
-   list of a list) –> shape *M x 1* **B**: Trial masses Runs Matrix
-   should be input as nested column vector (list of lists) –> shape *M x
-   N*
-   **U**: Trial masses vector should be input as nested column vector (a
-   list) –> Shape *N X 1* Where
-   *M* : Number of measuring points (number of sensors x number of
-   balancing speeds)
-   *N* : Number of balancing planes
+
+   .. note:: It does not matter the units of measurments or the phase reference in the balancing problem as long as it is consistance along the whole problem.
+
+
+.. admonition:: Nomenclatures
+
+    The following nomenclature are taken from `Goodman’s paper <references>`__. 
+
+    .. _A:
+    **A**: 
+    Initial Condition Matrix should be input as nested column vector (a
+    list of a list) –> *shape M x 1* 
+
+    .. _B:
+
+    **B**: Trial Runs Matrix
+    should be input as nested column vector (list of lists) –> *shape M x
+    N*
+
+    .. _U:
+
+    **U**: Trial masses vector should be input as nested column vector (a
+    list) –> *shape N X 1* 
+
+    Where
+
+    .. _M:
+
+    **M** : Number of measuring points (number of sensors x number of
+    balancing speeds)
+
+    .. _N:
+
+    **N** : Number of balancing planes
+
+
+    Refer to the schematic drawing in :ref:`figure-1 <figure-1>`.
+
+``hsBalance`` Modeling is done by creating Influence coefficient matrix ``Alpha`` by either direct matrix or :ref:`A <A>`, :ref:`B <B>` and :ref:`U <U>` (not both). Then taking the Alpha matrix into a model with initial conditions will results the correction weights that should balance the rotor.
+
+|model|
+
+a. :ref:`Initial vibration column matrix A <A>` which can be written from the first Row in Table-1_ above.
+::
+
+   A = [['170@112'], ['53@78']]   
+
+b. :ref:`Trial Run Matrix B <B>` can be written from the second and third rows of the Table-1_.
 
 ::
 
-   A = [['170@112'], ['53@78']]  # --> Initial vibration conditions First Row in Table  above.  
    B = [['235@94', '185@115'],  # --> Vibration at sensor 1 when trial masses were added at plane 1&2 (First column for both trial runs)  
         ['58@68', '77@104']]  # Vibration at sensor 2 when trial masses were added at plane 1&2 (Second column for both trial runs)  
-   U = ['1.15@0', '1.15@0']  # Trial masses 2.5 g at plane 1 and 2 consequently
 
-2. Convert from mathematical expression into complex numbers:
-   using ``convert_math_cart`` function
+c. :ref:`Trial Mass row Matrix U <U>` can be written from the first column of Table-1_.
+
+::
+
+   U = ['1.15@0', '1.15@0']  
+
+2. **Convert from mathematical expression into complex numbers**:
+   using :func:`hsbalance.tools.convert_matrix_to_cart` function
 
 ::
 
@@ -52,15 +107,15 @@ Coding
    B = hs.convert_math_cart(B)
    U = hs.convert_math_cart(U)
 
-3. Create Influence Coefficient Matrix Alpha
+.. note:: :func:`hsbalance.tools.convert_matrix_to_cart` and `hsbalance.tools.convert_math_cart` are basically the same. The first is just `a vectorized version <https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html>`__ from the later.
+3. **Create Influence Coefficient Matrix Alpha** :class:`hsbalance.IC_matrix.Alpha`
 
 ::
 
    alpha = hs.Alpha()  # Instantiate Alpha class
-   alpha.add(A=A, B=B, U=U)
+   alpha.add(A=A, B=B, U=U) 
 
-4. Now we have alpha instance and initial condition A; we can create a
-   model
+4. Now we have Alpha (:class:`hsbalance.IC_matrix.Alpha`) instance and initial condition :ref:`A <A>` ; we can create a model :class:`hsbalance.model.LeastSquares`.
 
 ::
 
@@ -187,17 +242,17 @@ Output
 Discussion
 ++++++++++
 
-5. As expected for when *M* = *N*, we can have an exact solution of the
-   model and residual vibration and rmse comes to zero.
-   The Real problem arises when *M* > *N* which is quite normal in large
+5. As expected for when :ref:`M <M>` = :ref:`N <N>`,  we can have an exact solution of the
+   model and residual vibration and RMSE comes to zero.
+   The Real problem arises when :ref:`M <M>` > :ref:`N <N>` which is quite normal in large
    machines where two proximity installed in each bearing and number of
    bearings is high. Moreover, the number of balancing speeds can be up
    to 3 or 4 speeds (large machinery usually exceeds their first
-   critical speeds). Recall that *M = Number of sensors x number of
+   critical speeds). Recall that :ref:`M <M>` = Number of sensors x number of
    speeds*.
 6. In this case there is no exact solution and we are seeking for
    optimized solution that minimized the error.
-7. ``hsbalace`` package provides (till now) Three types of optimization
+7. ``hsBalace`` package provides (till now) Three types of optimization
    models:
 
 a. **Least Squares model**: Minimize the square errors, this is the
@@ -222,4 +277,12 @@ c. **LMI**: Linear Matrix Inequality model which allows lazy
    limit), other planes can be considered non critical like casing
    sensors using accelerometers which we need to only to get the
    vibration below the alarm limit.
-   For more details take a tour over the notebooks in ``examples``
+   
+   For more details take a tour over the notebooks in `examples <https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/tree/master/examples>`__
+
+
+
+
+
+.. |schema| image:: /media/balancing-schema.svg 
+.. |model| image:: /media/hsbalance-model.svg

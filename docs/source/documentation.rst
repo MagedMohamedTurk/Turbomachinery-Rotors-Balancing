@@ -7,18 +7,21 @@ Documentations
 ..
 
 
-.. include:: README.rst
+.. toctree::
+   :maxdepth: 2
+   
+   README
 
-.. include:: performanceTest.rst
+   performanceTest
 
-.. include:: testCases.rst
+   testCases
 
-.. include:: module.rst
+   module
 
-.. include:: primer.rst
+   primer
 
-.. include:: references.rst
+   references
 
-.. include:: contribution.rst
+   contribution
 
-.. include:: aboutTheAuthor.rst
+   aboutTheAuthor
