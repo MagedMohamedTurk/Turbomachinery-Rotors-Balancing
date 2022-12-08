@@ -4,15 +4,20 @@
 Performance Test 
 ----------------
 
-| I tested the package against injected random
-  Influence coefficient matrices (Alpha) with N x N size. The output
-  can be summarized in the following plot. |plot|
+| The package was tested against injected random
+  Influence coefficient matrices :class:`hsbalance.IC_matrix.Alpha` with N x N size. The output
+  can be summarized in the following plot. 
+
+
+.. _performance-test-plot:
+
+|performance_test|
 
 | The graph was a test for the Least Squares model. It shows a good time
   performance of 800 x 800 matrix under 3 minutes.
 | The hardware and software for the machine running the test can be
-  found `data/test_conditions.txt <./data/test_conditions.txt>`__
-| The code below is to generate the previous plot.
+  found `data/test_conditions.txt <https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/blob/master/data/test_conditions.txt>`__
+| The code below is to generate the previous :ref:`plot <performance-test-plot>`.
 
 ::
 
@@ -21,7 +26,7 @@ Performance Test
    from scipy.interpolate import make_interp_spline
    import numpy as np
    import matplotlib.pyplot as plt
-   from hsBalance import Alpha, model, tools
+   from hsbalance import Alpha, model, tools
 
 
 
@@ -63,3 +68,8 @@ Performance Test
    plt.ylabel('Time (seconds)')
    plt.title('Performance Test of LeastSquares model')
    plt.show()
+
+
+
+
+.. |performance_test| image:: ../../data/performance_test.png
