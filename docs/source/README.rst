@@ -5,6 +5,17 @@ Turbomachinery-Flexible-Rotors-Balancing
 ========================================
 
 Python Tools to Model and Solve the problem of High speed Rotor Balancing.
+`hsbalance` was built on the shoulders of great packages 🛠️💡😍 :  
+
+1. `CVXPY <https://www.cvxpy.org/>`__: The core package that is used to process the optimization problems needed.   
+
+2. `pandas <https://pandas.pydata.org/>`__: For printing tabulated results.    
+
+3. `Numpy <https://pandas.pydata.org/>`__: For Linear Algebra.    
+
+4. `Xpress <https://www.fico.com/en/products/fico-xpress-solver>`__ : Solver that is used to solve the splitting mass problems.
+
+
 
 Jump to :ref:`The Walk-Through Example <walkthrough example>` for
 a quick starter.
@@ -39,8 +50,8 @@ hsBalance is Python package used as an API interface
 to provide programmers with tools to analyze balancing
 flexible rotors.
 
-.. note:: This is **not** a user interacting program which asks for inputs and give outputs back. A premitive trial by me was
-   :ref:`this program <module>` *(which still needs heavy documentation to be used properly)*.
+.. note:: This is **not** a user interacting program which asks for inputs and gives outputs back. A premitive trial by me was
+   :ref:`this program <module>` *(which still needs software refactoring and heavy documentation to be used properly)*.
 
 
 
