@@ -81,7 +81,7 @@ Binder
 
 Installation
 ------------
-.. warning:: The installation steps was tested in Linux OS, other systems may differ accordingly.
+.. warning:: The installation steps were tested in Linux OS, other systems may differ accordingly.
 
 Prerequisites
 +++++++++++++
