@@ -3,6 +3,9 @@ Python Tools to Model and Solve the problem of High speed Rotor Balancing.
 ## Introduction  
 The purpose of this project is to solve the problem of turbomachinery [rotor balancing](https://en.wikipedia.org/wiki/Rotating_unbalance) when more than critical speed are required and where there are a large number of bearings.  
 
+
+NEW!!! Documentations Page in progress, Please Visit [Documentations](https://magedmohamedturk.github.io/Turbomachinery-Rotors-Balancing/)
+
 ## `hsbalance` Package:
 
 [![Downloads](https://pepy.tech/badge/hsbalance)](https://pepy.tech/project/hsbalance)
