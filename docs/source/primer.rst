@@ -26,7 +26,7 @@ Back to Basics
         +-----------------------+-----------------------+
 
 
-Wkhere :math:`F_{unbalance}` is the centerifugal force generated due to the eccentricty of CG off the CR by the amount of distance r and can be calculated from the equation:
+Where :math:`F_{unbalance}` is the centerifugal force generated due to the eccentricty of CG off the CR by the amount of distance r and can be calculated from the equation:
 
 .. math:: F_{unbalance} = m\cdot\omega^2\cdot r 
    :label: centerifugal
