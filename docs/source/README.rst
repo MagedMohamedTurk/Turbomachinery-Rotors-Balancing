@@ -1,6 +1,5 @@
 
-.. _README:
-
+.. _readme:
 Turbomachinery-Flexible-Rotors-Balancing
 ========================================
 

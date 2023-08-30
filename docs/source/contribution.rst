@@ -22,4 +22,8 @@ How to Contribute
 | 5. If you are a python developer you can contribute in the actual code. (fork
   and pull request). 
 
-| 6. |“Buy Me A Coffee”| ☕☕
+| 6. :ref:`Buy-Me_Coffee <buy-me>` ☕☕
+
+
+
+

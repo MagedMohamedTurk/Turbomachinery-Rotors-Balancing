@@ -13,12 +13,13 @@ author = 'Maged Torkoman'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary',
-            'sphinx_copybutton',]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx.ext.mathjax', 'sphinx_copybutton',]
 
 templates_path = ['_templates']
-exclude_patterns = []
+mathjax_path = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
+
+exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
