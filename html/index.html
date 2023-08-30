@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Welcome to hsbalance’s documentation! &#8212; hsbalance  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentations" href="documentation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="welcome-to-hsbalance-s-documentation">
+<h1>Welcome to hsbalance’s documentation!<a class="headerlink" href="#welcome-to-hsbalance-s-documentation" title="Permalink to this heading">¶</a></h1>
+</section>
+<section id="turbomachinery-flexible-rotors-balancing">
+<span id="readme"></span><h1>Turbomachinery-Flexible-Rotors-Balancing<a class="headerlink" href="#turbomachinery-flexible-rotors-balancing" title="Permalink to this heading">¶</a></h1>
+<p>Python Tools to Model and Solve the problem of High speed Rotor Balancing.
+<cite>hsbalance</cite> was built on the shoulders of great packages 🛠️💡😍 :</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.cvxpy.org/">CVXPY</a>: The core package that is used to process the optimization problems needed.</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a>: For printing tabulated results.</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">Numpy</a>: For Linear Algebra.</p></li>
+<li><p><a class="reference external" href="https://www.fico.com/en/products/fico-xpress-solver">Xpress</a> : Solver that is used to solve the splitting mass problems.</p></li>
+</ol>
+<p>Jump to <a class="reference internal" href="walkThroughExample.html#walkthrough-example"><span class="std std-ref">The Walk-Through Example</span></a> for
+a quick starter.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line">The purpose of this project is to solve the problem of turbomachinery
+<a class="reference external" href="https://en.wikipedia.org/wiki/Rotating_unbalance">rotor balancing</a>
+when more than one <a class="reference external" href="https://en.wikipedia.org/wiki/Critical_speed">critical speed</a> are required and where there are a large
+number of measuring points.</div>
+</div>
+<div class="admonition-rotor-balancing admonition">
+<p class="admonition-title">Rotor Balancing</p>
+<p>When a rotating object does not have a <em>perfect</em> mass distribution, the <a class="reference external" href="https://en.wikipedia.org/wiki/Center_of_mass#Center_of_gravity">center of gravity</a> does not lay on its <a class="reference external" href="https://simple.wikipedia.org/wiki/Axis_of_rotation">rotation axis</a>.
+This causes rotating <a class="reference external" href="https://en.wikipedia.org/wiki/Centrifugal_force">centrifugal force</a> to occur and generates <a class="reference external" href="http://www.vibrationschool.com/mans/SpecInter/SpecInter02.htm">vibrating</a> force transmitted to the support <a class="reference external" href="https://en.wikipedia.org/wiki/Bearing_(mechanical)">bearings</a>.
+| The vibration forces is usually of destructive type and reduces the life of the machine.
+| Perfect mass distribution is generally impossible to achieve in real world, so the need to reduce the effect of unbalance force is needed.</p>
+<p>The solution is usually to install a counter weight to produce the same magnitude of force as mush as the unbalance but in the opposite direction. This is called rotor balancing.</p>
+</div>
+<p>If you wish to be more familiar to dynamic rotor balancing and
+this documentation terminology
+refer to <a class="reference internal" href="primer.html#primer"><span class="std std-ref">primer to rotor balancing</span></a></p>
+</section>
+<section id="what-is-hsbalance">
+<h2>What is <code class="docutils literal notranslate"><span class="pre">hsBalance</span></code>?<a class="headerlink" href="#what-is-hsbalance" title="Permalink to this heading">¶</a></h2>
+<p>hsBalance is Python package used as an API interface
+to provide programmers with tools to analyze balancing
+flexible rotors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is <strong>not</strong> a user interacting program which asks for inputs and gives outputs back. A premitive trial by me was
+<a class="reference internal" href="module.html#module"><span class="std std-ref">this program</span></a> <em>(which still needs software refactoring and heavy documentation to be used properly)</em>.</p>
+</div>
+</section>
+<section id="hsbalance-package">
+<h2><code class="docutils literal notranslate"><span class="pre">hsBalance</span></code> Package<a class="headerlink" href="#hsbalance-package" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><img alt="Downloads" src="https://pepy.tech/badge/hsbalance" /> <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /> <img alt="pic1" src="https://img.shields.io/badge/Python-14354C?&amp;logo=python&amp;logoColor=white" /> <img alt="pic2" src="https://img.shields.io/badge/-Jupyter-white?logo=Jupyter" /> <img alt="Generic badge1" src="https://img.shields.io/badge/Build-Dev-red.svg" /> <img alt="Generic badge2" src="https://img.shields.io/badge/Test-Passing-Green.svg" /></div>
+<div class="line"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing">hsBalance</a> package is a python tool-kit that enables field engineer to
+do rotor balancing job on large number of measuring and balancing
+planes. It facilitates testing various scenarios through applying
+different optimization methods and applying different constraints. The
+package takes advantage of object oriented programming which makes it
+easier to build, extend and maintain.</div>
+<div class="line">The package also make it possible to easily use the code in a <a class="reference external" href="https://jupyter.org/">notebook</a>
+which is a great advantage to work freely, try different method of
+optimization and splitting for your case, get to compare results and
+RMS errors and even plot charts and diagrams.</div>
+</div>
+</section>
+<section id="binder">
+<h2>Binder<a class="headerlink" href="#binder" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line">Use <a class="reference external" href="https://mybinder.org/v2/gh/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/HEAD?labpath=examples%2F">mybinder
+link</a> to quickly navigate through examples with no installation required.</div>
+</div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The installation steps were tested in Linux OS, other systems may differ accordingly.</p>
+</div>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://www.python.org/downloads/release/python-380/">Python</a> &gt;= 3.8</p>
+</div></blockquote>
+</section>
+<section id="quick-use">
+<h3>Quick Use<a class="headerlink" href="#quick-use" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Create an isolated virtual environment for python 3.8. :</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step is optional</p>
+</div>
+<ul>
+<li><dl>
+<dt>for <a class="reference external" href="https://www.anaconda.com/">Anaconda</a> users:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda create -n hsbalance python=3.8
+$ conda activate hsbalance
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><a class="reference external" href="https://virtualenv.pypa.io/en/latest/">Virtualenv</a> users:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ virtualenv hsbalance
+$ source hsbalance/bin/activate
+</pre></div>
+</div>
+<p>OR: To specify python 3.8 version</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ virtualenv -p /usr/bin/python3.8 hsbalance
+$ source hsbalance/bin/activate
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Installing Using PIP:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install hsbalance
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="hsbalance-in-action">
+<h2>hsBalance In Action<a class="headerlink" href="#hsbalance-in-action" title="Permalink to this heading">¶</a></h2>
+<p>Take a tour in <a class="reference external" href="https://github.com/MagedMohamedTurk/Turbomachinery-Rotors-Balancing/tree/master/examples">examples</a> to see <code class="docutils literal notranslate"><span class="pre">hsBalance</span></code> in action.</p>
+</section>
+<section id="walkthrough-example">
+<h2>Walkthrough Example<a class="headerlink" href="#walkthrough-example" title="Permalink to this heading">¶</a></h2>
+<p>A walkthrough through an example with detailed
+discussion can be found
+<a class="reference internal" href="walkThroughExample.html#walkthrough-example"><span class="std std-ref">here</span></a>.</p>
+</section>
+</section>
+<section id="table-of-contents">
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html">Turbomachinery-Flexible-Rotors-Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performanceTest.html">Performance Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testCases.html">Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html">The Rotor Balancing Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer.html">Describing the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribution.html">How to Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aboutTheAuthor.html">About the Author:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hsbalance.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hsbalance.html#module-hsbalance.IC_matrix">IC_matrix module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hsbalance.html#module-hsbalance.model">model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hsbalance.html#module-hsbalance.tools">tools module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">hsbalance</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=requests&repo=requests&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hsbalance.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="documentation.html" title="next chapter">Documentations</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Maged Torkoman.
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/requests/requests" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
